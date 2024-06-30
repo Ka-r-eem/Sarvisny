@@ -11,6 +11,8 @@ import '../model/AdminRelatedResponses/AddProviderToDistrict.dart';
 import '../model/AdminRelatedResponses/Enable_Disable_DistrictsForProvider.dart';
 import '../model/AdminRelatedResponses/GetDistrictsData.dart';
 import '../model/AdminRelatedResponses/GetProviderDistricts.dart';
+import '../model/AdminRelatedResponses/ParentsServicesResponse.dart';
+import '../model/AdminRelatedResponses/childrenServicesResponse.dart';
 import '../model/WorkerRelatedResponse/WorkersListResponse.dart';
 
 
@@ -42,7 +44,8 @@ abstract class AdminRepository{
   Future<AddProviderToDistrict> AddWorkerToDistrict(String? providerID , String? districtID);
   Future<EnableDisableDistrictsForProvider> EnableDistrict(String? providerID , String? districtID);
   Future<EnableDisableDistrictsForProvider> DisableDistrict(String? providerID , String? districtID);
-
+  Future<ParentsServicesResponse> GetParents() ;
+  Future<ChildrenServicesResponse> GetChildren(String? serviceID) ;
 
 
 

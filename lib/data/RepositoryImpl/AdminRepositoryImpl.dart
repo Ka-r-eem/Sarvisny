@@ -6,6 +6,8 @@ import 'package:sarvisny/domain/model/AdminRelatedResponses/AddProviderToDistric
 import 'package:sarvisny/domain/model/AdminRelatedResponses/Enable_Disable_DistrictsForProvider.dart';
 import 'package:sarvisny/domain/model/AdminRelatedResponses/GetDistrictsData.dart';
 import 'package:sarvisny/domain/model/AdminRelatedResponses/GetProviderDistricts.dart';
+import 'package:sarvisny/domain/model/AdminRelatedResponses/ParentsServicesResponse.dart';
+import 'package:sarvisny/domain/model/AdminRelatedResponses/childrenServicesResponse.dart';
 
 import '../../domain/RepositoryContract/AdminRepository.dart';
 import '../../domain/model/AdminRelatedResponses/AddDistrictData.dart';
@@ -154,6 +156,16 @@ class AdminRepositoryImpl extends AdminRepository {
   @override
   Future<AddDistrictData> AddDistrict(String? name) {
     return dataSource.AddDistrict(name);
+  }
+
+  @override
+  Future<ChildrenServicesResponse> GetChildren(String? serviceID) {
+    return dataSource.GetChildren(serviceID);
+  }
+
+  @override
+  Future<ParentsServicesResponse> GetParents() {
+    return dataSource.GetParents();
   }
 
 

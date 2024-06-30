@@ -20,7 +20,7 @@ class _CustomerCriteriaListViewState extends State<CustomerCriteriaListView> {
   @override
   void initState() {
     // var provider = Provider.of<AppProvider>(context, listen: false);
-    viewModel.GetCriteriaList();
+    viewModel.GetCriteria_Parents_List();
     super.initState();
   }
   @override
@@ -47,14 +47,12 @@ class _CustomerCriteriaListViewState extends State<CustomerCriteriaListView> {
       },
       builder: (context, state) {
         if (state is CriteriaListSuccess) {
-          return CustomerCriteriaListScreen(CriteriasList: state.criterias);
+          return CustomerCriteriaListScreen(CriteriasList: state.criterias ,parentServices: state.parents.payload,);
         }
         return Scaffold(
-          appBar: AppBar(
-            title: Text("Default Screen"),
-          ),
+
           body: const Center(
-            child: CircularProgressIndicator(),
+            child: LogoLoader(),
           ),
         );
       },);

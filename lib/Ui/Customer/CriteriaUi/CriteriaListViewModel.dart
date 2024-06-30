@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sarvisny/domain/model/AdminRelatedResponses/CriteriasListResponse.dart';
+import 'package:sarvisny/domain/model/AdminRelatedResponses/ParentsServicesResponse.dart';
+import '../../../domain/UseCases/AdminUseCases/GetParentsUseCase.dart';
 import '../../../domain/UseCases/AdminUseCases/ShowAllCriteriasUseCase.dart';
 
 
@@ -8,17 +10,19 @@ import '../../../domain/UseCases/AdminUseCases/ShowAllCriteriasUseCase.dart';
 class CriteriaListViewModel extends Cubit<CriteriaListState> {
 
   ShowAllCriteriasUseCase showAllCriteriasUseCase ;
+  GetParentsUseCase getParentsUseCase ;
 
 
-  CriteriaListViewModel(this.showAllCriteriasUseCase) :super(CriteriaListLoading("Loading..."));
+  CriteriaListViewModel(this.showAllCriteriasUseCase , this.getParentsUseCase) :super(CriteriaListLoading("Loading..."));
 
 
-  void GetCriteriaList() async {
+  void GetCriteria_Parents_List() async {
     emit(CriteriaListLoading("Loading..."));
 
     try {
       var Criterias = await showAllCriteriasUseCase.invoke();
-      emit(CriteriaListSuccess(Criterias));
+      var parents = await getParentsUseCase.invoke();
+      emit(CriteriaListSuccess(Criterias , parents));
     }
     catch (e) {
       emit(CriteriaListError(e.toString()));
@@ -32,8 +36,9 @@ sealed class CriteriaListState {}
 class CriteriaListSuccess extends CriteriaListState {
 
   List<CriteriaObject>? criterias ;
+  ParentsServicesResponse parents ;
 
-  CriteriaListSuccess(this.criterias);
+  CriteriaListSuccess(this.criterias , this.parents);
 
 }
 

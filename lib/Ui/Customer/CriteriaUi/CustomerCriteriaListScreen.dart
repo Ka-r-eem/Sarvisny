@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:provider/provider.dart';
+import 'package:sarvisny/Common/Seperator.dart';
+import 'package:sarvisny/Ui/Customer/CriteriaUi/CriteriaCategoryList.dart';
+import 'package:shimmer/shimmer.dart';
+import '../../../Provider/ColorProvider.dart';
 import '../../../domain/model/AdminRelatedResponses/CriteriasListResponse.dart';
+import '../../../domain/model/AdminRelatedResponses/ParentsServicesResponse.dart';
 import 'CustomerCriteriaWidget.dart';
+import 'ParentServicesCategoryList.dart';
 
 class CustomerCriteriaListScreen extends StatelessWidget {
   final List<CriteriaObject>? CriteriasList;
+  List<ParentService>? parentServices;
 
-  CustomerCriteriaListScreen({Key? key, this.CriteriasList}) : super(key: key);
+  CustomerCriteriaListScreen(
+      {Key? key, this.CriteriasList, this.parentServices})
+      : super(key: key);
 
   final List<String> imgList = [
     'assets/images/ac-repair.jpeg',
@@ -20,6 +30,8 @@ class CustomerCriteriaListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var colorProvider = Provider.of<ColorProvider>(context);
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -27,18 +39,28 @@ class CustomerCriteriaListScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Center(
-              child: Text(
-                "Our Services",
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontSize: 25,
-                  fontFamily: '2',
+              child: Shimmer.fromColors(
+                baseColor:
+                    colorProvider.isDarkEnabled() ? Colors.black : Colors.white,
+                highlightColor: Colors.blue,
+                period: Duration(seconds: 15),
+                child: Text(
+                  "Here To Serve",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontSize: 25,
+                    fontFamily: '2',
+                  ),
                 ),
               ),
             ),
-            SizedBox(height: 16), // Add some spacing
+            const SizedBox(height: 16), // Add some spacing
             CarouselSlider(
-              options: CarouselOptions(height: 200 ,autoPlay: true,enlargeCenterPage: true,enlargeFactor: 0.5),
+              options: CarouselOptions(
+                  height: 200,
+                  autoPlay: true,
+                  enlargeCenterPage: true,
+                  enlargeFactor: 0.5),
               items: imgList.map((item) {
                 return Builder(
                   builder: (BuildContext context) {
@@ -61,14 +83,9 @@ class CustomerCriteriaListScreen extends StatelessWidget {
                 );
               }).toList(),
             ),
-            SizedBox(height: 16), // Add some spacing
-            Expanded(
-              child: ListView.builder(
-                itemBuilder: (context, index) =>
-                    CustomerCriteriaWidget(CriteriasList?[index]),
-                itemCount: CriteriasList?.length ?? 0,
-              ),
-            ),
+            const SizedBox(height: 16), // Add some spacing
+            CriteriaCategoryList(Category:CriteriasList),
+            ParentCategoryList(Category: parentServices),
           ],
         ),
       ),

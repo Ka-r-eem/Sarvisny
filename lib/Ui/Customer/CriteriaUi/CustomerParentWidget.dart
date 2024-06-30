@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sarvisny/Provider/Provider.dart';
+import 'package:sarvisny/domain/model/AdminRelatedResponses/ParentsServicesResponse.dart';
 import '../../../domain/model/AdminRelatedResponses/CriteriasListResponse.dart';
 import '../ServiceUi/FilteredServices/FilteredCustomerServicesListView.dart';
 
-class CustomerCriteriaWidget extends StatelessWidget {
+class CustomerParentWidget extends StatelessWidget {
 
-  CriteriaObject? criteria;
+  ParentService? service;
 
-  CustomerCriteriaWidget(this.criteria){}
+  CustomerParentWidget(this.service){}
 
   @override
   Widget build(BuildContext context) {
@@ -16,23 +17,21 @@ class CustomerCriteriaWidget extends StatelessWidget {
     var provider = Provider.of<AppProvider>(context);
 
     return InkWell(
-       onTap:() {
-         // provider.selectedCriteria = criteria ;
-         Navigator.pushNamed(context, FilteredCustomerServicesListWidget.routeName , arguments: criteria,);
+      onTap:() {
+        // provider.selectedCriteria = criteria ;
+        // Navigator.pushNamed(context, FilteredCustomerServicesListWidget.routeName , arguments: service,);
 
-       },
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8 ,horizontal: 4),
         child: Container(
-          height: 50,
           decoration: BoxDecoration(border: Border.all(color:Theme.of(context).colorScheme.primary ),borderRadius: BorderRadius.circular(12),color: Theme.of(context).colorScheme.onSecondary ),
           padding: const EdgeInsets.all(8),
           child: Column(
             children: [
               const SizedBox(height: 4,),
-              Text(criteria?.criteriaName??"", style: TextStyle(fontSize: 22 ,fontFamily: "2",fontWeight: FontWeight.w700,color: Theme.of(context).colorScheme.primary)),
-              Text(criteria?.description??"", style: TextStyle(fontSize: 12 ,fontFamily: "2",fontWeight: FontWeight.w700,color: Theme.of(context).colorScheme.primary)),
-              ],
+              Text(service?.serviceName??"", style: TextStyle(fontSize: 20 ,fontFamily: "2",fontWeight: FontWeight.w700,color: Theme.of(context).colorScheme.primary)),
+            ],
           ),
         ),
       ),

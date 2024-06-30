@@ -1,4 +1,7 @@
 
+import 'package:sarvisny/domain/model/AdminRelatedResponses/ParentsServicesResponse.dart';
+import 'package:sarvisny/domain/model/AdminRelatedResponses/childrenServicesResponse.dart';
+
 import '../../domain/model/AdminRelatedResponses/AddDistrictData.dart';
 import '../../domain/model/AdminRelatedResponses/AddProviderToDistrict.dart';
 import '../../domain/model/AdminRelatedResponses/AddServiceData.dart';
@@ -42,6 +45,7 @@ abstract class AdminDataSource{
   Future<AddProviderToDistrict> AddWorkerToDistrict(String? providerID , String? districtID);
   Future<EnableDisableDistrictsForProvider> EnableDistrict(String? providerID , String? districtID);
   Future<EnableDisableDistrictsForProvider> DisableDistrict(String? providerID , String? districtID);
-
+  Future<ParentsServicesResponse> GetParents() ;
+  Future<ChildrenServicesResponse> GetChildren(String? serviceID) ;
 
 }

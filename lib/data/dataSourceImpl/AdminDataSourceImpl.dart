@@ -7,6 +7,8 @@ import 'package:sarvisny/domain/model/AdminRelatedResponses/CriteriaData.dart';
 import 'package:sarvisny/domain/model/AdminRelatedResponses/Enable_Disable_DistrictsForProvider.dart';
 import 'package:sarvisny/domain/model/AdminRelatedResponses/GetDistrictsData.dart';
 import 'package:sarvisny/domain/model/AdminRelatedResponses/GetProviderDistricts.dart';
+import 'package:sarvisny/domain/model/AdminRelatedResponses/ParentsServicesResponse.dart';
+import 'package:sarvisny/domain/model/AdminRelatedResponses/childrenServicesResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/CustomersListResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/WorkersRequestsResponse.dart';
 import '../../domain/model/AdminRelatedResponses/AddServiceData.dart';
@@ -182,6 +184,18 @@ print("inside datasource impl");
   Future<AddDistrictData> AddDistrict(String? name) async {
     var response = await apiManager.AddDistrict(name);
     return response.toDistrictData();
+  }
+
+  @override
+  Future<ChildrenServicesResponse> GetChildren(String? serviceID)async {
+    var response = await apiManager.GetChildren(serviceID);
+    return response.toChildrenServicesResponse();
+  }
+
+  @override
+  Future<ParentsServicesResponse> GetParents()async {
+    var response = await apiManager.GetParents();
+    return response.toParentsServicesResponse();
   }
 
 

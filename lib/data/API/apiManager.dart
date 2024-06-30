@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
+import 'package:sarvisny/data/Responses/AdminRelatedDto/ParentsServicesDto.dart';
 import 'package:sarvisny/data/Responses/WorkerRelatedDto/RemoveAvailabilityResponseDto.dart';
 import '../../domain/model/AdminRelatedResponses/AddServiceData.dart';
 import '../../domain/model/AdminRelatedResponses/CriteriaData.dart';
@@ -16,6 +17,7 @@ import '../Responses/AdminRelatedDto/GetDistrictsDataDto.dart';
 import '../Responses/AdminRelatedDto/GetProviderDistrictsDto.dart';
 import '../Responses/AdminRelatedDto/OrdersResponse.dart';
 import '../Responses/AdminRelatedDto/ServicesListResponse.dart';
+import '../Responses/AdminRelatedDto/childrenServicesDto.dart';
 import '../Responses/CustomerRelatedDto/AddToCartResponse.dart';
 import '../Responses/CustomerRelatedDto/CustomerOrdersLogResponse.dart';
 import '../Responses/CustomerRelatedDto/CustomerProfileData.dart';
@@ -1102,6 +1104,52 @@ class ApiManager {
       }
     } catch (error) {
       return GetProviderDistrictsDto(
+          isError: true, message: "Error occurred$error");
+    }
+  }
+   Future<ParentsServicesDto> GetParents() async {
+    try {
+      var url = Uri.https('$ipAddress:$port',
+          AdminApiPaths.GetAllParentsPath);
+
+      var response = await http.get(
+        url,
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (response.body.isNotEmpty) {
+        var responseBody = jsonDecode(response.body);
+        return ParentsServicesDto.fromJson(responseBody);
+      } else {
+        // Handle empty response
+        return ParentsServicesDto(
+            isError: true, message: "Empty response");
+      }
+    } catch (error) {
+      return ParentsServicesDto(
+          isError: true, message: "Error occurred$error");
+    }
+  }
+   Future<ChildrenServicesDto> GetChildren(String? serviceId) async {
+    try {
+      var url = Uri.https('$ipAddress:$port',
+          AdminApiPaths.GetAllChildrenForServicePath , {'serviceId': serviceId},);
+
+      var response = await http.get(
+        url,
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (response.body.isNotEmpty) {
+        var responseBody = jsonDecode(response.body);
+        return ChildrenServicesDto.fromJson(responseBody);
+      } else {
+        // Handle empty response
+        return ChildrenServicesDto(
+            isError: true, message: "Empty response");
+      }
+    } catch (error) {
+      return ChildrenServicesDto(
           isError: true, message: "Error occurred$error");
     }
   }
