@@ -12,7 +12,7 @@ class WorkerApiPaths{
   static const String RejectOrder = "/api/ServiceProvider/rejectOrderRequest";
   static const String CancelOrder = "/api/ServiceProvider/cancelOrderRequest";
   static const String GetProfile = "/api/ServiceProvider/showProviderProfile";
-  // static const String RemoveAvailability = "/api/ServiceProvider/showProviderProfile";
+  static const String RemoveAvailability = "/api/ServiceProvider/removeAvailability";
   // static const String AddRating = "/api/ServiceProvider/addProviderRating/{orderId}";
   // static const String GetRating = "/api/ServiceProvider/GetProviderRating/{orderId}";
   // static const String SetOrderStatus = "/api/ServiceProvider/setOrderStatus";

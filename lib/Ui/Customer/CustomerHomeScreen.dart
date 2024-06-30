@@ -3,6 +3,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:sarvisny/Ui/Customer/CartUi/MyCartView.dart';
 import 'package:sarvisny/Ui/Customer/CriteriaUi/CustomerCriteriaListView.dart';
+import 'package:sarvisny/Ui/Customer/FavouriteUi/FavScreen.dart';
 import 'package:sarvisny/Ui/Customer/OrdersUi/OrderListView.dart';
 import 'package:sarvisny/dialoguUtilites.dart';
 import 'package:sarvisny/domain/UseCases/CustomerUseCases/GetCartUseCase.dart';
@@ -56,37 +57,34 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
             future: cartItemsNumFuture,
             builder: (context, snapshot) {
               int cartItemsNum = snapshot.data ?? 0;
-              return Consumer<AppProvider>(
-                builder: (context, appProvider, _) {
-                  return Badge(
-                    largeSize: 20,
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    textStyle: const TextStyle(fontSize: 15, fontFamily: '2'),
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    label: Text(cartItemsNum.toString()),
-                    child: IconButton(
-                      onPressed: () {
-                        if (provider.token == null || provider.token == "") {
-                          dialoguUtilities.showmsg(
-                              context, "Please Login First",
-                              postAction: Navigator.of(context).pop, pos: "Ok");
-                        } else {
-                          Navigator.pushNamed(context, MyCart.routeName);
-                        }
-                      },
-                      icon: Icon(Icons.shopping_cart),
-                    ),
-                  );
-                },
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                child: Consumer<AppProvider>(
+                  builder: (context, appProvider, _) {
+                    return Badge(
+                      largeSize: 20,
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      textStyle: const TextStyle(fontSize: 15, fontFamily: '2'),
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      label: Text(cartItemsNum.toString()),
+                      child: IconButton(
+                        onPressed: () {
+                          if (provider.token == null || provider.token == "") {
+                            dialoguUtilities.showmsg(
+                                context, "Please Login First",
+                                postAction: Navigator.of(context).pop, pos: "Ok");
+                          } else {
+                            Navigator.pushNamed(context, MyCart.routeName);
+                          }
+                        },
+                        icon: Icon(Icons.shopping_cart),
+                      ),
+                    );
+                  },
+                ),
               );
             },
           ),
-        IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.favorite_outlined,
-              color: Colors.red,
-            )),
 
         ],
         title: Consumer<ColorProvider>(
@@ -127,12 +125,12 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
               });
             },
             tabs: const [
-              GButton(icon: Icons.list_alt_rounded, text: "Orders"),
-              GButton(icon: Icons.construction_sharp, text: "Services"),
-              GButton(
-                icon: Icons.account_circle_sharp,
-                text: "Account",
-              ),
+              GButton(icon: Icons.construction_sharp, text: "Services" , textColor: Colors.green ,iconActiveColor: Colors.green),
+              GButton(icon: Icons.favorite_outlined, text: "Favourites" ,textColor: Colors.red ,iconActiveColor: Colors.red),
+              GButton(icon: Icons.list_alt_rounded, text: "Orders"  ,textColor: Colors.purple ,iconActiveColor: Colors.purple),
+              GButton(icon: Icons.account_circle_sharp, text: "Account", textColor: Colors.blue ,iconActiveColor: Colors.blue),
+
+
             ],
           ),
         ),
@@ -142,8 +140,9 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
   }
 
   List<Widget> tabs = [
-    OrdersListWidget(),
     CustomerCriteriaListView(),
+    Fav(),
+    OrdersListWidget(),
     CustomerProfileView(),
   ];
 

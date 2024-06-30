@@ -8,6 +8,7 @@ typedef Validator = String? Function(String?);
 class CustomFormField extends StatefulWidget {
   TextEditingController controller;
   String hintText;
+  Icon? icon;
   TextInputType typeInput;
   bool is_hidden;
   Validator? validtor;
@@ -17,7 +18,7 @@ class CustomFormField extends StatefulWidget {
   bool is_loginOr_Register;
 
   CustomFormField(this.controller, this.hintText, this.typeInput, this.is_hidden, this.validtor,
-      {this.lines = 1, this.is_loginOr_Register = false , this.fieldHeight});
+      {this.lines = 1, this.is_loginOr_Register = false , this.fieldHeight , this.icon});
 
   @override
   State<CustomFormField> createState() => _CustomFormFieldState();
@@ -38,6 +39,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 0.0, horizontal: 12),
                 child: TextFormField(
+
                   maxLines: widget.lines,
                   minLines: 1,
                   validator: widget.validtor,
@@ -45,6 +47,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
                   keyboardType: widget.typeInput,
                   controller: widget.controller,
                   decoration: InputDecoration(
+                    icon: widget.icon,
                     errorStyle: const TextStyle(fontSize: 8, fontFamily: "2"),
                     border: InputBorder.none,
                     hintText: widget.hintText,

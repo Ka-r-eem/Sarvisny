@@ -1,5 +1,8 @@
+import 'package:sarvisny/data/Responses/WorkerRelatedDto/RemoveAvailabilityResponseDto.dart';
+
 import '../../domain/model/WorkerRelatedResponse/Approve_Reject_Cancel_OrderResponse.dart';
 import '../../domain/model/WorkerRelatedResponse/RegisterNewServiceResponse.dart';
+import '../../domain/model/WorkerRelatedResponse/RemoveAvailabilityResponse.dart';
 import '../../domain/model/WorkerRelatedResponse/ServiceProviderProfileData.dart';
 import '../../domain/model/WorkerRelatedResponse/SetAvailabilityResponse.dart';
 import '../../domain/model/WorkerRelatedResponse/ShowOrderDetailsResponse.dart';
@@ -35,4 +38,5 @@ abstract class WorkerDataSource {
   Future<ApproveRejectCancelOrderResponse> RejectOrder(String? orderID);
 
   Future<ApproveRejectCancelOrderResponse> CancelOrder(String? orderID);
+  Future<RemoveAvailabilityResponse> RemoveAvailability(String? providerID , String? availabilityID);
 }

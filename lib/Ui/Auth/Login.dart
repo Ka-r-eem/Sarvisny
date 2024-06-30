@@ -55,6 +55,7 @@ class _RegisterState extends State<LoginScreen> {
                     )),
               ),
               CustomFormField(
+                icon: Icon(Icons.email_outlined, color: Colors.grey),
                 email,
                 'Email',
                 email_type,
@@ -69,7 +70,9 @@ class _RegisterState extends State<LoginScreen> {
                 },
                 is_loginOr_Register: true,
               ),
-              CustomFormField(password, 'Password', password_type, true,
+              CustomFormField(
+                  icon: Icon(Icons.lock_outlined, color: Colors.grey),
+                  password, 'Password', password_type, true,
                   (text) {
                 if (text == null || text == '')
                   return 'Please Enter Your Password';

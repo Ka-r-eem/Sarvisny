@@ -36,7 +36,7 @@ class MyAccount extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                  Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Text("My Account", style: TextStyle(fontSize: 20 ,color: Theme.of(context).colorScheme.onPrimary)),
                 ),
 

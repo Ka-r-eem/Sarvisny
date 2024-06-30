@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
+import 'package:sarvisny/data/Responses/WorkerRelatedDto/RemoveAvailabilityResponseDto.dart';
 import '../../domain/model/AdminRelatedResponses/AddServiceData.dart';
 import '../../domain/model/AdminRelatedResponses/CriteriaData.dart';
 import '../Responses/AdminRelatedDto/AddDistrictData.dart';
@@ -332,8 +333,7 @@ class ApiManager {
     }
   }
 
-   Future<SetAvailabilityResponseDto> SetAvailability(
-      String? workerID, SetAvailabilityResponseDto setAvailabilityResponse) async {
+   Future<SetAvailabilityResponseDto> SetAvailability(String? workerID, SetAvailabilityResponseDto setAvailabilityResponse) async {
     try {
       var url = Uri.https(
         '$ipAddress:$port',
@@ -369,6 +369,30 @@ class ApiManager {
       }
     } catch (error) {
       return SetAvailabilityResponseDto(isError: true, message: "Error occurred");
+    }
+  }
+   Future<RemoveAvailabilityResponseDto> RemoveAvailability(String? workerID, String? availabilityID) async {
+    try {
+      var url = Uri.https(
+        '$ipAddress:$port',
+        WorkerApiPaths.RemoveAvailability,
+        {'providerId': workerID , 'availabilityId' : availabilityID},
+      );
+      var response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (response.body.isNotEmpty) {
+        var responseBody = jsonDecode(response.body);
+        return RemoveAvailabilityResponseDto.fromJson(responseBody);
+      } else {
+        // Handle empty response
+        return RemoveAvailabilityResponseDto(
+            isError: true, message: "Empty response");
+      }
+    } catch (error) {
+      return RemoveAvailabilityResponseDto(isError: true, message: "Error occurred");
     }
   }
 

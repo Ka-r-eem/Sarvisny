@@ -2,6 +2,7 @@
 import '../../data/Responses/WorkerRelatedDto/SetAvailabilityResponse.dart';
 import '../model/WorkerRelatedResponse/Approve_Reject_Cancel_OrderResponse.dart';
 import '../model/WorkerRelatedResponse/RegisterNewServiceResponse.dart';
+import '../model/WorkerRelatedResponse/RemoveAvailabilityResponse.dart';
 import '../model/WorkerRelatedResponse/ServiceProviderProfileData.dart';
 import '../model/WorkerRelatedResponse/SetAvailabilityResponse.dart';
 import '../model/WorkerRelatedResponse/ShowOrderDetailsResponse.dart';
@@ -36,6 +37,9 @@ abstract class WorkerRepository {
   Future<ApproveRejectCancelOrderResponse> RejectOrder(String? orderID);
 
   Future<ApproveRejectCancelOrderResponse> CancelOrder(String? orderID);
+
+  Future<RemoveAvailabilityResponse> RemoveAvailability(String? providerID , String? availabilityID);
+
 
 
 }

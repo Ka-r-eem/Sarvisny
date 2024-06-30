@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:sarvisny/Provider/Provider.dart';
 import 'package:sarvisny/Ui/Customer/MyAccountUI/CustomerMyAccountScreen.dart';
+import 'package:sarvisny/Ui/Customer/MyAccountUI/Profile.dart';
 import '../../../di/di.dart';
 import 'CustomerProfileViewModel.dart';
 
@@ -51,7 +52,7 @@ class _CustomerProfileViewState extends State<CustomerProfileView> {
       },
       builder: (context, state) {
         if (state is CustomerProfileSuccess && provider.token != null && provider.token != "") {
-          return MyAccount(details: state.profileData.payload);
+          return ProfilePage(details: state.profileData.payload);
         }
         else if (provider.token == null || provider.token == "") {
           return const Center(

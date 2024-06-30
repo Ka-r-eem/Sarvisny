@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:sarvisny/data/Responses/WorkerRelatedDto/SetAvailabilityResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/Approve_Reject_Cancel_OrderResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/RegisterNewServiceResponse.dart';
+import 'package:sarvisny/domain/model/WorkerRelatedResponse/RemoveAvailabilityResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/ServiceProviderProfileData.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/SetAvailabilityResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/ShowOrderDetailsResponse.dart';
@@ -81,6 +82,11 @@ class WorkerRepositoryImpl extends WorkerRepository {
   @override
   Future<SetAvailabilityResponse?> SetAvailability(String? workerID, SetAvailabilityResponseDto setAvailabilityResponse) {
     return dataSource.SetAvailability(workerID, setAvailabilityResponse);
+  }
+
+  @override
+  Future<RemoveAvailabilityResponse> RemoveAvailability(String? providerID, String? availabilityID) {
+    return dataSource.RemoveAvailability(providerID, availabilityID);
   }
 
 }
