@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sarvisny/Ui/Customer/CriteriaUi/CustomerParentWidget.dart';
-import '../../../Common/Seperator.dart';
-import 'CustomerCriteriaWidget.dart';
+import '../../../../Common/Seperator.dart';
+import '../CustomerCriteriaWidget.dart';
 
 class ParentCategoryList extends StatelessWidget {
 

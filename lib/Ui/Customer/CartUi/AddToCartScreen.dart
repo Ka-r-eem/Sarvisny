@@ -50,17 +50,17 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                 fontSize: 22,
                                 fontFamily: '2')),
                         Text(
-                            "ID: ${info.details?.details?.serviceItem?.serviceID} ${info.details?.details?.workerData?.lastName}",
+                            "ID: ${info.details?.details?.serviceItem?.childServiceID} ${info.details?.details?.workerData?.lastName}",
                             style: TextStyle(
                                 color: Theme.of(context).colorScheme.onPrimary,
                                 fontSize: 22,
                                 fontFamily: '2')),
-                        Text(
-                            "Description: ${info.details?.details?.serviceItem?.description}",
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                                fontSize: 22,
-                                fontFamily: '2')),
+                        // Text(
+                        //     "Description: ${info.details?.details?.serviceItem?.des}",
+                        //     style: TextStyle(
+                        //         color: Theme.of(context).colorScheme.onPrimary,
+                        //         fontSize: 22,
+                        //         fontFamily: '2')),
                         Text(
                             "Request Day: ${info.details?.availabilities?.dayOfWeek}",
                             style: TextStyle(
@@ -73,12 +73,12 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                 color: Theme.of(context).colorScheme.onPrimary,
                                 fontSize: 22,
                                 fontFamily: '2')),
-                        Text(
-                            "Price: ${info.details?.details?.serviceItem?.price}",
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                                fontSize: 22,
-                                fontFamily: '2')),
+                        // Text(
+                        //     "Price: ${info.details?.details?.serviceItem?.price}",
+                        //     style: TextStyle(
+                        //         color: Theme.of(context).colorScheme.onPrimary,
+                        //         fontSize: 22,
+                        //         fontFamily: '2')),
                       ],
                     ),
                   ),
@@ -104,7 +104,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                         AddToCartBtnFunction(
                             context,
                             info.details?.details?.workerData?.id,
-                            info.details?.details?.serviceItem?.serviceID,
+                            info.details?.details?.serviceItem?.childServiceID,
                             info.slot?.timeSlotID,
                             desc.text);
                       },

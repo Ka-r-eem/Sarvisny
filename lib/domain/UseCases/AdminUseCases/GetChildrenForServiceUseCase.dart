@@ -9,8 +9,11 @@ class GetChildrenUseCase {
   AdminRepository adminRepository;
   @factoryMethod GetChildrenUseCase(this.adminRepository);
 
-  Future<ChildrenServicesResponse> invoke(String? serviceID) {
+  Future<ChildrenServicesResponse> invoke(String? serviceID)async {
     print("invoking GET Children UseCase ");
-    return adminRepository.GetChildren(serviceID);
+    var children = await adminRepository.GetChildren(serviceID);
+    print("Inside the useCase");
+    print(children);
+    return children;
   }
 }

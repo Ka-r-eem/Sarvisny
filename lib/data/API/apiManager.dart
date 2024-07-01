@@ -1139,7 +1139,6 @@ class ApiManager {
         url,
         headers: {'Content-Type': 'application/json'},
       );
-
       if (response.body.isNotEmpty) {
         var responseBody = jsonDecode(response.body);
         return ChildrenServicesDto.fromJson(responseBody);
@@ -1148,6 +1147,7 @@ class ApiManager {
         return ChildrenServicesDto(
             isError: true, message: "Empty response");
       }
+
     } catch (error) {
       return ChildrenServicesDto(
           isError: true, message: "Error occurred$error");

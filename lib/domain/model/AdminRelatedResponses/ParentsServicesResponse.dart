@@ -1,3 +1,5 @@
+import 'package:sarvisny/domain/model/CustomerRelatedResponses/CustomerServicesListResponse.dart';
+
 /// status : null
 /// isError : false
 /// message : "Action Done succesfully"
@@ -100,5 +102,10 @@ ParentService copyWith({  String? serviceId,
     map['criteriaName'] = criteriaName;
     return map;
   }
+  CustomerServiceItem toCustomerServiceItem() => CustomerServiceItem(
+    serviceID: serviceId,
+    serviceName: serviceName,
+    criteriaID: criteriaID,
+  );
 
 }

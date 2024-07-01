@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sarvisny/Provider/Provider.dart';
+import 'package:sarvisny/Ui/Customer/ServiceUi/ChildrenServices/ChildrenServicesListView.dart';
 import '../../../domain/model/CustomerRelatedResponses/CustomerServicesListResponse.dart';
 import '../WorkerUI/FilteredWorkers/ServiceWorkersListView.dart';
 
@@ -15,7 +16,7 @@ class CustomerServiceWidget extends StatelessWidget {
     return InkWell(
        onTap:() {
          print(serviceItem?.serviceID);
-         Navigator.pushNamed(context, ServiceWorkersListView.routeName ,  arguments: serviceItem);
+         Navigator.pushNamed(context, ChildrenServicesListWidget.routeName , arguments: serviceItem);
        },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8 ,horizontal: 4),

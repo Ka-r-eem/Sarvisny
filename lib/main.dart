@@ -19,6 +19,7 @@ import 'Ui/Customer/CartUi/CartListScreen.dart';
 import 'Ui/Customer/CartUi/MyCartView.dart';
 import 'Ui/Customer/CustomerHomeScreen.dart';
 import 'Ui/Customer/OrdersUi/CustomerOrderDetailsScreen.dart';
+import 'Ui/Customer/ServiceUi/ChildrenServices/ChildrenServicesListView.dart';
 import 'Ui/Customer/WorkerUI/WorkerDetailsScreen.dart';
 import 'Ui/Worker/MyAccountUi/Slots/SlotsListScreen.dart';
 import 'Ui/Worker/MyAccountUi/Slots/SlotsListWidget.dart';
@@ -79,6 +80,7 @@ class MyApp extends StatelessWidget {
         WorkerDetailsScreen.routeName : (context) => WorkerDetailsScreen(),
         AddToCartScreen.routeName:(context) => AddToCartScreen(),
         MyCart.routeName :(context) => MyCart(),
+        ChildrenServicesListWidget.routeName :(context) => ChildrenServicesListWidget(),
         OrderDetailsWidget.routeName : (context) => OrderDetailsWidget(),
         // AdminOrderDetailsWidget.routeName : (context) => AdminOrderDetailsWidget(),
         CustomerOrderDetailsScreen.routeName :(context) => CustomerOrderDetailsScreen(),

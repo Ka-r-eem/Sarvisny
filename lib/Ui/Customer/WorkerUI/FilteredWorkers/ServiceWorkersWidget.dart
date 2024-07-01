@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sarvisny/Provider/Provider.dart';
 import 'package:sarvisny/Ui/Customer/WorkerUI/WorkerDetailsScreen.dart';
+import 'package:sarvisny/domain/model/AdminRelatedResponses/childrenServicesResponse.dart';
 import '../../../../domain/model/CustomerRelatedResponses/CustomerServicesListResponse.dart';
 import '../../../../domain/model/CustomerRelatedResponses/GetServiceWorkersResponse.dart';
 
 class ServiceWorkerWidget extends StatelessWidget {
 
   WorkerData? worker;
-  CustomerServiceItem? serviceItem;
+  Children? serviceItem;
 
   ServiceWorkerWidget({this.worker , this.serviceItem}){}
 
@@ -38,7 +39,7 @@ class ServiceWorkerWidget extends StatelessWidget {
 }
 class WorkerServiceDetails{
 
-  CustomerServiceItem? serviceItem;
+  Children? serviceItem;
   WorkerData? workerData;
 
   WorkerServiceDetails({this.serviceItem, this.workerData});

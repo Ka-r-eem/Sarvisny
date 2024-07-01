@@ -30,7 +30,7 @@ class WorkerDetailsScreen extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 20,
                     color: Theme.of(context).colorScheme.primary)),
-            Text("ID: ${workerService.serviceItem?.serviceID}",
+            Text("ID: ${workerService.serviceItem?.childServiceID}",
                 style: TextStyle(
                     fontSize: 20,
                     color: Theme.of(context).colorScheme.primary)),

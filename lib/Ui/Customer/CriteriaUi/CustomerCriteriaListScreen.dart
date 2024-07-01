@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:provider/provider.dart';
 import 'package:sarvisny/Common/Seperator.dart';
-import 'package:sarvisny/Ui/Customer/CriteriaUi/CriteriaCategoryList.dart';
+import 'package:sarvisny/Ui/Customer/CriteriaUi/CategoryLists/CriteriaCategoryList.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../Provider/ColorProvider.dart';
 import '../../../domain/model/AdminRelatedResponses/CriteriasListResponse.dart';
 import '../../../domain/model/AdminRelatedResponses/ParentsServicesResponse.dart';
 import 'CustomerCriteriaWidget.dart';
-import 'ParentServicesCategoryList.dart';
+import 'CategoryLists/ParentServicesCategoryList.dart';
 
 class CustomerCriteriaListScreen extends StatelessWidget {
   final List<CriteriaObject>? CriteriasList;

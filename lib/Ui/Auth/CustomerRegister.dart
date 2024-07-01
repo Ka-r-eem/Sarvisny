@@ -63,8 +63,9 @@ class _CustomerRegisterState extends State<CustomerRegister> {
                       fit: BoxFit.contain,
                     )),
                 CustomFormField(
+                  icon:  Icon(Icons.person),
                   firstname,
-                  'Full Name',
+                  'First Name',
                   name_type,
                   false,
                   (text) {
@@ -75,8 +76,9 @@ class _CustomerRegisterState extends State<CustomerRegister> {
                   is_loginOr_Register: true,
                 ),
                 CustomFormField(
+                  icon:  Icon(Icons.person),
                   lastname,
-                  'Lastname',
+                  'Last Name',
                   name_type,
                   false,
                   (text) {
@@ -87,6 +89,7 @@ class _CustomerRegisterState extends State<CustomerRegister> {
                   is_loginOr_Register: true,
                 ),
                 CustomFormField(
+                  icon:  Icon(Icons.person),
                   userName,
                   'Username',
                   name_type,
@@ -99,6 +102,7 @@ class _CustomerRegisterState extends State<CustomerRegister> {
                   is_loginOr_Register: true,
                 ),
                 CustomFormField(
+                  icon: Icon(Icons.phone_android),
                   Phone,
                   'Phone Number',
                   TextInputType.phone,
@@ -111,6 +115,7 @@ class _CustomerRegisterState extends State<CustomerRegister> {
                   is_loginOr_Register: true,
                 ),
                 CustomFormField(
+                  icon: Icon(Icons.location_on),
                   Address,
                   'Address',
                   TextInputType.streetAddress,
@@ -123,6 +128,7 @@ class _CustomerRegisterState extends State<CustomerRegister> {
                   is_loginOr_Register: true,
                 ),
                 CustomFormField(
+                  icon: Icon(Icons.email),
                   email,
                   'Email',
                   email_type,
@@ -134,7 +140,9 @@ class _CustomerRegisterState extends State<CustomerRegister> {
                   },
                   is_loginOr_Register: true,
                 ),
-                CustomFormField(password, 'Password', password_type, true,
+                CustomFormField(
+                    icon:  Icon(Icons.lock),
+                    password, 'Password', password_type, true,
                     (text) {
                   if (text == null) return 'Please Enter Your Password';
                   if (password.text.length < 8) {
@@ -142,6 +150,7 @@ class _CustomerRegisterState extends State<CustomerRegister> {
                   }
                 }, is_loginOr_Register: true),
                 CustomFormField(
+                    icon:  Icon(Icons.lock),
                     ConfirmedPassword, 'Confirm Password', password_type, true,
                     (text) {
                   if (text == null || text.length < 8) {

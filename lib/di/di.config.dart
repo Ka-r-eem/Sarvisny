@@ -102,16 +102,18 @@ import '../Ui/Admin/AdminOrdersUi/PendingOrders/AdminPendingOrdersViewModel.dart
     as _i11;
 import '../Ui/Admin/AdminOrdersUi/RejectedOrders/AdminRejectedOrdersViewModel.dart'
     as _i13;
-import '../Ui/Admin/AdminServiceUi/ServiceListViewModel.dart' as _i90;
+import '../Ui/Admin/AdminServiceUi/ServiceListViewModel.dart' as _i91;
 import '../Ui/Admin/AdminWorkerUi/WorkersList/WorkersListViewModel.dart'
     as _i39;
 import '../Ui/Admin/AdminWorkerUi/WorkersRequests/WorkersRequestsViewModel.dart'
     as _i41;
 import '../Ui/Customer/CartUi/MyCartViewModel.dart' as _i65;
-import '../Ui/Customer/CriteriaUi/CriteriaListViewModel.dart' as _i89;
+import '../Ui/Customer/CriteriaUi/CriteriaListViewModel.dart' as _i90;
 import '../Ui/Customer/MyAccountUI/CustomerProfileViewModel.dart' as _i54;
 import '../Ui/Customer/OrdersUi/OrderListViewModel.dart' as _i31;
 import '../Ui/Customer/ServiceUi/AllServices/ServicesViewModel.dart' as _i33;
+import '../Ui/Customer/ServiceUi/ChildrenServices/ChildrenViewModel.dart'
+    as _i89;
 import '../Ui/Customer/ServiceUi/FilteredServices/FilteredServicesViewModel.dart'
     as _i58;
 import '../Ui/Customer/WorkerUI/FilteredWorkers/FilteredWorkersViewModel.dart'
@@ -300,11 +302,13 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i87.AddServiceUseCase(gh<_i46.AdminRepository>()));
     gh.factory<_i88.AddWorkerToDistrictUseCase>(
         () => _i88.AddWorkerToDistrictUseCase(gh<_i46.AdminRepository>()));
-    gh.factory<_i89.CriteriaListViewModel>(() => _i89.CriteriaListViewModel(
+    gh.factory<_i89.ChildrenServicesViewModel>(
+        () => _i89.ChildrenServicesViewModel(gh<_i60.GetChildrenUseCase>()));
+    gh.factory<_i90.CriteriaListViewModel>(() => _i90.CriteriaListViewModel(
           gh<_i73.ShowAllCriteriasUseCase>(),
           gh<_i62.GetParentsUseCase>(),
         ));
-    gh.factory<_i90.ServiceListViewModel>(() => _i90.ServiceListViewModel(
+    gh.factory<_i91.ServiceListViewModel>(() => _i91.ServiceListViewModel(
           gh<_i75.ShowServicesUseCase>(),
           gh<_i87.AddServiceUseCase>(),
           gh<_i84.AddCriteriaUseCase>(),

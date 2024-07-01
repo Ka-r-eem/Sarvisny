@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:sarvisny/Provider/Provider.dart';
 import 'package:sarvisny/Ui/Customer/WorkerUI/FilteredWorkers/FilteredWorkersViewModel.dart';
+import 'package:sarvisny/domain/model/AdminRelatedResponses/childrenServicesResponse.dart';
 import '../../../../di/di.dart';
 import '../../../../domain/model/CustomerRelatedResponses/CustomerServicesListResponse.dart';
 import 'ServiceWorkersListScreen.dart';
@@ -30,13 +31,13 @@ class _ServiceWorkersListViewState extends State<ServiceWorkersListView> {
   }
 
   void _fetchFilteredWorkers() {
-  var service = ModalRoute.of(context)?.settings.arguments as CustomerServiceItem;
-    viewModel.GetFilteredWorkersList(service.serviceID);
+  var service = ModalRoute.of(context)?.settings.arguments as Children;
+    viewModel.GetFilteredWorkersList(service.childServiceID);
   }
 
   @override
   Widget build(BuildContext context) {
-    var service = ModalRoute.of(context)?.settings.arguments as CustomerServiceItem;
+    var service = ModalRoute.of(context)?.settings.arguments as Children;
     return BlocConsumer<FilteredWorkersViewModel, FilteredWorkersListState>(
         bloc: viewModel,
         buildWhen: (previous, current) {

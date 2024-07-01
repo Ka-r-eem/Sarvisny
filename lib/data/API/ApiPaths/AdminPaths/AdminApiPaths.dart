@@ -25,7 +25,7 @@ class AdminApiPaths{
   static const String DisableDistrictPath = "/api/District/DisableDistrict/{providerId}";
   static const String EnableDistrictPath = "/api/District/EnableDistrict/{providerId}";
   static const String GetAllParentsPath = "/api/services/GetAllParentServices";
-  static const String GetAllChildrenForServicePath = "//api/services/GetAllChildForService";
+  static const String GetAllChildrenForServicePath = "/api/services/GetAllChildForService";
 
 
 

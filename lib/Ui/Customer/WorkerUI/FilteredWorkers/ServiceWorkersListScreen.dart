@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sarvisny/domain/model/AdminRelatedResponses/childrenServicesResponse.dart';
 import '../../../../domain/model/CustomerRelatedResponses/CustomerServicesListResponse.dart';
 import '../../../../domain/model/CustomerRelatedResponses/GetServiceWorkersResponse.dart';
 import 'ServiceWorkersWidget.dart';
@@ -8,7 +9,7 @@ class ServiceWorkersListScreen extends StatefulWidget {
 
 
   List<WorkerData>? workersList;
-  CustomerServiceItem? serviceItem;
+  Children? serviceItem;
 
   ServiceWorkersListScreen({Key? key, this.workersList , required this.serviceItem}) : super(key: key);
 
