@@ -25,7 +25,7 @@ import '../Responses/CustomerRelatedDto/CustomerRegisterData.dart';
 import '../Responses/CustomerRelatedDto/CustomerServicesListResponse.dart';
 import '../Responses/CustomerRelatedDto/CustomersListResponse.dart';
 import '../Responses/CustomerRelatedDto/FilteredServicesResponse.dart';
-import '../Responses/CustomerRelatedDto/GetCartResponse.dart';
+import '../Responses/CustomerRelatedDto/GetCartResponseDto.dart';
 import '../Responses/CustomerRelatedDto/GetServiceWorkersResponse.dart';
 import '../Responses/CustomerRelatedDto/OrderCartResponse.dart';
 import '../Responses/CustomerRelatedDto/RemoveFromCartResponse.dart';
@@ -77,7 +77,7 @@ class ApiManager {
     }
   }
 
-   Future<dynamic> registerCustomer(CustomerRegisterDataDto data) async {
+  Future<dynamic> registerCustomer(CustomerRegisterDataDto data) async {
     try {
       var url = Uri.https('$ipAddress:$port',
           CustomerApiPaths.customerRegistrationPath, {'role': 'Customer'});
@@ -89,6 +89,7 @@ class ApiManager {
         'firstName': data.firstName,
         'lastName': data.lastName,
         'phoneNumber': data.phoneNumber,
+        'userType': "Customer",
         'address': data.address,
       };
       var response = await http.post(
@@ -441,42 +442,55 @@ class ApiManager {
     }
   }
 
-   Future<AddToCartResponseDto> AddToCart(
+
+
+  Future<AddToCartResponseDto> AddToCart(
       context,
       String? customerID,
       String? providerID,
-      String? serviceID,
+      List<String>? serviceIDs, // Changed to a list of service IDs
       String? slotID,
-      String? des) async {
+      String? districtID,
+      String? address,
+      String? des,
+      String? requestDay
+      ) async {
     try {
-      String date = DateTime.now().toString().substring(0, 10);
-      var url = Uri.https('$ipAddress:$port', CustomerApiPaths.AddToCartPath,
-          {'customerId': customerID});
+      String date = DateTime.now().toIso8601String(); // Changed to ISO8601 format
+
+      var url = Uri.https('$ipAddress:$port', CustomerApiPaths.AddToCartPath, {'customerId': customerID});
 
       var requestBody = {
         'providerId': providerID,
-        'serviceId': serviceID,
+        'serviceIDs': serviceIDs, // Changed to an array
         'slotID': slotID,
-        "districtID": "194b039d-b95d-4c4c-8074-78b942144e99" ,
-        'requestDay': date,
+        'districtID': districtID,
+        'address': address,
+        'requestDay': requestDay,
         'problemDescription': des,
       };
-      print(serviceID);
+      print("Request Body: $requestBody");
+
+      print(serviceIDs);
       print("inside api before response");
+
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(requestBody),
       );
+
       var responseBody = jsonDecode(response.body);
       print(responseBody);
+
       return AddToCartResponseDto.fromJson(responseBody);
     } catch (error) {
       return AddToCartResponseDto(isError: true);
     }
   }
 
-   Future<GetCartResponseDto?> GetCart(String? Id) async {
+
+  Future<GetCartResponseDto?> GetCart(String? Id) async {
     try {
       var url = Uri.https(
           '$ipAddress:$port', CustomerApiPaths.GetCartPath, {'customerId': Id});
@@ -484,6 +498,9 @@ class ApiManager {
         url,
       );
       var responseBody = jsonDecode(response.body);
+      print(responseBody);
+      print('GetCartResponseDto.fromJson(responseBody)');
+      print(GetCartResponseDto.fromJson(responseBody));
       return GetCartResponseDto.fromJson(responseBody);
     } catch (error) {
       return GetCartResponseDto(isError: true);

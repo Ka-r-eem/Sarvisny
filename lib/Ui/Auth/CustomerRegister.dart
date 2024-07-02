@@ -5,14 +5,13 @@ import '../../Common/CustomFormField.dart';
 import '../../Provider/ColorProvider.dart';
 import '../../data/API/apiManager.dart';
 import '../../data/Responses/CustomerRelatedDto/CustomerRegisterData.dart';
+import '../../di/di.dart';
 import '../../domain/UseCases/CustomerUseCases/CustomerRegisterUseCase.dart';
 import 'Login.dart';
 
 class CustomerRegister extends StatefulWidget {
   static const routeName = 'CustomerRegister';
-  CustomerRegisterUseCase? registerUseCase ;
 
-  CustomerRegister({this.registerUseCase});
 
   @override
   State<CustomerRegister> createState() => _CustomerRegisterState();
@@ -253,9 +252,11 @@ class _CustomerRegisterState extends State<CustomerRegister> {
     }
     print(keyform.currentState?.validate());
     try {
+      CustomerRegisterUseCase registerUseCase = getIt<CustomerRegisterUseCase>();
+
       dialoguUtilities.loadingDialog(context, "Please Wait...");
       if (keyform.currentState?.validate() == true) {
-        var responseData = await widget.registerUseCase!.invoke(CustomerRegisterDataDto(
+        var responseData = await registerUseCase.invoke(CustomerRegisterDataDto(
           userName: userName.text,
           email: email.text,
           password: password.text,
@@ -279,7 +280,7 @@ class _CustomerRegisterState extends State<CustomerRegister> {
       }
     } catch (e) {
       Navigator.of(context).pop();
-      print("Error*******");
+      print("Error*******$e");
     }
   }
 }

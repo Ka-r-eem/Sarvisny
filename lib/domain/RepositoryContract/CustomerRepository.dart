@@ -11,7 +11,7 @@ import '../model/CustomerRelatedResponses/RemoveFromCartResponse.dart';
 
 abstract class CustomerRepository {
   Future<AddToCartResponse> AddToCart(context, String? customerID,
-      String? providerID, String? serviceID, String? slotID, String? des);
+      String? providerID, List<String>? serviceIDs, String? slotID,String? districtID,String? address, String? des,String? requestDay);
   Future<GetCartResponse?> GetCart(String? Id);
   Future<OrderCartResponse> OrderCart(String? customerID);
   Future<List<CustomerOrderPayload?>?> GetCustomerOrders(String? customerID);

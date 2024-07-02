@@ -61,9 +61,7 @@ class WorkerMyAccount extends StatelessWidget {
                   child: Text("Settings", style: TextStyle(fontSize: 20 ,color: Theme.of(context).colorScheme.onPrimary)),
                 ),
                 ElevatedButton(onPressed: (){
-                  var provider = Provider.of<AppProvider>(context , listen: false);
                   Navigator.pushNamed(context, SlotsListWidget.routeName);
-                  print(provider.UserId);
 
                 }, child: Text("My Slots",style: TextStyle(color: Colors.white , fontFamily: '2',fontSize: 22),),style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.primary))),
 

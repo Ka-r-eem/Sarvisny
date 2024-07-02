@@ -10,7 +10,7 @@ import '../../domain/model/CustomerRelatedResponses/RemoveFromCartResponse.dart'
 import '../Responses/CustomerRelatedDto/CustomerRegisterData.dart';
 
 abstract class CustomerDataSource {
-  Future<AddToCartResponse> AddToCart(context, String? customerID, String? providerID, String? serviceID, String? slotID, String? des);
+  Future<AddToCartResponse> AddToCart(context, String? customerID, String? providerID, List<String>? serviceIDs, String? slotID,String? districtID,String? address, String? des, String? requestDay);
   Future<GetCartResponse?> GetCart(String? Id);
   Future<OrderCartResponse> OrderCart(String? customerID);
   Future<List<CustomerOrderPayload?>?> GetCustomerOrders(String? customerID);

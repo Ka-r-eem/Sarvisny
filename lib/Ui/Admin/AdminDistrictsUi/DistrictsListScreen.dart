@@ -220,34 +220,40 @@ class _DistrictListScreenState extends State<DistrictListScreen> {
     if (keyform.currentState?.validate() == false) {
       return;
     }
-    print(keyform.currentState?.validate());
-    print("entering the try ");
+
     try {
-      print("inside the try");
       AddWorkerToDistrictUseCase useCase = getIt<AddWorkerToDistrictUseCase>();
       dialoguUtilities.loadingDialog(context, "Please Wait...");
-      print("after the loading");
-      if (keyform.currentState?.validate() == true) {
-        print("inside the first ");
-        var responseData = await useCase.invoke(providerID, districtID);
-        if (responseData['isError'] != true) {
-          Navigator.of(context).pop();
-          Navigator.of(context).pop();
-          snackBar.showSnackBar(
-              context, "Worker Added Successfully", Colors.green);
-        } else {
-          Navigator.of(context).pop();
-          Navigator.of(context).pop();
-          dialoguUtilities.showmsg(
-              context, responseData["errors"]["\$values"].toString(), pos: "Ok",
-              postAction: () {
+
+      var responseData = await useCase.invoke(providerID, districtID);
+
+      if (responseData.isError != true) {
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+        snackBar.showSnackBar(context, "Worker Added Successfully", Colors.green);
+      } else {
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+        dialoguUtilities.showmsg(
+          context,
+          responseData.message ?? "Error occurred",
+          pos: "Ok",
+          postAction: () {
             Navigator.of(context).pop();
-          });
-        }
+          },
+        );
       }
     } catch (e) {
       Navigator.of(context).pop();
-      print("Error******* $e");
+      print("Error: $e");
+      dialoguUtilities.showmsg(
+        context,
+        "An error occurred. Please try again later.",
+        pos: "Ok",
+        postAction: () {
+          Navigator.of(context).pop();
+        },
+      );
     }
   }
 

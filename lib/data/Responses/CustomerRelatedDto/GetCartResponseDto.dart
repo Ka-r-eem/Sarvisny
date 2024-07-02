@@ -1,18 +1,20 @@
+import 'package:sarvisny/domain/model/CustomerRelatedResponses/GetCartResponse.dart';
+
 /// status : null
 /// isError : false
 /// message : "Success"
 /// errors : []
 /// payload : {"cartID":"12cf28cc-215e-49b7-8318-b9ee1ebce7d9","requestedServices":[{"cartServiceRequestID":"79975712-d083-44ff-8dd1-3b1593a400f0","providerId":"a89c7aa9-0ec4-4836-9784-4d0f49e9aa92","firstName":"WORKER","lastName":"WORKER","services":[{"serviceId":"fe7bfa40-e686-4f3e-b484-b9f1ae3b42ea","serviceName":"child service","parentServiceID":"56ec1262-fb8f-4209-96cd-7a78523693af","parentServiceName":"Roof Painting","criteriaID":null,"criteriaName":null,"price":112}],"slotID":"137f37ef-e3db-4503-9522-aab3ab897e3b","requestedDate":"2024-07-06T17:34:37.657565","dayOfWeek":"Saturday","startTime":"03:00:00","districtID":"d6c63188-be23-4430-b118-2175ee6d40b2","districtName":"Maadi","address":"Maadi","price":112,"problemDescription":""},{"cartServiceRequestID":"8aafc656-d080-4b1c-8f5b-2c74d3d8da71","providerId":"a89c7aa9-0ec4-4836-9784-4d0f49e9aa92","firstName":"WORKER","lastName":"WORKER","services":[{"serviceId":"fe7bfa40-e686-4f3e-b484-b9f1ae3b42ea","serviceName":"child service","parentServiceID":"56ec1262-fb8f-4209-96cd-7a78523693af","parentServiceName":"Roof Painting","criteriaID":null,"criteriaName":null,"price":112}],"slotID":"4871a7aa-84e5-4bd6-964a-6257ebcccdb6","requestedDate":"2024-07-06T12:34:42.942","dayOfWeek":"Saturday","startTime":"04:00:00","districtID":"d6c63188-be23-4430-b118-2175ee6d40b2","districtName":"Maadi","address":"string","price":112,"problemDescription":""}]}
 
-class GetCartResponse {
-  GetCartResponse({
+class GetCartResponseDto {
+  GetCartResponseDto({
       this.status, 
       this.isError, 
       this.message, 
       this.errors, 
       this.payload,});
 
-  GetCartResponse.fromJson(dynamic json) {
+  GetCartResponseDto.fromJson(dynamic json) {
     status = json['status'];
     isError = json['isError'];
     message = json['message'];
@@ -22,19 +24,19 @@ class GetCartResponse {
         errors?.add((v));
       });
     }
-    payload = json['payload'] != null ? Cart.fromJson(json['payload']) : null;
+    payload = json['payload'] != null ? CartDto.fromJson(json['payload']) : null;
   }
   dynamic status;
   bool? isError;
   String? message;
   List<dynamic>? errors;
-  Cart? payload;
-GetCartResponse copyWith({  dynamic status,
+  CartDto? payload;
+GetCartResponseDto copyWith({  dynamic status,
   bool? isError,
   String? message,
   List<dynamic>? errors,
-  Cart? payload,
-}) => GetCartResponse(  status: status ?? this.status,
+  CartDto? payload,
+}) => GetCartResponseDto(  status: status ?? this.status,
   isError: isError ?? this.isError,
   message: message ?? this.message,
   errors: errors ?? this.errors,
@@ -53,31 +55,38 @@ GetCartResponse copyWith({  dynamic status,
     }
     return map;
   }
+  GetCartResponse toGetCartResponse() => GetCartResponse(
+    status: status,
+    isError: isError,
+    message: message,
+    errors: errors,
+    payload: payload?.toCart(),
+  );
 
 }
 
 /// cartID : "12cf28cc-215e-49b7-8318-b9ee1ebce7d9"
 /// requestedServices : [{"cartServiceRequestID":"79975712-d083-44ff-8dd1-3b1593a400f0","providerId":"a89c7aa9-0ec4-4836-9784-4d0f49e9aa92","firstName":"WORKER","lastName":"WORKER","services":[{"serviceId":"fe7bfa40-e686-4f3e-b484-b9f1ae3b42ea","serviceName":"child service","parentServiceID":"56ec1262-fb8f-4209-96cd-7a78523693af","parentServiceName":"Roof Painting","criteriaID":null,"criteriaName":null,"price":112}],"slotID":"137f37ef-e3db-4503-9522-aab3ab897e3b","requestedDate":"2024-07-06T17:34:37.657565","dayOfWeek":"Saturday","startTime":"03:00:00","districtID":"d6c63188-be23-4430-b118-2175ee6d40b2","districtName":"Maadi","address":"Maadi","price":112,"problemDescription":""},{"cartServiceRequestID":"8aafc656-d080-4b1c-8f5b-2c74d3d8da71","providerId":"a89c7aa9-0ec4-4836-9784-4d0f49e9aa92","firstName":"WORKER","lastName":"WORKER","services":[{"serviceId":"fe7bfa40-e686-4f3e-b484-b9f1ae3b42ea","serviceName":"child service","parentServiceID":"56ec1262-fb8f-4209-96cd-7a78523693af","parentServiceName":"Roof Painting","criteriaID":null,"criteriaName":null,"price":112}],"slotID":"4871a7aa-84e5-4bd6-964a-6257ebcccdb6","requestedDate":"2024-07-06T12:34:42.942","dayOfWeek":"Saturday","startTime":"04:00:00","districtID":"d6c63188-be23-4430-b118-2175ee6d40b2","districtName":"Maadi","address":"string","price":112,"problemDescription":""}]
 
-class Cart {
-  Cart({
+class CartDto {
+  CartDto({
       this.cartID, 
       this.requestedServices,});
 
-  Cart.fromJson(dynamic json) {
+  CartDto.fromJson(dynamic json) {
     cartID = json['cartID'];
     if (json['requestedServices'] != null) {
       requestedServices = [];
       json['requestedServices'].forEach((v) {
-        requestedServices?.add(RequestedServices.fromJson(v));
+        requestedServices?.add(RequestedServicesDto.fromJson(v));
       });
     }
   }
   String? cartID;
-  List<RequestedServices>? requestedServices;
-Cart copyWith({  String? cartID,
-  List<RequestedServices>? requestedServices,
-}) => Cart(  cartID: cartID ?? this.cartID,
+  List<RequestedServicesDto>? requestedServices;
+CartDto copyWith({  String? cartID,
+  List<RequestedServicesDto>? requestedServices,
+}) => CartDto(  cartID: cartID ?? this.cartID,
   requestedServices: requestedServices ?? this.requestedServices,
 );
   Map<String, dynamic> toJson() {
@@ -88,6 +97,10 @@ Cart copyWith({  String? cartID,
     }
     return map;
   }
+  Cart toCart() => Cart(
+    cartID: cartID,
+    requestedServices: requestedServices?.map((e) => e.toRequestedServices()).toList(),
+  );
 
 }
 
@@ -106,8 +119,8 @@ Cart copyWith({  String? cartID,
 /// price : 112
 /// problemDescription : ""
 
-class RequestedServices {
-  RequestedServices({
+class RequestedServicesDto {
+  RequestedServicesDto({
       this.cartServiceRequestID, 
       this.providerId, 
       this.firstName, 
@@ -123,7 +136,7 @@ class RequestedServices {
       this.price, 
       this.problemDescription,});
 
-  RequestedServices.fromJson(dynamic json) {
+  RequestedServicesDto.fromJson(dynamic json) {
     cartServiceRequestID = json['cartServiceRequestID'];
     providerId = json['providerId'];
     firstName = json['firstName'];
@@ -131,7 +144,7 @@ class RequestedServices {
     if (json['services'] != null) {
       services = [];
       json['services'].forEach((v) {
-        services?.add(Services.fromJson(v));
+        services?.add(ServicesDto.fromJson(v));
       });
     }
     slotID = json['slotID'];
@@ -148,7 +161,7 @@ class RequestedServices {
   String? providerId;
   String? firstName;
   String? lastName;
-  List<Services>? services;
+  List<ServicesDto>? services;
   String? slotID;
   String? requestedDate;
   String? dayOfWeek;
@@ -158,11 +171,11 @@ class RequestedServices {
   String? address;
   int? price;
   String? problemDescription;
-RequestedServices copyWith({  String? cartServiceRequestID,
+RequestedServicesDto copyWith({  String? cartServiceRequestID,
   String? providerId,
   String? firstName,
   String? lastName,
-  List<Services>? services,
+  List<ServicesDto>? services,
   String? slotID,
   String? requestedDate,
   String? dayOfWeek,
@@ -172,7 +185,7 @@ RequestedServices copyWith({  String? cartServiceRequestID,
   String? address,
   int? price,
   String? problemDescription,
-}) => RequestedServices(  cartServiceRequestID: cartServiceRequestID ?? this.cartServiceRequestID,
+}) => RequestedServicesDto(  cartServiceRequestID: cartServiceRequestID ?? this.cartServiceRequestID,
   providerId: providerId ?? this.providerId,
   firstName: firstName ?? this.firstName,
   lastName: lastName ?? this.lastName,
@@ -207,6 +220,22 @@ RequestedServices copyWith({  String? cartServiceRequestID,
     map['problemDescription'] = problemDescription;
     return map;
   }
+  RequestedServices toRequestedServices() => RequestedServices(
+    cartServiceRequestID: cartServiceRequestID,
+    providerId: providerId,
+    firstName: firstName,
+    lastName: lastName,
+    services: services?.map((e) => e.toServices()).toList(),
+    slotID: slotID,
+    requestedDate: requestedDate,
+    dayOfWeek: dayOfWeek,
+    startTime: startTime,
+    districtID: districtID,
+    districtName: districtName,
+    address: address,
+    price: price,
+    problemDescription: problemDescription,
+  );
 
 }
 
@@ -218,8 +247,8 @@ RequestedServices copyWith({  String? cartServiceRequestID,
 /// criteriaName : null
 /// price : 112
 
-class Services {
-  Services({
+class ServicesDto {
+  ServicesDto({
       this.serviceId, 
       this.serviceName, 
       this.parentServiceID, 
@@ -228,7 +257,7 @@ class Services {
       this.criteriaName, 
       this.price,});
 
-  Services.fromJson(dynamic json) {
+  ServicesDto.fromJson(dynamic json) {
     serviceId = json['serviceId'];
     serviceName = json['serviceName'];
     parentServiceID = json['parentServiceID'];
@@ -244,14 +273,14 @@ class Services {
   dynamic criteriaID;
   dynamic criteriaName;
   int? price;
-Services copyWith({  String? serviceId,
+ServicesDto copyWith({  String? serviceId,
   String? serviceName,
   String? parentServiceID,
   String? parentServiceName,
   dynamic criteriaID,
   dynamic criteriaName,
   int? price,
-}) => Services(  serviceId: serviceId ?? this.serviceId,
+}) => ServicesDto(  serviceId: serviceId ?? this.serviceId,
   serviceName: serviceName ?? this.serviceName,
   parentServiceID: parentServiceID ?? this.parentServiceID,
   parentServiceName: parentServiceName ?? this.parentServiceName,
@@ -270,5 +299,14 @@ Services copyWith({  String? serviceId,
     map['price'] = price;
     return map;
   }
+  Services toServices() => Services(
+    serviceId: serviceId,
+    serviceName: serviceName,
+    parentServiceID: parentServiceID,
+    parentServiceName: parentServiceName,
+    criteriaID: criteriaID,
+    criteriaName: criteriaName,
+    price: price,
+  );
 
 }

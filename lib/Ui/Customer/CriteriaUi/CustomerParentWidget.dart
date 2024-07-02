@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sarvisny/Provider/Provider.dart';
 import 'package:sarvisny/domain/model/AdminRelatedResponses/ParentsServicesResponse.dart';
-import '../../../domain/model/AdminRelatedResponses/CriteriasListResponse.dart';
 import '../ServiceUi/ChildrenServices/ChildrenServicesListView.dart';
-import '../ServiceUi/FilteredServices/FilteredCustomerServicesListView.dart';
 
 class CustomerParentWidget extends StatelessWidget {
 
@@ -19,7 +17,6 @@ class CustomerParentWidget extends StatelessWidget {
 
     return InkWell(
       onTap:() {
-        // provider.selectedCriteria = criteria ;
         Navigator.pushNamed(context, ChildrenServicesListWidget.routeName , arguments: service?.toCustomerServiceItem(),);
 
       },

@@ -21,12 +21,13 @@ class MyCartViewModel extends Cubit<CartItemsState> {
     emit(CartItemsLoading("Loading..."));
 
     try {
-      var Cart = await getCartUseCase.invoke(id);
-      emit(CartItemsSuccess(Cart));
+      print("in the try of the function");
+      GetCartResponse cart = await getCartUseCase.invoke(id);
+      emit(CartItemsSuccess(cart));
     }
     catch (e) {
       emit(CartItemsError(e.toString()));
-      print("in the catch");
+      print("in the catch$e");
     }
   }}
 
@@ -35,9 +36,9 @@ sealed class CartItemsState {}
 
 class CartItemsSuccess extends CartItemsState {
 
-  GetCartResponse Cart ;
+  GetCartResponse? cart ;
 
-  CartItemsSuccess(this.Cart);
+  CartItemsSuccess(this.cart);
 
 }
 

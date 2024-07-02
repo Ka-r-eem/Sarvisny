@@ -10,7 +10,7 @@ import '../../../domain/model/CustomerRelatedResponses/GetCartResponse.dart';
 import 'MyCartViewModel.dart';
 
 class CartRequestWidget extends StatefulWidget {
-  final RequestedService? service;
+  final RequestedServices? service;
   bool deleted = false;
 
   CartRequestWidget(this.service);
@@ -22,7 +22,7 @@ class CartRequestWidget extends StatefulWidget {
 class _CartRequestWidgetState extends State<CartRequestWidget> {
   @override
   Widget build(BuildContext context) {
-    var viewModel = getIt<MyCartViewModel>();
+    // var viewModel = getIt<MyCartViewModel>();
     var provider = Provider.of<AppProvider>(context);
 
     return Stack(
@@ -48,7 +48,7 @@ class _CartRequestWidgetState extends State<CartRequestWidget> {
                   children: [
                     const SizedBox(height: 4),
                     Text(
-                      "Service: ${widget.service?.serviceName ?? ""}",
+                      "Service: ${widget.service?.services?.first.serviceName ?? ""}",
                       style: const TextStyle(
                         fontSize: 25,
                         fontFamily: "2",
@@ -69,13 +69,15 @@ class _CartRequestWidgetState extends State<CartRequestWidget> {
                 ),
                 IconButton(
                   onPressed: () async {
-                    bool removed = await RemoveFromCartBtnFunction(context, provider.UserId, widget.service?.requestID ?? "");
+                    bool removed = await RemoveFromCartBtnFunction(context, provider.UserId, widget.service?.cartServiceRequestID ?? "");
                     if (removed) {
+                      // print(widget.service?.serviceID);
                       setState(() {
                         widget.deleted = true;
-                        provider.DecreaseCart();
+                        refresh(provider.UserId??"");
+                        
+                        // provider.DecreaseCart();
                       });
-                      viewModel.GetCartItems(provider.UserId);
                     }
                   },
                   icon: Icon(Icons.delete_rounded, color: Colors.red, size: 30),
@@ -84,20 +86,21 @@ class _CartRequestWidgetState extends State<CartRequestWidget> {
             ),
           ),
         ),
-        Visibility(
-          visible: widget.deleted,
-          child: Container(
-            color: Theme.of(context).colorScheme.onPrimary,
-            height: 10,
-            width: double.infinity,
-          ),
-        ),
+        // Visibility(
+        //   visible: widget.deleted,
+        //   child: Container(
+        //     color: Theme.of(context).colorScheme.onPrimary,
+        //     height: 10,
+        //     width: double.infinity,
+        //   ),
+        // ),
       ],
     );
   }
 
   Future<bool> RemoveFromCartBtnFunction(context, userId, String requestId) async {
     try {
+      print("Request ID : $requestId");
       RemoveFromCartUseCase removeFromCartUseCase = getIt<RemoveFromCartUseCase>();
       var responseData = await removeFromCartUseCase.invoke(userId, requestId);
       if (responseData.isError == false) {
@@ -118,6 +121,10 @@ class _CartRequestWidgetState extends State<CartRequestWidget> {
       print("Error occurred: $e");
       return false;
     }
+  }
+  Future<void> refresh(String id)async {
+    MyCartViewModel viewModel = getIt<MyCartViewModel>();
+    viewModel.GetCartItems(id);
   }
 }
 

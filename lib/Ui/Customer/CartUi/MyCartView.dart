@@ -20,7 +20,8 @@ class _MyCartState extends State<MyCart> {
   @override
   void initState() {
     var provider = Provider.of<AppProvider>(context, listen: false);
-    viewModel.GetCartItems(provider.UserId ?? "");
+    viewModel.GetCartItems(provider.UserId);
+    print("User ID : ${provider.UserId}");
     super.initState();
   }
 
@@ -37,12 +38,13 @@ class _MyCartState extends State<MyCart> {
             // Show loading indicator or similar action
           }
           if (state is CartItemsError) {
-            // Show error message or similar action
+            print("Error : ${state.message}");
           }
         },
         builder: (context, state) {
           if (state is CartItemsSuccess) {
-            return CartListScreen(cartDetails: state.Cart.payload);
+            print("Length : ${state.cart?.payload?.requestedServices?.length}");
+            return CartListScreen(services: state.cart?.payload?.requestedServices);
           }
           return const Center(
             child: CircularProgressIndicator(),

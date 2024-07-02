@@ -34,6 +34,12 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
     colorProvider.loadSettingConfig();
     cartItemsNumFuture = getCartNumber();
   }
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    cartItemsNumFuture = getCartNumber();
+  }
+
 
   @override
   Widget build(BuildContext context) {

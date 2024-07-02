@@ -25,18 +25,23 @@ class CustomerDataSourceimpl extends CustomerDataSource {
       context,
       String? customerID,
       String? providerID,
-      String? serviceID,
+      List<String>? serviceIDs,
       String? slotID,
-      String? des) async {
+      String? districtID,
+      String? address,
+      String? des,
+      String? requestDay) async {
     var response = await apiManager.AddToCart(
-        context, customerID, providerID, serviceID, slotID, des);
+        context, customerID, providerID, serviceIDs, slotID,districtID, address, des,requestDay);
     return response.toAddCartResponse();
   }
 
   @override
   Future<GetCartResponse?> GetCart(String? Id) async {
     var response = await apiManager.GetCart(Id);
-    return response?.toCartResponse();
+    print(response?.status);
+    print("response inside datasource: ${response?.payload?.cartID}");
+    return response?.toGetCartResponse();
   }
 
   @override

@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:sarvisny/Common/Seperator.dart';
+import 'package:sarvisny/Ui/Admin/AdminDistrictsUi/DistrictsDropDown.dart';
 import 'package:sarvisny/Ui/Customer/WorkerUI/FilteredWorkers/ServiceWorkersWidget.dart';
 import 'package:sarvisny/Ui/Customer/WorkerUI/FilteredWorkers/WorkerSlotWidget.dart';
+import 'package:sarvisny/domain/model/AdminRelatedResponses/GetDistrictsData.dart';
 
 class WorkerDetailsScreen extends StatelessWidget {
   static const String routeName = 'WorkerDetailsScreen';
 
   @override
   Widget build(BuildContext context) {
+
+    DistrictData? selectedDistrict;
+
     var workerService =
         ModalRoute.of(context)?.settings.arguments as WorkerServiceDetails;
 

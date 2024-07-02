@@ -119,7 +119,6 @@ class _WorkerWidgetState extends State<WorkerWidget> {
       await apiManager.BlockProvider(providerID);
       if (responseData.isError == false) {
         Navigator.of(context).pop();
-        provider.IncreaseCart();
         snackBar.showSnackBar(
             context, responseData.message.toString(), Colors.green);
       } else {
@@ -150,7 +149,6 @@ class _WorkerWidgetState extends State<WorkerWidget> {
       await apiManager.UnBlockProvider(providerID);
       if (responseData.isError == false) {
         Navigator.of(context).pop();
-        provider.IncreaseCart();
         snackBar.showSnackBar(
             context, responseData.message.toString(), Colors.green);
       } else {

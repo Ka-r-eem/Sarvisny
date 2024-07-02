@@ -118,6 +118,7 @@ import '../Ui/Customer/ServiceUi/FilteredServices/FilteredServicesViewModel.dart
     as _i58;
 import '../Ui/Customer/WorkerUI/FilteredWorkers/FilteredWorkersViewModel.dart'
     as _i59;
+import '../Ui/Worker/Dashboard%20UI/WorkerDashboardViewModel.dart' as _i92;
 import '../Ui/Worker/MyAccountUi/Slots/SlotsListViewModel.dart' as _i76;
 import '../Ui/Worker/MyAccountUi/WorkerProfileViewModel.dart' as _i82;
 import '../Ui/Worker/OrdersUi/AllOrders/WorkerAllOrdersViewModel.dart' as _i78;
@@ -315,6 +316,11 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i86.AddServiceToCriteriaUseCase>(),
           gh<_i73.ShowAllCriteriasUseCase>(),
         ));
+    gh.factory<_i92.WorkerDashboardViewModel>(
+        () => _i92.WorkerDashboardViewModel(
+              gh<_i81.WorkerProfileUseCase>(),
+              gh<_i67.PendingOrdersUseCase>(),
+            ));
     return this;
   }
 }

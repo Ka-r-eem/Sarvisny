@@ -24,12 +24,13 @@ class CustomerRepositoryImpl extends CustomerRepository {
   @factoryMethod CustomerRepositoryImpl(this.dataSource);
 
   @override
-  Future<AddToCartResponse> AddToCart(context, String? customerID, String? providerID, String? serviceID, String? slotID, String? des) {
-   return dataSource.AddToCart(context, customerID, providerID, serviceID, slotID, des);
+  Future<AddToCartResponse> AddToCart(context, String? customerID, String? providerID, List<String>? serviceIDs, String? slotID,String? districtID,String? address ,String? des,String? requestDay) {
+    return dataSource.AddToCart(context, customerID, providerID, serviceIDs, slotID, districtID,address,des,requestDay);
   }
 
   @override
   Future<GetCartResponse?> GetCart(String? Id) {
+    print("inside the repo");
     return dataSource.GetCart(Id);
   }
 

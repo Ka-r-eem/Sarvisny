@@ -11,9 +11,9 @@ import 'MyCartViewModel.dart';
 class CartListScreen extends StatefulWidget {
   static const String routeName = 'CartList';
 
-  CartDetails? cartDetails;
+  List<RequestedServices>? services;
 
-  CartListScreen({Key? key, this.cartDetails}) : super(key: key);
+  CartListScreen({Key? key, this.services}) : super(key: key);
 
   @override
   State<CartListScreen> createState() => _CartListScreenState();
@@ -25,7 +25,6 @@ class _CartListScreenState extends State<CartListScreen> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<AppProvider>(context);
-    provider.CartItems = widget.cartDetails?.requestedServices?.length ?? 0;
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -33,16 +32,16 @@ class _CartListScreenState extends State<CartListScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            child: ListView.builder(
+            child: widget.services?.length == 0 ||  widget.services?.length == null? Center(child: Text("No Requests Found" ,style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),)) : ListView.builder(
               itemBuilder: (context, index) => CartRequestWidget(
-                  widget.cartDetails?.requestedServices?[index]),
-              itemCount: widget.cartDetails?.requestedServices?.length,
+                  widget.services?[index]),
+              itemCount: widget.services?.length,
             ),
           ),
           MaterialButton(
               onPressed: () {
                   // OrderCartBtnFunction(context);
-                  provider.ResetCart();
+                  // provider.ResetCart();
 
 
               },

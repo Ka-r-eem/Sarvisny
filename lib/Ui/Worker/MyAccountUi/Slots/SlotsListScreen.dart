@@ -5,6 +5,7 @@ import 'package:sarvisny/Provider/Provider.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:sarvisny/Ui/Worker/MyAccountUi/Slots/SlotsListWidget.dart';
 import 'package:sarvisny/dialoguUtilites.dart';
+import 'package:sarvisny/domain/UseCases/WorkerUseCases/RemoveAvailabilityUseCase.dart';
 import 'package:sarvisny/domain/UseCases/WorkerUseCases/SetAvailabilityUseCase.dart';
 import '../../../../data/API/apiManager.dart';
 
@@ -49,7 +50,7 @@ class _SlotsListScreenState extends State<SlotsListScreen> {
             Expanded(
               child: ListView.builder(
                 itemBuilder: (context, index) =>
-                    DayOfWeekSlotWidget(DaySlot:widget.SlotsList?[index]),
+                    DayOfWeekSlotWidget(daySlot:widget.SlotsList?[index]),
                 itemCount: widget.SlotsList?.length,
               ),
             ),
@@ -286,8 +287,7 @@ class _SlotsListScreenState extends State<SlotsListScreen> {
     await SlotCreation (context, day, date, slot);
   }
 
-  Future<void> SlotCreation (
-      context, String? day, String? date, SlotsDto slot) async {
+  Future<void> SlotCreation (context, String? day, String? date, SlotsDto slot) async {
     if (keyform.currentState?.validate() == false) {
       return;
     }
@@ -309,7 +309,7 @@ class _SlotsListScreenState extends State<SlotsListScreen> {
         if (responseData.isError == false) {
           print("Entering isError");
           Navigator.of(context).pop();
-          Navigator.pushReplacementNamed(context, SlotsListWidget.routeName);
+          Navigator.of(context).pop();
           snackBar.showSnackBar(
               context, "Slot Added Successfully", Colors.green);
         } else {
@@ -327,6 +327,7 @@ class _SlotsListScreenState extends State<SlotsListScreen> {
       print("Error*******");
     }
   }
+
 
 }
 enum Day { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }

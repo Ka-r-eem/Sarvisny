@@ -19,19 +19,19 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void IncreaseCart(){
-    CartItems+=1;
-    notifyListeners();
-}
-  void DecreaseCart(){
-    if(CartItems > 0){
-    CartItems-=1;}
-    notifyListeners();
-}
-
-  void ResetCart(){
-    CartItems = 0;
-    notifyListeners();
-}
+//   void IncreaseCart(){
+//     CartItems+=1;
+//     notifyListeners();
+// }
+//   void DecreaseCart(){
+//     if(CartItems > 0){
+//     CartItems-=1;}
+//     notifyListeners();
+// }
+//
+//   void ResetCart(){
+//     CartItems = 0;
+//     notifyListeners();
+// }
 
 }

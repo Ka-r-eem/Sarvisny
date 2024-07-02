@@ -8,6 +8,7 @@ import '../../../domain/model/AdminRelatedResponses/GetDistrictsData.dart';
 
 class DistrictsDropDown extends StatefulWidget {
   final Function(DistrictData?) onDistrictChanged;
+
   DistrictsDropDown({required this.onDistrictChanged});
 
   @override
@@ -36,73 +37,93 @@ class _DistrictsDropDownState extends State<DistrictsDropDown> {
               ],
             ),
           );
-        }
-        var districtsList =  snapshot.data?.payload;
+        } else if (snapshot.hasData) {
+          var districtsList = snapshot.data?.payload;
 
+          if (districtsList == null || districtsList.isEmpty) {
+            return const Center(child: Text('No districts available'));
+          }
 
-
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8),
-          child: Container(
-            height: 65,
-            decoration: BoxDecoration(
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8),
+            child: Container(
+              height: 65,
+              decoration: BoxDecoration(
                 border: Border.all(color: const Color(0xff3a8bc8)),
-                borderRadius: BorderRadius.circular(10)),
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 0.0, horizontal: 12),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  DropdownButton(
-                    onTap: () {
-                      print('Dropdown button tapped');
-                    },
-                    dropdownColor: Theme.of(context).colorScheme.onSecondary,
-                    isExpanded: true,
-                    alignment: Alignment.center,
-                    style: const TextStyle(
-                        fontSize: 18, fontFamily: "2", color: Colors.grey),
-                    hint: const Text("Select District",
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 12),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    DropdownButton(
+                      onTap: () {
+                        print('Dropdown button tapped');
+                      },
+                      dropdownColor: Theme.of(context).colorScheme.onSecondary,
+                      isExpanded: true,
+                      alignment: Alignment.center,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontFamily: "2",
+                        color: Colors.grey,
+                      ),
+                      hint: const Text(
+                        "Select District",
                         style: TextStyle(
-                            fontSize: 22, color: Colors.grey, fontFamily: "2")),
-                    value: districtChoosen?.districtID,
-                    onChanged: (newValue) {
-                      setState(() {
-                        districtChoosen = districtsList?.firstWhere(
-                          (district) => district.districtID == newValue,
-                          orElse: () => DistrictData(
-                            districtID: "",
-                          ),
-                        );
-                        widget.onDistrictChanged(districtChoosen);
-                      });
-                    },
-                    items: districtsList?.map((district) {
-                      return DropdownMenuItem(
-                        value: district.districtID,
-                        child: Container(
+                          fontSize: 22,
+                          color: Colors.grey,
+                          fontFamily: "2",
+                        ),
+                      ),
+                      value: districtChoosen?.districtID,
+                      onChanged: (newValue) {
+                        setState(() {
+                          districtChoosen = districtsList?.firstWhere(
+                                (district) => district.districtID == newValue,
+                            orElse: () => DistrictData(
+                              districtID: "",
+                            ),
+                          );
+                          widget.onDistrictChanged(districtChoosen);
+                        });
+                      },
+                      items: districtsList?.map((district) {
+                        return DropdownMenuItem(
+                          value: district.districtID,
+                          child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                                        color: color.isDarkEnabled() == true
-                                            ? Colors.white
-                                            : Colors.black))),
-                            child: Text("${district.districtName}",
-                                style: TextStyle(
-                                    color: color.isDarkEnabled() == true
-                                        ? Colors.white
-                                        : Colors.black))),
-                      );
-                    }).toList(),
-                  ),
-                ],
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: color.isDarkEnabled() == true
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              "${district.districtName}",
+                              style: TextStyle(
+                                color: color.isDarkEnabled() == true
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
+          );
+        } else {
+          return const Center(child: Text('Unexpected error'));
+        }
       },
     );
   }

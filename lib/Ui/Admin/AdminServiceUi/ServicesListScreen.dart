@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:sarvisny/Common/snackBar.dart';
+import 'package:sarvisny/Ui/Admin/AdminServiceUi/ParentsDropDown.dart';
 import 'package:sarvisny/dialoguUtilites.dart';
+import 'package:sarvisny/domain/UseCases/AdminUseCases/GetParentsUseCase.dart';
+import 'package:sarvisny/domain/model/AdminRelatedResponses/ParentsServicesResponse.dart';
 
 import '../../../Common/CustomFormField.dart';
 import '../../../data/Responses/AdminRelatedDto/CriteriaData.dart';
@@ -34,6 +37,7 @@ class _ServicesListScreenState extends State<ServicesListScreen> {
 
 
   CriteriaObject? selectedCriteria;
+  ParentService? selectedParent;
   String? subService;
   bool visible = false ;
 
@@ -193,13 +197,13 @@ class _ServicesListScreenState extends State<ServicesListScreen> {
     TextEditingController ServiceDescription = TextEditingController();
     ShowAllCriteriasUseCase showAllCriteriasUseCase = getIt<ShowAllCriteriasUseCase>();
     var list = await showAllCriteriasUseCase.invoke();
-
+    GetParentsUseCase getParentsUseCase = getIt<GetParentsUseCase>();
+    var parents = await getParentsUseCase.invoke();
     showModalBottomSheet(
       context: context,
       builder: (context) {
         bool visible = false;
         String? subService;
-
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setModalState) {
             return SingleChildScrollView(
@@ -278,12 +282,12 @@ class _ServicesListScreenState extends State<ServicesListScreen> {
                       ),
                       Visibility(
                         visible: visible,
-                        child: CriteriasDropDown(
-                          criteriaList: list,
-                          onCriteriaChanged: (p0) {
-                            selectedCriteria = p0;
+                        child: ParentsDropDown(
+                          parentsList: parents.payload,
+                          onParentChanged:  (p0) {
+                            selectedParent = p0;
                           },
-                        ),
+                        )
                       ),
                       ElevatedButton(
                         onPressed: () {

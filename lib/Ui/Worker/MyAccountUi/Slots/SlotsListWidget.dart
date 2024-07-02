@@ -25,41 +25,48 @@ class _SlotsListWidgetState extends State<SlotsListWidget> {
     viewModel.GetSlots(provider.UserId??"");
     super.initState();
   }
+  Future<void> refresh()async {
+    var provider = Provider.of<AppProvider>(context, listen: false);
+    viewModel.GetSlots(provider.UserId??"");
+  }
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SlotsListViewModel, SlotsListState>(
-      bloc: viewModel,
-      buildWhen: (previous, current) {
-        if (current is SlotsListError) return false;
-        if (current is SlotsListLoading) return false;
-        return true;
-      },
-      listenWhen: (previous, current) {
-        if (current is SlotsListError) return true;
-        if (current is SlotsListLoading) return true;
-        return false;
-      },
-      listener: (context, state) {
-        if (state is SlotsListLoading) {
-          // showLoading;
-        }
-        if (state is SlotsListError) {
-          // showMessage;
-        }
-      },
-      builder: (context, state) {
-        if (state is SlotsListSuccess) {
-          return SlotsListScreen(SlotsList: state.slots,);
-        }
-        return Scaffold(
-          appBar: AppBar(
-            title: Text("Default Screen"),
-          ),
-          body: const Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
-      },);
+    return RefreshIndicator(
+      onRefresh:refresh ,
+      child: BlocConsumer<SlotsListViewModel, SlotsListState>(
+        bloc: viewModel,
+        buildWhen: (previous, current) {
+          if (current is SlotsListError) return false;
+          if (current is SlotsListLoading) return false;
+          return true;
+        },
+        listenWhen: (previous, current) {
+          if (current is SlotsListError) return true;
+          if (current is SlotsListLoading) return true;
+          return false;
+        },
+        listener: (context, state) {
+          if (state is SlotsListLoading) {
+            // showLoading;
+          }
+          if (state is SlotsListError) {
+            // showMessage;
+          }
+        },
+        builder: (context, state) {
+          if (state is SlotsListSuccess) {
+            return SlotsListScreen(SlotsList: state.slots,);
+          }
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("Default Screen"),
+            ),
+            body: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        },),
+    );
 
   // @override
   // Widget build(BuildContext context) {
