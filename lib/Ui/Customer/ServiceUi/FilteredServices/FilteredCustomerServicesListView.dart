@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:sarvisny/Common/LoadingLogo.dart';
 import 'package:sarvisny/Provider/Provider.dart';
 import '../../../../di/di.dart';
 import '../../../../domain/model/AdminRelatedResponses/CriteriasListResponse.dart';
@@ -66,7 +67,7 @@ class _FilteredCustomerServicesListWidgetState extends State<FilteredCustomerSer
             title: Text("Default Screen"),
           ),
           body: const Center(
-            child: CircularProgressIndicator(),
+            child: LogoLoader(),
           ),
         );
       },

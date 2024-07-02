@@ -49,9 +49,9 @@ class _CustomerCriteriaListViewState extends State<CustomerCriteriaListView> {
         if (state is CriteriaListSuccess) {
           return CustomerCriteriaListScreen(CriteriasList: state.criterias ,parentServices: state.parents.payload,);
         }
-        return Scaffold(
+        return const Scaffold(
 
-          body: const Center(
+          body: Center(
             child: LogoLoader(),
           ),
         );

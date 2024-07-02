@@ -61,7 +61,7 @@ class _WorkerDashboardViewState extends State<WorkerDashboardView> {
             title: Text("Default Screen"),
           ),
           body: const Center(
-            child: CircularProgressIndicator(),
+            child: LogoLoader(),
           ),
         );
       },

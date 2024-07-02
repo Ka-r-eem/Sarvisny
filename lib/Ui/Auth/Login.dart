@@ -197,15 +197,15 @@ class _RegisterState extends State<LoginScreen> {
             response["payload"]["role"] == "Customer") {
           appProvider.token = response["payload"]["tokenString"];
           appProvider.UserId = response["payload"]["id"];
-          Navigator.of(context).pop();
-          print("skip customer");
+          // Navigator.of(context).pop();
+          print("customer");
           Navigator.pushReplacementNamed(context, CustomerHomeScreen.routeName);
         } else if (response["isError"] == false &&
             response["payload"]["role"] == "ServiceProvider") {
           appProvider.token = response["payload"]["tokenString"];
           appProvider.UserId = response["payload"]["id"];
           Navigator.of(context).pop();
-          print("skip Worker");
+          print("Worker");
           Navigator.pushReplacementNamed(context, WorkerHomeScreen.routeName);
         } else if (response["isError"] == false &&
             response["payload"]["role"] == "Admin") {

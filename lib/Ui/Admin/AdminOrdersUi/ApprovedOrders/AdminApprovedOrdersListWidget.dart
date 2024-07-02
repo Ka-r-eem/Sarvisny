@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sarvisny/Common/LoadingLogo.dart';
 import '../../../../di/di.dart';
 import '../AdminOrdersListScreen.dart';
 import 'AdminApprovedOrdersViewModel.dart';
@@ -52,7 +53,7 @@ class _AdminApprovedOrdersListWidgetState extends State<AdminApprovedOrdersListW
             title: Text("Default Screen"),
           ),
           body: const Center(
-            child: CircularProgressIndicator(),
+            child: LogoLoader(),
           ),
         );
       },

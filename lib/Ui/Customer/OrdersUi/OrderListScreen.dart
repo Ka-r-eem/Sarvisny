@@ -17,17 +17,7 @@ class CustomerOrderListScreen extends StatelessWidget {
     var provider = Provider.of<AppProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Orders List",
-          style: TextStyle(
-            fontSize: 22,
-            color: Theme.of(context).colorScheme.primary,
-            fontFamily: "1",
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+
       body: Column(
         children: [
           Expanded(

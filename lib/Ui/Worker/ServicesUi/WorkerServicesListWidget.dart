@@ -56,7 +56,7 @@ class _WorkerServicesListWidgetState extends State<WorkerServicesListWidget> {
             title: Text("Default Screen"),
           ),
           body: const Center(
-            child: CircularProgressIndicator(),
+            child: LogoLoader(),
           ),
         );
       },);

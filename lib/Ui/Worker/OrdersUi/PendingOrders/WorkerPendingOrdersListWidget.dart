@@ -55,7 +55,7 @@ class _WorkerPendingOrdersListWidgetState extends State<WorkerPendingOrdersListW
             title: Text("Default Screen"),
           ),
           body: const Center(
-            child: CircularProgressIndicator(),
+            child: LogoLoader(),
           ),
         );
       },);

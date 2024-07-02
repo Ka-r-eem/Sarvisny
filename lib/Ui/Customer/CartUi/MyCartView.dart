@@ -47,7 +47,7 @@ class _MyCartState extends State<MyCart> {
             return CartListScreen(services: state.cart?.payload?.requestedServices);
           }
           return const Center(
-            child: CircularProgressIndicator(),
+            child: LogoLoader(),
           );
         },
       ),

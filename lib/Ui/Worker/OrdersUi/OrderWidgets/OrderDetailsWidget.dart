@@ -61,7 +61,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
             title: Text("Default Screen"),
           ),
           body: const Center(
-            child: CircularProgressIndicator(),
+            child: LogoLoader(),
           ),
         );
       },);

@@ -55,7 +55,7 @@ class _WorkerApprovedOrdersListWidgetState extends State<WorkerApprovedOrdersLis
             title: Text("Default Screen"),
           ),
           body: const Center(
-            child: CircularProgressIndicator(),
+            child: LogoLoader(),
           ),
         );
       },);

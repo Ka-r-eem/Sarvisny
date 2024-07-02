@@ -59,7 +59,7 @@ class _WorkerProfileWidgetState extends State<WorkerProfileWidget> {
             title: Text("Default Screen"),
           ),
           body: const Center(
-            child: CircularProgressIndicator(),
+            child: LogoLoader(),
           ),
         );
       },);

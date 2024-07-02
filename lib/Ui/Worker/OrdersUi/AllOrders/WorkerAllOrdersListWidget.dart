@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:sarvisny/Common/LoadingLogo.dart';
 import '../../../../Provider/Provider.dart';
 import '../../../../di/di.dart';
 import '../WorkerOrdersListScreen.dart';
@@ -53,7 +54,7 @@ class _WorkerAllOrdersListWidgetState extends State<WorkerAllOrdersListWidget> {
             title: Text("Default Screen"),
           ),
           body: const Center(
-            child: CircularProgressIndicator(),
+            child: LogoLoader(),
           ),
         );
       },);
