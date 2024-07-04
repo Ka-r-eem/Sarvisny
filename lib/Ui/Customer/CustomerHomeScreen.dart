@@ -32,7 +32,6 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
     colorProvider = ColorProvider();
     appProvider = AppProvider();
     colorProvider.loadSettingConfig();
-    cartItemsNumFuture = getCartNumber();
   }
   @override
   void didChangeDependencies() {

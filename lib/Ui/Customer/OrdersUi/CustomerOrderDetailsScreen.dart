@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/Responses/CustomerRelatedDto/CustomerOrdersLogResponse.dart';
+import '../../../domain/model/CustomerRelatedResponses/CustomerOrdersLogResponse.dart';
 import 'CustomerOrderSingleServiceWidget.dart';
 
 class CustomerOrderDetailsScreen extends StatelessWidget {
@@ -8,7 +8,7 @@ class CustomerOrderDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var order = ModalRoute.of(context)?.settings.arguments as CustomerOrderDetailsDto;
+    var order = ModalRoute.of(context)?.settings.arguments as CustomerOrdersPayload;
 
     return Scaffold(
       appBar: AppBar(
@@ -29,7 +29,7 @@ class CustomerOrderDetailsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Order Status: ${order.payload?.orderStatus}",
+                "Order Status: ${order.orderStatus}",
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onPrimary,
                   fontSize: 22,
@@ -37,7 +37,7 @@ class CustomerOrderDetailsScreen extends StatelessWidget {
                 ),
               ),
               Text(
-                "Order Date: ${order.payload?.orderDate?.substring(0, 10)}",
+                "Order Date: ${order.orderDate?.substring(0, 10)}",
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onPrimary,
                   fontSize: 22,
@@ -55,7 +55,7 @@ class CustomerOrderDetailsScreen extends StatelessWidget {
                       color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
-                  child: order.payload?.orderService?.isEmpty ?? true
+                  child: order.orderService?.isEmpty ?? true
                       ? Text("No Services")
                       : Column(
                     children: [
@@ -71,10 +71,10 @@ class CustomerOrderDetailsScreen extends StatelessWidget {
                         child: ListView.builder(
                           itemBuilder: (context, index) {
                             return CustomerOrderSingleServiceWidget(
-                              order.payload?.orderService?[index],
+                              order.orderService?[index],
                             );
                           },
-                          itemCount: order.payload?.orderService?.length ?? 0,
+                          itemCount: order.orderService?.length ?? 0,
                         ),
                       ),
                     ],
@@ -82,7 +82,7 @@ class CustomerOrderDetailsScreen extends StatelessWidget {
                 ),
               ),
               Text(
-                "Total Price: ${order.payload?.orderPrice} EGP",
+                "Total Price: ${order.orderPrice} EGP",
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onPrimary,
                   fontSize: 22,

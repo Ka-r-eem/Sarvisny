@@ -106,7 +106,7 @@ class RequestDetails {
   String? address;
   String? providerName;
   List<Service>? services;
-  double? price;
+  num? price;
   String? problemDescription;
 
   RequestDetails copyWith({
@@ -118,7 +118,7 @@ class RequestDetails {
     String? address,
     String? providerName,
     List<Service>? services,
-    double? price,
+    num? price,
     String? problemDescription,
   }) => RequestDetails(
     requestId: requestId ?? this.requestId,
@@ -166,12 +166,12 @@ class Service {
 
   String? serviceId;
   String? serviceName;
-  double? price;
+  num? price;
 
   Service copyWith({
     String? serviceId,
     String? serviceName,
-    double? price,
+    num? price,
   }) => Service(
     serviceId: serviceId ?? this.serviceId,
     serviceName: serviceName ?? this.serviceName,

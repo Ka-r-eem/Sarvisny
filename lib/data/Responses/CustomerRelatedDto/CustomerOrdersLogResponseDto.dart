@@ -1,21 +1,23 @@
 import 'dart:convert';
+
+import 'package:sarvisny/domain/model/CustomerRelatedResponses/CustomerOrdersLogResponse.dart';
 /// status : "success"
 /// isError : false
 /// message : "success"
 /// errors : []
 /// payload : [{"orderId":"35047496-741c-4acf-a32b-96a72f8513c6","orderDate":"2024-07-04T16:12:16.412231","orderStatus":"Pending","providerId":"73995353-650b-4715-93f0-1a8904f1de02","providerFN":"WORKER","providerLN":"WORKER","orderPrice":112,"orderService":[{"serviceId":"f880ff5c-d206-4b0e-9aa8-ccff8492e69a","serviceName":"child service","parentServiceID":"160803c0-36f4-4fe0-bb7c-ffd6f05abe90","parentServiceName":"Roof Painting","criteriaID":null,"criteriaName":null,"price":112}],"requestedSlotID":"1b6da2c6-16e0-45a5-a1a3-a4430abe3fa0","requestedDay":"2024-07-06T18:11:55.727617","dayOfWeek":"Saturday","startTime":"06:00:00","districtID":"83cbdf1c-3eca-4d2a-a299-26234a95eb80","districtName":"maadi","address":"maadi","price":112,"problem":"","providerRating":null,"providerComment":null,"customerRating":null,"customerComment":null},{"orderId":"563212f2-2753-46c2-8055-91a894b7c09b","orderDate":"2024-07-04T16:13:28.790612","orderStatus":"Pending","providerId":"73995353-650b-4715-93f0-1a8904f1de02","providerFN":"WORKER","providerLN":"WORKER","orderPrice":112,"orderService":[{"serviceId":"f880ff5c-d206-4b0e-9aa8-ccff8492e69a","serviceName":"child service","parentServiceID":"160803c0-36f4-4fe0-bb7c-ffd6f05abe90","parentServiceName":"Roof Painting","criteriaID":null,"criteriaName":null,"price":112}],"requestedSlotID":"ce0bff44-2a67-4479-bb13-c984004b94c3","requestedDay":"2024-07-06T18:12:59.472096","dayOfWeek":"Saturday","startTime":"05:00:00","districtID":"83cbdf1c-3eca-4d2a-a299-26234a95eb80","districtName":"maadi","address":"maadi","price":112,"problem":"","providerRating":null,"providerComment":null,"customerRating":null,"customerComment":null},{"orderId":"7a78e4a9-e2de-4924-b190-912df40c0976","orderDate":"2024-07-04T16:14:26.547934","orderStatus":"Pending","providerId":"73995353-650b-4715-93f0-1a8904f1de02","providerFN":"WORKER","providerLN":"WORKER","orderPrice":112,"orderService":[{"serviceId":"f880ff5c-d206-4b0e-9aa8-ccff8492e69a","serviceName":"child service","parentServiceID":"160803c0-36f4-4fe0-bb7c-ffd6f05abe90","parentServiceName":"Roof Painting","criteriaID":null,"criteriaName":null,"price":112}],"requestedSlotID":"ecd4b081-54d0-4397-a04a-cc8b864bb0fa","requestedDay":"2024-07-06T18:14:06.423944","dayOfWeek":"Saturday","startTime":"03:00:00","districtID":"83cbdf1c-3eca-4d2a-a299-26234a95eb80","districtName":"maadi","address":"maadi","price":112,"problem":"","providerRating":null,"providerComment":null,"customerRating":null,"customerComment":null},{"orderId":"a9031c43-fa86-4b1d-9619-e2d83b2f0186","orderDate":"2024-07-04T16:14:58.573651","orderStatus":"Pending","providerId":"73995353-650b-4715-93f0-1a8904f1de02","providerFN":"WORKER","providerLN":"WORKER","orderPrice":112,"orderService":[{"serviceId":"f880ff5c-d206-4b0e-9aa8-ccff8492e69a","serviceName":"child service","parentServiceID":"160803c0-36f4-4fe0-bb7c-ffd6f05abe90","parentServiceName":"Roof Painting","criteriaID":null,"criteriaName":null,"price":112}],"requestedSlotID":"6d1e92ab-de85-4b7d-9aa9-ff3e1b478fab","requestedDay":"2024-07-06T18:14:48.938099","dayOfWeek":"Saturday","startTime":"07:00:00","districtID":"83cbdf1c-3eca-4d2a-a299-26234a95eb80","districtName":"maadi","address":"maadi","price":112,"problem":"","providerRating":null,"providerComment":null,"customerRating":null,"customerComment":null}]
 
-CustomerOrdersLogResponse customerOrdersLogResponseFromJson(String str) => CustomerOrdersLogResponse.fromJson(json.decode(str));
-String customerOrdersLogResponseToJson(CustomerOrdersLogResponse data) => json.encode(data.toJson());
-class CustomerOrdersLogResponse {
-  CustomerOrdersLogResponse({
+CustomerOrdersLogResponseDto customerOrdersLogResponseDtoFromJson(String str) => CustomerOrdersLogResponseDto.fromJson(json.decode(str));
+String customerOrdersLogResponseDtoToJson(CustomerOrdersLogResponseDto data) => json.encode(data.toJson());
+class CustomerOrdersLogResponseDto {
+  CustomerOrdersLogResponseDto({
       this.status, 
       this.isError, 
       this.message, 
       this.errors, 
       this.payload,});
 
-  CustomerOrdersLogResponse.fromJson(dynamic json) {
+  CustomerOrdersLogResponseDto.fromJson(dynamic json) {
     status = json['status'];
     isError = json['isError'];
     message = json['message'];
@@ -28,7 +30,7 @@ class CustomerOrdersLogResponse {
     if (json['payload'] != null) {
       payload = [];
       json['payload'].forEach((v) {
-        payload?.add(CustomerOrdersPayload.fromJson(v));
+        payload?.add(CustomerOrdersPayloadDto.fromJson(v));
       });
     }
   }
@@ -36,13 +38,13 @@ class CustomerOrdersLogResponse {
   bool? isError;
   String? message;
   List<dynamic>? errors;
-  List<CustomerOrdersPayload>? payload;
-CustomerOrdersLogResponse copyWith({  String? status,
+  List<CustomerOrdersPayloadDto>? payload;
+CustomerOrdersLogResponseDto copyWith({  String? status,
   bool? isError,
   String? message,
   List<dynamic>? errors,
-  List<CustomerOrdersPayload>? payload,
-}) => CustomerOrdersLogResponse(  status: status ?? this.status,
+  List<CustomerOrdersPayloadDto>? payload,
+}) => CustomerOrdersLogResponseDto(  status: status ?? this.status,
   isError: isError ?? this.isError,
   message: message ?? this.message,
   errors: errors ?? this.errors,
@@ -86,10 +88,10 @@ CustomerOrdersLogResponse copyWith({  String? status,
 /// customerRating : null
 /// customerComment : null
 
-CustomerOrdersPayload payloadFromJson(String str) => CustomerOrdersPayload.fromJson(json.decode(str));
-String payloadToJson(CustomerOrdersPayload data) => json.encode(data.toJson());
-class CustomerOrdersPayload {
-  CustomerOrdersPayload({
+CustomerOrdersPayloadDto payloadFromJson(String str) => CustomerOrdersPayloadDto.fromJson(json.decode(str));
+String payloadToJson(CustomerOrdersPayloadDto data) => json.encode(data.toJson());
+class CustomerOrdersPayloadDto {
+  CustomerOrdersPayloadDto.CustomerOrdersPayload({
       this.orderId, 
       this.orderDate, 
       this.orderStatus, 
@@ -112,7 +114,7 @@ class CustomerOrdersPayload {
       this.customerRating, 
       this.customerComment,});
 
-  CustomerOrdersPayload.fromJson(dynamic json) {
+  CustomerOrdersPayloadDto.fromJson(dynamic json) {
     orderId = json['orderId'];
     orderDate = json['orderDate'];
     orderStatus = json['orderStatus'];
@@ -123,7 +125,7 @@ class CustomerOrdersPayload {
     if (json['orderService'] != null) {
       orderService = [];
       json['orderService'].forEach((v) {
-        orderService?.add(OrderService.fromJson(v));
+        orderService?.add(OrderServiceDto.fromJson(v));
       });
     }
     requestedSlotID = json['requestedSlotID'];
@@ -147,7 +149,7 @@ class CustomerOrdersPayload {
   String? providerFN;
   String? providerLN;
   num? orderPrice;
-  List<OrderService>? orderService;
+  List<OrderServiceDto>? orderService;
   String? requestedSlotID;
   String? requestedDay;
   String? dayOfWeek;
@@ -161,14 +163,14 @@ class CustomerOrdersPayload {
   dynamic providerComment;
   dynamic customerRating;
   dynamic customerComment;
-CustomerOrdersPayload copyWith({  String? orderId,
+CustomerOrdersPayloadDto copyWith({  String? orderId,
   String? orderDate,
   String? orderStatus,
   String? providerId,
   String? providerFN,
   String? providerLN,
   num? orderPrice,
-  List<OrderService>? orderService,
+  List<OrderServiceDto>? orderService,
   String? requestedSlotID,
   String? requestedDay,
   String? dayOfWeek,
@@ -182,7 +184,7 @@ CustomerOrdersPayload copyWith({  String? orderId,
   dynamic providerComment,
   dynamic customerRating,
   dynamic customerComment,
-}) => CustomerOrdersPayload(  orderId: orderId ?? this.orderId,
+}) => CustomerOrdersPayloadDto.CustomerOrdersPayload(  orderId: orderId ?? this.orderId,
   orderDate: orderDate ?? this.orderDate,
   orderStatus: orderStatus ?? this.orderStatus,
   providerId: providerId ?? this.providerId,
@@ -232,6 +234,29 @@ CustomerOrdersPayload copyWith({  String? orderId,
     return map;
   }
 
+  CustomerOrdersPayload toCustomerOrdersPayload() => CustomerOrdersPayload(
+    orderId: orderId,
+    orderDate: orderDate,
+    orderStatus: orderStatus,
+    providerId: providerId,
+    providerFN: providerFN,
+    providerLN: providerLN,
+    orderPrice: orderPrice,
+    orderService: orderService?.map((e) => e.toOrderService()).toList(),
+    requestedSlotID: requestedSlotID,
+    requestedDay: requestedDay,
+    dayOfWeek: dayOfWeek,
+    startTime: startTime,
+    districtID: districtID,
+    districtName: districtName,
+    address: address,
+    price: price,
+    problem: problem,
+    providerRating: providerRating,
+    providerComment: providerComment,
+    customerRating: customerRating,
+  );
+
 }
 
 /// serviceId : "f880ff5c-d206-4b0e-9aa8-ccff8492e69a"
@@ -242,10 +267,10 @@ CustomerOrdersPayload copyWith({  String? orderId,
 /// criteriaName : null
 /// price : 112
 
-OrderService orderServiceFromJson(String str) => OrderService.fromJson(json.decode(str));
-String orderServiceToJson(OrderService data) => json.encode(data.toJson());
-class OrderService {
-  OrderService({
+OrderServiceDto orderServiceFromJson(String str) => OrderServiceDto.fromJson(json.decode(str));
+String orderServiceToJson(OrderServiceDto data) => json.encode(data.toJson());
+class OrderServiceDto {
+  OrderServiceDto({
       this.serviceId, 
       this.serviceName, 
       this.parentServiceID, 
@@ -254,7 +279,7 @@ class OrderService {
       this.criteriaName, 
       this.price,});
 
-  OrderService.fromJson(dynamic json) {
+  OrderServiceDto.fromJson(dynamic json) {
     serviceId = json['serviceId'];
     serviceName = json['serviceName'];
     parentServiceID = json['parentServiceID'];
@@ -270,14 +295,14 @@ class OrderService {
   dynamic criteriaID;
   dynamic criteriaName;
   num? price;
-OrderService copyWith({  String? serviceId,
+OrderServiceDto copyWith({  String? serviceId,
   String? serviceName,
   String? parentServiceID,
   String? parentServiceName,
   dynamic criteriaID,
   dynamic criteriaName,
-  int? price,
-}) => OrderService(  serviceId: serviceId ?? this.serviceId,
+  num? price,
+}) => OrderServiceDto(  serviceId: serviceId ?? this.serviceId,
   serviceName: serviceName ?? this.serviceName,
   parentServiceID: parentServiceID ?? this.parentServiceID,
   parentServiceName: parentServiceName ?? this.parentServiceName,
@@ -296,5 +321,15 @@ OrderService copyWith({  String? serviceId,
     map['price'] = price;
     return map;
   }
+
+  OrderService toOrderService() => OrderService(
+    serviceId: serviceId,
+    serviceName: serviceName,
+    parentServiceID: parentServiceID,
+    parentServiceName: parentServiceName,
+    criteriaID: criteriaID,
+    criteriaName: criteriaName,
+    price: price,
+  );
 
 }

@@ -52,6 +52,7 @@ class _OrdersListWidgetState extends State<OrdersListWidget> {
       },
       builder: (context, state) {
         if (state is OrdersListSuccess) {
+          print(state.orders.first?.orderId);
           return CustomerOrderListScreen(state.orders);
         }
         else if (provider.token == null || provider.token == "") {
@@ -65,11 +66,8 @@ class _OrdersListWidgetState extends State<OrdersListWidget> {
             ),
           );
         }
-        return Scaffold(
-          appBar: AppBar(
-            title: Text("Default Screen"),
-          ),
-          body: const Center(
+        return const Scaffold(
+          body: Center(
             child: LogoLoader(),
           ),
         );

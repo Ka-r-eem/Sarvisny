@@ -9,6 +9,8 @@ class GetOrderUseCase {
 
   Future<dynamic> invoke(String customerID){
     print("invoking Get Orders UseCase ");
-    return customerRepository.GetCustomerOrders(customerID);
+    var invoke =  customerRepository.GetCustomerOrders(customerID);
+    print("use case : $invoke");
+    return invoke;
   }
 }

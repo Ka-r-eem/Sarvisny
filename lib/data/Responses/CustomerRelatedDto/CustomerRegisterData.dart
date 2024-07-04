@@ -16,6 +16,7 @@ class CustomerRegisterDataDto {
     this.phoneNumber,
     this.userType,
     this.address,
+    this.districtName
   });
 
   CustomerRegisterDataDto.fromJson(dynamic json) {
@@ -27,6 +28,7 @@ class CustomerRegisterDataDto {
     phoneNumber = json['phoneNumber'];
     userType = json['userType'];
     address = json['address'];
+    districtName = json['districtName'];
   }
 
   String? userName;
@@ -37,6 +39,7 @@ class CustomerRegisterDataDto {
   String? phoneNumber;
   String? userType;
   String? address;
+  String? districtName;
 
   CustomerRegisterDataDto copyWith({
     String? userName,
@@ -47,6 +50,7 @@ class CustomerRegisterDataDto {
     String? phoneNumber,
     String? userType,
     String? address,
+    String? districtName,
   }) => CustomerRegisterDataDto(
     userName: userName ?? this.userName,
     email: email ?? this.email,
@@ -56,6 +60,7 @@ class CustomerRegisterDataDto {
     phoneNumber: phoneNumber ?? this.phoneNumber,
     userType: userType ?? this.userType,
     address: address ?? this.address,
+    districtName: districtName ?? this.districtName,
   );
 
   Map<String, dynamic> toJson() {
@@ -68,6 +73,7 @@ class CustomerRegisterDataDto {
     map['phoneNumber'] = phoneNumber;
     map['userType'] = userType;
     map['address'] = address;
+    map['districtName'] = districtName;
     return map;
   }
 }

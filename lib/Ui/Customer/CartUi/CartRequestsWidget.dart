@@ -25,76 +25,100 @@ class _CartRequestWidgetState extends State<CartRequestWidget> {
     // var viewModel = getIt<MyCartViewModel>();
     var provider = Provider.of<AppProvider>(context);
 
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: Theme.of(context).colorScheme.onPrimary,
-                width: 3,
-              ),
+    return Card(
+      elevation: 8,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
               color: Theme.of(context).colorScheme.primary,
+              width: 3,
             ),
-            padding: const EdgeInsets.all(8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 4),
-                    Text(
-                      "Service: ${widget.service?.services?.first.serviceName ?? ""}",
-                      style: const TextStyle(
-                        fontSize: 25,
-                        fontFamily: "2",
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
+            color: Theme.of(context).colorScheme.onSecondary,
+          ),
+          padding: const EdgeInsets.all(8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SingleChildScrollView(
+                child: Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 4),
+                      Text(
+                        "Worker: ${widget.service?.firstName}${widget.service?.lastName}",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontFamily: "2",
+                          fontWeight: FontWeight.w700,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "Time: ${widget.service?.startTime?.substring(0, 5) ?? ""}",
-                      style: const TextStyle(
-                        fontSize: 25,
-                        fontFamily: "2",
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
+                      Text(
+                        "Service: ${widget.service?.services?.first.serviceName ?? ""}",
+                        style:  TextStyle(
+                          fontSize: 18,
+                          fontFamily: "2",
+                          fontWeight: FontWeight.w700,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                       ),
-                    ),
-                  ],
+
+                      Text(
+                        "Day: ${widget.service?.dayOfWeek} | Date: ${widget.service?.requestedDate?.substring(0,10)}",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: "2",
+                          fontWeight: FontWeight.w700,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                      Text(
+                        "Time: ${widget.service?.startTime?.substring(0, 5) ?? ""}",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: "2",
+                          fontWeight: FontWeight.w700,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                      Text(
+                        "Price: ${widget.service?.price} EGP",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: "2",
+                          fontWeight: FontWeight.w700,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+
+
+                    ],
+                  ),
                 ),
-                IconButton(
-                  onPressed: () async {
-                    bool removed = await RemoveFromCartBtnFunction(context, provider.UserId, widget.service?.cartServiceRequestID ?? "");
-                    if (removed) {
-                      // print(widget.service?.serviceID);
-                      setState(() {
-                        widget.deleted = true;
-                        refresh(provider.UserId??"");
-                        
-                        // provider.DecreaseCart();
-                      });
-                    }
-                  },
-                  icon: Icon(Icons.delete_rounded, color: Colors.red, size: 30),
-                ),
-              ],
-            ),
+              ),
+              IconButton(
+                onPressed: () async {
+                  bool removed = await RemoveFromCartBtnFunction(context, provider.UserId, widget.service?.cartServiceRequestID ?? "");
+                  if (removed) {
+                    // print(widget.service?.serviceID);
+                    setState(() {
+                      widget.deleted = true;
+                      // refresh(provider.UserId??"");
+
+                      // provider.DecreaseCart();
+                    });
+                  }
+                },
+                icon: Icon(Icons.delete_rounded, color: Colors.red, size: 30),
+              ),
+            ],
           ),
         ),
-        // Visibility(
-        //   visible: widget.deleted,
-        //   child: Container(
-        //     color: Theme.of(context).colorScheme.onPrimary,
-        //     height: 10,
-        //     width: double.infinity,
-        //   ),
-        // ),
-      ],
+      ),
     );
   }
 
@@ -104,6 +128,7 @@ class _CartRequestWidgetState extends State<CartRequestWidget> {
       RemoveFromCartUseCase removeFromCartUseCase = getIt<RemoveFromCartUseCase>();
       var responseData = await removeFromCartUseCase.invoke(userId, requestId);
       if (responseData.isError == false) {
+       // await refresh(userId);
         snackBar.showSnackBar(context, "Removed Successfully", Colors.green);
         return true;
       } else {
@@ -122,10 +147,10 @@ class _CartRequestWidgetState extends State<CartRequestWidget> {
       return false;
     }
   }
-  Future<void> refresh(String id)async {
-    MyCartViewModel viewModel = getIt<MyCartViewModel>();
-    viewModel.GetCartItems(id);
-  }
+  // Future<void> refresh(String id)async {
+  //   MyCartViewModel viewModel = getIt<MyCartViewModel>();
+  //   viewModel.GetCartItems(id);
+  // }
 }
 
 

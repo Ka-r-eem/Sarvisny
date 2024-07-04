@@ -11,6 +11,7 @@ import 'package:sarvisny/domain/model/CustomerRelatedResponses/FilteredServicesR
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/GetCartResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/GetServiceWorkersResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/OrderCartResponse.dart';
+import 'package:sarvisny/domain/model/CustomerRelatedResponses/PaymentTransactionResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/RemoveFromCartResponse.dart';
 
 import '../Responses/CustomerRelatedDto/CustomerRegisterData.dart';
@@ -35,8 +36,10 @@ class CustomerRepositoryImpl extends CustomerRepository {
   }
 
   @override
-  Future<List<CustomerOrderPayload?>?> GetCustomerOrders(String? customerID) {
-    return dataSource.GetCustomerOrders(customerID);
+  Future<List<CustomerOrdersPayload?>?> GetCustomerOrders(String? customerID)async {
+    List<CustomerOrdersPayload?>? res =  await dataSource.GetCustomerOrders(customerID);
+    print("res ${res?.first?.orderId}");
+    return res;
   }
 
   @override
@@ -45,8 +48,8 @@ class CustomerRepositoryImpl extends CustomerRepository {
   }
 
   @override
-  Future<OrderCartResponse> OrderCart(String? customerID) {
-    return dataSource.OrderCart(customerID);
+  Future<OrderCartResponse?> OrderCart(String? customerID , String? paymentmethod) {
+    return dataSource.OrderCart(customerID , paymentmethod);
   }
 
   @override
@@ -73,6 +76,11 @@ class CustomerRepositoryImpl extends CustomerRepository {
   @override
   Future customerRegistration(CustomerRegisterDataDto data) {
     return dataSource.customerRegistration(data);
+  }
+
+  @override
+  Future<PaymentTransactionResponse?> PayTransaction(String? transID) {
+    return dataSource.PayTransaction(transID);
   }
 
 

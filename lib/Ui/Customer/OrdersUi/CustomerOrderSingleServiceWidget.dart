@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/Responses/CustomerRelatedDto/CustomerOrdersLogResponse.dart';
+import '../../../data/Responses/CustomerRelatedDto/CustomerOrdersLogResponseDto.dart';
+import '../../../domain/model/CustomerRelatedResponses/CustomerOrdersLogResponse.dart';
 
 class CustomerOrderSingleServiceWidget extends StatelessWidget {
 
-  CustomerOrderServiceDto? service;
+  OrderService? service;
   CustomerOrderSingleServiceWidget(this.service);
 
 
@@ -19,7 +20,7 @@ class CustomerOrderSingleServiceWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Service: ${service?.serviceName} "??"",style: TextStyle(color: Theme.of(context).colorScheme.onPrimary , fontSize: 18)),
-            Text("Time: ${service?.startTime?.substring(0,5)} "??"",style: TextStyle(color: Theme.of(context).colorScheme.onPrimary , fontSize: 18)),
+            // Text("Time: ${service?.?.substring(0,5)} "??"",style: TextStyle(color: Theme.of(context).colorScheme.onPrimary , fontSize: 18)),
             Text("Price: ${service?.price} EGP"??"",style: TextStyle(color: Theme.of(context).colorScheme.onPrimary , fontSize: 18)),
              ],
         ),

@@ -3,7 +3,7 @@ import 'package:sarvisny/Ui/Customer/OrdersUi/CustomerOrderDetailsScreen.dart';
 import '../../../domain/model/CustomerRelatedResponses/CustomerOrdersLogResponse.dart';
 
 class CustomerOrderWidget extends StatelessWidget {
-  CustomerOrderPayload details;
+  CustomerOrdersPayload? details;
 
   CustomerOrderWidget(this.details);
 
@@ -30,21 +30,21 @@ class CustomerOrderWidget extends StatelessWidget {
                     height: 4,
                   ),
                   Text(
-                      "Worker: ${details.orderService?.first.firstName}" ??
+                      "Worker: ${details?.providerFN} ${details?.providerLN}" ??
                           "",
                       style: const TextStyle(
                           fontSize: 20,
                           fontFamily: "2",
                           fontWeight: FontWeight.w700,
                           color: Colors.white)),
-                  Text("Status: ${details.orderStatus}" ?? "",
+                  Text("Status: ${details?.orderStatus}" ?? "",
                       style: const TextStyle(
                           fontSize: 20,
                           fontFamily: "2",
                           fontWeight: FontWeight.w700,
                           color: Colors.white)),
                   Text(
-                      "Date: ${details.orderDate?.substring(0, 10)}",
+                      "Date: ${details?.orderDate?.substring(0, 10)}",
                       style: const TextStyle(
                           fontSize: 20,
                           fontFamily: "2",

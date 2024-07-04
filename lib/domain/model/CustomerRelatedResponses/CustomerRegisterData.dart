@@ -14,7 +14,10 @@ class CustomerRegisterData {
       this.firstName, 
       this.lastName, 
       this.phoneNumber, 
-      this.address,});
+      this.address,
+      this.districtName,
+
+  });
 
   CustomerRegisterData.fromJson(dynamic json) {
     userName = json['userName'];
@@ -24,6 +27,7 @@ class CustomerRegisterData {
     lastName = json['lastName'];
     phoneNumber = json['phoneNumber'];
     address = json['address'];
+    districtName = json['districtName'];
   }
   String? userName;
   String? email;
@@ -32,6 +36,7 @@ class CustomerRegisterData {
   String? lastName;
   String? phoneNumber;
   String? address;
+  String? districtName;
 CustomerRegisterData copyWith({  String? userName,
   String? email,
   String? password,
@@ -39,6 +44,7 @@ CustomerRegisterData copyWith({  String? userName,
   String? lastName,
   String? phoneNumber,
   String? address,
+  String? districtName,
 }) => CustomerRegisterData(  userName: userName ?? this.userName,
   email: email ?? this.email,
   password: password ?? this.password,
@@ -46,6 +52,7 @@ CustomerRegisterData copyWith({  String? userName,
   lastName: lastName ?? this.lastName,
   phoneNumber: phoneNumber ?? this.phoneNumber,
   address: address ?? this.address,
+  districtName: districtName ?? this.districtName,
 );
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -56,6 +63,7 @@ CustomerRegisterData copyWith({  String? userName,
     map['lastName'] = lastName;
     map['phoneNumber'] = phoneNumber;
     map['address'] = address;
+    map['districtName'] = districtName;
     return map;
   }
 

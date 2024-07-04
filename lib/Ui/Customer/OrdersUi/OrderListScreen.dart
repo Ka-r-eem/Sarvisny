@@ -7,7 +7,7 @@ import 'OrderWidget.dart';
 class CustomerOrderListScreen extends StatelessWidget {
   static const String routeName = "ordersList";
 
-  List<CustomerOrderPayload?>? orderList;
+  List<CustomerOrdersPayload?> orderList;
 
   CustomerOrderListScreen(this.orderList);
 
@@ -17,7 +17,6 @@ class CustomerOrderListScreen extends StatelessWidget {
     var provider = Provider.of<AppProvider>(context);
 
     return Scaffold(
-
       body: Column(
         children: [
           Expanded(
@@ -32,7 +31,7 @@ class CustomerOrderListScreen extends StatelessWidget {
             ) : orderList != null && orderList!.isNotEmpty
                 ? ListView.builder(
               itemBuilder: (context, index) =>
-                  CustomerOrderWidget(orderList![index]!),
+                  CustomerOrderWidget(orderList[index]),
               itemCount: orderList!.length,
             )
                 : const Center(

@@ -141,15 +141,17 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
       AddToCartResponse responseData = await addToCartUseCase.invoke (
           context, provider.UserId, providerID, serviceIDs, slotID,districtID,address, desc, requestDay);
       if (responseData.isError == false) {
+        print("isError : ${responseData.isError}");
         Navigator.of(context).pop();
         Navigator.of(context).pop();
         snackBar.showSnackBar(context, "Added Successfully", Colors.green);
       } else {
+        print("inside else");
         Navigator.of(context).pop();
-        // print(responseData.status);
-        // print(responseData.isError);
-        // print(responseData.errors);
-        // print(responseData.payload);
+        print(responseData.status);
+        print(responseData.isError);
+        print(responseData.errors);
+        print(responseData.payload);
         dialoguUtilities.showmsg(context, responseData.message.toString(),
             pos: "Ok", postAction: () {
               Navigator.of(context).pop();

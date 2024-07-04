@@ -7,8 +7,8 @@ class OrderCartUseCase {
   CustomerRepository customerRepository;
   @factoryMethod OrderCartUseCase(this.customerRepository);
 
-  Future<dynamic> invoke(customerID){
+  Future<dynamic> invoke(customerID , paymentmethod){
     print("invoking Order Cart UseCase ");
-    return customerRepository.OrderCart(customerID);
+    return customerRepository.OrderCart(customerID , paymentmethod);
   }
 }

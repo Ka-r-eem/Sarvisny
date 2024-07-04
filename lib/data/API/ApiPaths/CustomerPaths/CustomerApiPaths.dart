@@ -7,6 +7,7 @@ class CustomerApiPaths {
   static const String GetCartPath = "/api/Customer/getCart";
   static const String GetServicePath = "/api/services/GetAllServices";
   static const String OrderCartPath = "/api/Customer/orderCart";
+  static const String PayTransactionPath = "/api/Customer/payTransaction";
   static const String GetCustomerOrdersPath = "/api/Customer/getCustomerOrdersLog/";
   static const String GetCustomerProfilePath = "/api/Customer/getCustomerProfile/";
   static const String RefundOrderPath = "/api/Customer/refundOrder/{orderId}";

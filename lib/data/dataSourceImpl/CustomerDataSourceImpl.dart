@@ -9,6 +9,7 @@ import 'package:sarvisny/domain/model/CustomerRelatedResponses/FilteredServicesR
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/GetCartResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/GetServiceWorkersResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/OrderCartResponse.dart';
+import 'package:sarvisny/domain/model/CustomerRelatedResponses/PaymentTransactionResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/RemoveFromCartResponse.dart';
 import '../API/apiManager.dart';
 import '../Responses/CustomerRelatedDto/CustomerRegisterData.dart';
@@ -41,17 +42,17 @@ class CustomerDataSourceimpl extends CustomerDataSource {
     var response = await apiManager.GetCart(Id);
     print(response?.status);
     print("response inside datasource: ${response?.payload?.cartID}");
-    return response?.toGetCartResponse();
+    return response;
   }
-
   @override
-  Future<List<CustomerOrderPayload?>?> GetCustomerOrders(
+  Future<List<CustomerOrdersPayload?>?> GetCustomerOrders(
       String? customerID) async {
     print("inside the data source impl");
     print(customerID);
     var response = await apiManager.GetCustomerOrders(customerID);
-    return response.payload
-        ?.map((dto) => dto.toCustomerOrderDetails().payload)
+    print('inside ds impl : ${response?.payload?.first.orderId}');
+    return response?.payload
+        ?.map((dto) => dto.toCustomerOrdersPayload())
         .toList();
   }
 
@@ -64,9 +65,10 @@ class CustomerDataSourceimpl extends CustomerDataSource {
   }
 
   @override
-  Future<OrderCartResponse> OrderCart(String? customerID) async {
-    var response = await apiManager.OrderCart(customerID);
-    return response.toOrderCartResponse();
+  Future<OrderCartResponse?> OrderCart(String? customerID , String? paymentmethod) async {
+    var response = await apiManager.OrderCart(customerID , paymentmethod);
+    print("response inside datasource: ${response?.payload}");
+    return response;
   }
 
   @override
@@ -100,6 +102,12 @@ class CustomerDataSourceimpl extends CustomerDataSource {
   @override
   Future customerRegistration(CustomerRegisterDataDto data) async {
     var response = await apiManager.registerCustomer(data);
+    return response;
+  }
+
+  @override
+  Future<PaymentTransactionResponse?> PayTransaction(String? transID) async{
+    var response = await apiManager.PayTrasaction(transID);
     return response;
   }
 }

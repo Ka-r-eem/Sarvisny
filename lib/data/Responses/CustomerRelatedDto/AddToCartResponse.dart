@@ -121,7 +121,7 @@ class RequestDetailsDto {
   String? address;
   String? providerName;
   List<ServiceDto>? services;
-  double? price;
+  num? price;
   String? problemDescription;
 
   RequestDetailsDto copyWith({
@@ -133,7 +133,7 @@ class RequestDetailsDto {
     String? address,
     String? providerName,
     List<ServiceDto>? services,
-    double? price,
+    num? price,
     String? problemDescription,
   }) => RequestDetailsDto(
     requestId: requestId ?? this.requestId,
@@ -196,12 +196,12 @@ class ServiceDto {
 
   String? serviceId;
   String? serviceName;
-  double? price;
+  num? price;
 
   ServiceDto copyWith({
     String? serviceId,
     String? serviceName,
-    double? price,
+    num? price,
   }) => ServiceDto(
     serviceId: serviceId ?? this.serviceId,
     serviceName: serviceName ?? this.serviceName,

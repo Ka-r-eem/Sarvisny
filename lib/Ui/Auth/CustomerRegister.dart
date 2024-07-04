@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sarvisny/Ui/Admin/AdminDistrictsUi/DistrictsDropDown.dart';
 import 'package:sarvisny/dialoguUtilites.dart';
+import 'package:sarvisny/domain/model/AdminRelatedResponses/GetDistrictsData.dart';
 import '../../Common/CustomFormField.dart';
 import '../../Provider/ColorProvider.dart';
 import '../../data/API/apiManager.dart';
@@ -29,6 +31,7 @@ class _CustomerRegisterState extends State<CustomerRegister> {
   TextInputType email_type = TextInputType.emailAddress;
   TextInputType password_type = TextInputType.visiblePassword;
   TextInputType name_type = TextInputType.name;
+  DistrictData? selectedDistrict;
 
   var keyform = GlobalKey<FormState>();
 
@@ -139,6 +142,9 @@ class _CustomerRegisterState extends State<CustomerRegister> {
                   },
                   is_loginOr_Register: true,
                 ),
+                DistrictsDropDown(onDistrictChanged: (p0) {
+                  selectedDistrict = p0;
+                },),
                 CustomFormField(
                     icon:  Icon(Icons.lock),
                     password, 'Password', password_type, true,
@@ -264,6 +270,7 @@ class _CustomerRegisterState extends State<CustomerRegister> {
           lastName: lastname.text,
           phoneNumber: Phone.text,
           address: Address.text,
+          districtName: selectedDistrict?.districtName,
         ),
             );
         if (responseData["isError"] == false) {

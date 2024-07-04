@@ -4,8 +4,11 @@ import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import 'package:sarvisny/data/Responses/AdminRelatedDto/ParentsServicesDto.dart';
 import 'package:sarvisny/data/Responses/WorkerRelatedDto/RemoveAvailabilityResponseDto.dart';
+import 'package:sarvisny/domain/model/CustomerRelatedResponses/PaymentTransactionResponse.dart';
 import '../../domain/model/AdminRelatedResponses/AddServiceData.dart';
 import '../../domain/model/AdminRelatedResponses/CriteriaData.dart';
+import '../../domain/model/CustomerRelatedResponses/GetCartResponse.dart';
+import '../../domain/model/CustomerRelatedResponses/OrderCartResponse.dart';
 import '../Responses/AdminRelatedDto/AddDistrictData.dart';
 import '../Responses/AdminRelatedDto/AddProviderToDistrictDto.dart';
 import '../Responses/AdminRelatedDto/AddServiceData.dart';
@@ -19,7 +22,7 @@ import '../Responses/AdminRelatedDto/OrdersResponse.dart';
 import '../Responses/AdminRelatedDto/ServicesListResponse.dart';
 import '../Responses/AdminRelatedDto/childrenServicesDto.dart';
 import '../Responses/CustomerRelatedDto/AddToCartResponse.dart';
-import '../Responses/CustomerRelatedDto/CustomerOrdersLogResponse.dart';
+import '../Responses/CustomerRelatedDto/CustomerOrdersLogResponseDto.dart';
 import '../Responses/CustomerRelatedDto/CustomerProfileData.dart';
 import '../Responses/CustomerRelatedDto/CustomerRegisterData.dart';
 import '../Responses/CustomerRelatedDto/CustomerServicesListResponse.dart';
@@ -27,7 +30,7 @@ import '../Responses/CustomerRelatedDto/CustomersListResponse.dart';
 import '../Responses/CustomerRelatedDto/FilteredServicesResponse.dart';
 import '../Responses/CustomerRelatedDto/GetCartResponseDto.dart';
 import '../Responses/CustomerRelatedDto/GetServiceWorkersResponse.dart';
-import '../Responses/CustomerRelatedDto/OrderCartResponse.dart';
+import '../Responses/CustomerRelatedDto/OrderCartResponseDto.dart';
 import '../Responses/CustomerRelatedDto/RemoveFromCartResponse.dart';
 import '../Responses/LoginUserData.dart';
 import '../Responses/WorkerRelatedDto/Approve_Reject_Cancel_OrderResponse.dart';
@@ -91,6 +94,7 @@ class ApiManager {
         'phoneNumber': data.phoneNumber,
         'userType': "Customer",
         'address': data.address,
+        'districtName': data.districtName
       };
       var response = await http.post(
         url,
@@ -170,7 +174,9 @@ class ApiManager {
       print(response.statusCode);
       var responseBody = jsonDecode(response.body);
       print("inside the api manager");
-      print(response);
+      print(responseBody);
+      print('ServicesListResponseDto.fromJson(responseBody)');
+      print(ServicesListResponseDto.fromJson(responseBody));
       return ServicesListResponseDto.fromJson(responseBody);
     }
     catch (error) {
@@ -456,7 +462,7 @@ class ApiManager {
       String? requestDay
       ) async {
     try {
-      String date = DateTime.now().toIso8601String(); // Changed to ISO8601 format
+      // String date = DateTime.now().toIso8601String(); // Changed to ISO8601 format
 
       var url = Uri.https('$ipAddress:$port', CustomerApiPaths.AddToCartPath, {'customerId': customerID});
 
@@ -481,38 +487,46 @@ class ApiManager {
       );
 
       var responseBody = jsonDecode(response.body);
-      print(responseBody);
+      print("responseBody: $responseBody");
 
       return AddToCartResponseDto.fromJson(responseBody);
     } catch (error) {
-      return AddToCartResponseDto(isError: true);
+      return AddToCartResponseDto(message: "Error occurred$error");
     }
   }
 
 
-  Future<GetCartResponseDto?> GetCart(String? Id) async {
+  Future<GetCartResponse?> GetCart(String? Id) async {
     try {
-      var url = Uri.https(
-          '$ipAddress:$port', CustomerApiPaths.GetCartPath, {'customerId': Id});
-      var response = await http.get(
-        url,
-      );
+      var url = Uri.https('$ipAddress:$port', CustomerApiPaths.GetCartPath, {'customerId': Id});
+      var response = await http.get(url);
       var responseBody = jsonDecode(response.body);
-      print(responseBody);
-      print('GetCartResponseDto.fromJson(responseBody)');
-      print(GetCartResponseDto.fromJson(responseBody));
-      return GetCartResponseDto.fromJson(responseBody);
+
+      print('Response Body: $responseBody');
+
+      try {
+        GetCartResponse response = GetCartResponse.fromJson(responseBody);
+        print('Parsed Response: ${response.message}');
+        print('Cart ID: ${response.payload!.cartID}');
+        return response;
+      } catch (e) {
+        print('Error parsing JSON: $e');
+        return null; // Handle the error or throw it further if needed
+      }
     } catch (error) {
-      return GetCartResponseDto(isError: true);
+      print('Error fetching cart: $error');
+      return null; // Handle the error or throw it further if needed
     }
   }
 
-   Future<OrderCartResponseDto> OrderCart(String? customerID) async {
+
+  Future<OrderCartResponse?> OrderCart(String? customerID , String? paymentmethod) async {
     try {
+      print("inside the api manager of order cart");
       var url = Uri.https(
         '$ipAddress:$port',
         CustomerApiPaths.OrderCartPath,
-        {'customerId': customerID},
+        {'customerId': customerID , 'paymentMethod': paymentmethod},
       );
 
       var response = await http.post(
@@ -521,18 +535,53 @@ class ApiManager {
       );
 
       if (response.body.isNotEmpty) {
+        print(response.body);
         var responseBody = jsonDecode(response.body);
-        return OrderCartResponseDto.fromJson(responseBody);
+        try {
+          OrderCartResponse response = OrderCartResponse.fromJson(responseBody);
+          print('Parsed Response: ${response.message}');
+          print('Cart ID: ${response.payload!}');
+          return response;
+        } catch (e) {
+          print('Error parsing JSON: $e');
+          return null; // Handle the error or throw it further if needed
+        }
+
       } else {
         // Handle empty response
-        return OrderCartResponseDto(isError: true, message: "Empty response");
+        return OrderCartResponse(isError: true, message: "Empty response");
       }
     } catch (error) {
-      return OrderCartResponseDto(isError: true, message: "Error occurred");
+      return OrderCartResponse(isError:true);
+    }
+  }
+  Future<PaymentTransactionResponse> PayTrasaction(String? transactionID) async {
+    try {
+      var url = Uri.https(
+        '$ipAddress:$port',
+        CustomerApiPaths.PayTransactionPath,
+        {'transactionID': transactionID},
+      );
+
+      var response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (response.body.isNotEmpty) {
+        print("inside pay transaction");
+        var responseBody = jsonDecode(response.body);
+        return PaymentTransactionResponse.fromJson(responseBody);
+      } else {
+        // Handle empty response
+        return PaymentTransactionResponse(isError: true, message: "Empty response");
+      }
+    } catch (error) {
+      return PaymentTransactionResponse(isError: true, message: "Error occurred");
     }
   }
 
-   Future<CustomerOrdersLogResponseDto> GetCustomerOrders(
+   Future<CustomerOrdersLogResponseDto?> GetCustomerOrders(
       String? customerID) async {
     try {
       print("inside the api manager");
@@ -548,7 +597,18 @@ class ApiManager {
       if (response.body.isNotEmpty) {
         print(response.statusCode);
         var responseBody = jsonDecode(response.body);
-        return CustomerOrdersLogResponseDto.fromJson(responseBody);
+        print('inside api :$responseBody');
+
+        try {
+          CustomerOrdersLogResponseDto response = CustomerOrdersLogResponseDto.fromJson(responseBody);
+          print('Parsed Response: ${response.message}');
+          print('Cart ID: ${response.payload!}');
+          print(response.payload?.first.orderId);
+          return response;
+        } catch (e) {
+          print('Error parsing JSON: $e');
+          return null; // Handle the error or throw it further if needed
+        }
       } else {
         // Handle empty response
         return CustomerOrdersLogResponseDto(
@@ -1133,9 +1193,14 @@ class ApiManager {
         url,
         headers: {'Content-Type': 'application/json'},
       );
+      print(response.body);
+      print('parent response body :${response.body.length}');
+      print('parent compare : ${parentCompare.length}');
 
       if (response.body.isNotEmpty) {
         var responseBody = jsonDecode(response.body);
+        print(" ParentsServicesDto.fromJson(responseBody)");
+        print (ParentsServicesDto.fromJson(responseBody));
         return ParentsServicesDto.fromJson(responseBody);
       } else {
         // Handle empty response
@@ -1264,3 +1329,159 @@ class MyHttpOverrides extends HttpOverrides {
           (X509Certificate cert, String host, int port) => true;
   }
 }
+
+String compare = '''{
+  "status": null,
+  "isError": false,
+  "message": "Success",
+  "errors": [],
+  "payload": {
+    "cartID": "bf088cbb-0943-4c74-a7d0-8e699be3ab5b",
+    "requestedServices": [
+      {
+        "cartServiceRequestID": "227deb5c-ed49-40d6-8587-99b630e3633f",
+        "providerId": "8bf051d6-e595-4e3f-9128-57ebce565e86",
+        "firstName": "WORKER",
+        "lastName": "WORKER",
+        "services": [
+          {
+            "serviceId": "ebaf4c0a-fc26-4b94-80bd-8897538ca610",
+            "serviceName": "child service",
+            "parentServiceID": "e4edcbe0-574a-44b8-9d5a-36b75120c0db",
+            "parentServiceName": "Roof Painting",
+            "criteriaID": null,
+            "criteriaName": null,
+            "price": 112
+          }
+        ],
+        "slotID": "6af582ac-daea-48aa-b2ba-cec2891fc70a",
+        "requestedDate": "2024-07-06T14:01:00.18468",
+        "dayOfWeek": "Saturday",
+        "startTime": "05:00:00",
+        "districtID": "1dfc475f-b044-40ee-9d01-68b554dd5136",
+        "districtName": "maadi",
+        "address": "maadi",
+        "price": 112,
+        "problemDescription": ""
+      },
+      {
+        "cartServiceRequestID": "3b80d5af-7943-4a5b-a355-383a4c5d9733",
+        "providerId": "8bf051d6-e595-4e3f-9128-57ebce565e86",
+        "firstName": "WORKER",
+        "lastName": "WORKER",
+        "services": [
+          {
+            "serviceId": "ebaf4c0a-fc26-4b94-80bd-8897538ca610",
+            "serviceName": "child service",
+            "parentServiceID": "e4edcbe0-574a-44b8-9d5a-36b75120c0db",
+            "parentServiceName": "Roof Painting",
+            "criteriaID": null,
+            "criteriaName": null,
+            "price": 112
+          }
+        ],
+        "slotID": "65ba4391-3945-483e-8107-b01045d609fe",
+        "requestedDate": "2024-07-06T13:59:39.549023",
+        "dayOfWeek": "Saturday",
+        "startTime": "07:00:00",
+        "districtID": "1dfc475f-b044-40ee-9d01-68b554dd5136",
+        "districtName": "maadi",
+        "address": "maadi",
+        "price": 112,
+        "problemDescription": ""
+      },
+      {
+        "cartServiceRequestID": "5d5b6afb-bed4-48a4-95af-a30c4689f1f2",
+        "providerId": "8bf051d6-e595-4e3f-9128-57ebce565e86",
+        "firstName": "WORKER",
+        "lastName": "WORKER",
+        "services": [
+          {
+            "serviceId": "ebaf4c0a-fc26-4b94-80bd-8897538ca610",
+            "serviceName": "child service",
+            "parentServiceID": "e4edcbe0-574a-44b8-9d5a-36b75120c0db",
+            "parentServiceName": "Roof Painting",
+            "criteriaID": null,
+            "criteriaName": null,
+            "price": 112
+          }
+        ],
+        "slotID": "fbb08132-b995-474a-b0a4-18ad197a6c94",
+        "requestedDate": "2024-07-06T14:02:34.782693",
+        "dayOfWeek": "Saturday",
+        "startTime": "04:00:00",
+        "districtID": "1dfc475f-b044-40ee-9d01-68b554dd5136",
+        "districtName": "maadi",
+        "address": "maadi",
+        "price": 112,
+        "problemDescription": ""
+      },
+      {
+        "cartServiceRequestID": "96d1ead4-d69c-423a-868e-de9ac24da14b",
+        "providerId": "8bf051d6-e595-4e3f-9128-57ebce565e86",
+        "firstName": "WORKER",
+        "lastName": "WORKER",
+        "services": [
+          {
+            "serviceId": "ebaf4c0a-fc26-4b94-80bd-8897538ca610",
+            "serviceName": "child service",
+            "parentServiceID": "e4edcbe0-574a-44b8-9d5a-36b75120c0db",
+            "parentServiceName": "Roof Painting",
+            "criteriaID": null,
+            "criteriaName": null,
+            "price": 112
+          }
+        ],
+        "slotID": "b9fd031d-35af-4de5-ae4e-a750bfe03b65",
+        "requestedDate": "2024-07-06T14:04:56.633134",
+        "dayOfWeek": "Saturday",
+        "startTime": "06:00:00",
+        "districtID": "1dfc475f-b044-40ee-9d01-68b554dd5136",
+        "districtName": "maadi",
+        "address": "maadi",
+        "price": 112,
+        "problemDescription": ""
+      },
+      {
+        "cartServiceRequestID": "b1985b76-40ef-4943-a231-fd49118e6c09",
+        "providerId": "8bf051d6-e595-4e3f-9128-57ebce565e86",
+        "firstName": "WORKER",
+        "lastName": "WORKER",
+        "services": [
+          {
+            "serviceId": "ebaf4c0a-fc26-4b94-80bd-8897538ca610",
+            "serviceName": "child service",
+            "parentServiceID": "e4edcbe0-574a-44b8-9d5a-36b75120c0db",
+            "parentServiceName": "Roof Painting",
+            "criteriaID": null,
+            "criteriaName": null,
+            "price": 112
+          }
+        ],
+        "slotID": "1d283cd9-1e16-4f76-b800-acc5ccce066c",
+        "requestedDate": "2024-07-06T13:57:05.904456",
+        "dayOfWeek": "Saturday",
+        "startTime": "03:00:00",
+        "districtID": "1dfc475f-b044-40ee-9d01-68b554dd5136",
+        "districtName": "maadi",
+        "address": "maadi",
+        "price": 112,
+        "problemDescription": ""
+      }
+    ]
+  }
+}''';
+String parentCompare = '''{
+  "status": null,
+  "isError": false,
+  "message": "Action Done succesfully",
+  "errors": [],
+  "payload": [
+    {
+      "serviceId": "e4edcbe0-574a-44b8-9d5a-36b75120c0db",
+      "serviceName": "Roof Painting",
+      "criteriaID": "6a92da12-8bd7-4f7a-a5d3-edb0df249112",
+      "criteriaName": "Home Criteria"
+    }
+  ]
+}''';

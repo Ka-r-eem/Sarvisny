@@ -20,6 +20,7 @@ class OrderListViewModel extends Cubit<OrdersListState> {
 
     try {
       var Orders = await getOrdersUSeCase.invoke(id);
+      print("orders $Orders");
       emit(OrdersListSuccess(Orders));
     }
     catch (e) {
@@ -33,7 +34,7 @@ sealed class OrdersListState {}
 
 class OrdersListSuccess extends OrdersListState {
 
-  List<CustomerOrderPayload?> orders;
+  List<CustomerOrdersPayload?> orders;
 
   OrdersListSuccess(this.orders);
 
