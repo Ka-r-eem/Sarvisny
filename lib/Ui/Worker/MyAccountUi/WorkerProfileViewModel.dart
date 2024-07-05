@@ -6,15 +6,18 @@ import 'package:sarvisny/domain/model/AdminRelatedResponses/CriteriasListRespons
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/ServiceProviderProfileData.dart';
 
 import '../../../../domain/model/WorkerRelatedResponse/WorkerSlotsResponseData.dart';
+import '../../../domain/UseCases/WorkerUseCases/GetWorkerImageUseCase.dart';
+import '../../../domain/model/WorkerRelatedResponse/GetWorkerImageResponse.dart';
 
 
 @injectable
 class WorkerProfileViewModel extends Cubit<WorkerProfileState> {
 
   WorkerProfileUseCase workerProfileUseCase ;
+  GetWorkerImageUseCase getWorkerImageUseCase;
 
 
-  WorkerProfileViewModel(this.workerProfileUseCase) :super(WorkerProfileLoading("Loading..."));
+  WorkerProfileViewModel(this.workerProfileUseCase , this.getWorkerImageUseCase) :super(WorkerProfileLoading("Loading..."));
 
 
   void GetProfile(String workerID) async {
@@ -22,7 +25,8 @@ class WorkerProfileViewModel extends Cubit<WorkerProfileState> {
 
     try {
       ServiceProviderProfileData Profile = await workerProfileUseCase.invoke(workerID);
-      emit(WorkerProfileSuccess(Profile.payload));
+      GetWorkerImageResponse Image = await getWorkerImageUseCase.invoke(workerID);
+      emit(WorkerProfileSuccess(Profile.payload , Image.payload));
     }
     catch (e) {
       emit(WorkerProfileError(e.toString()));
@@ -36,8 +40,9 @@ sealed class WorkerProfileState {}
 class WorkerProfileSuccess extends WorkerProfileState {
 
   WorkerPersonalDetails? profile;
+  String? base64Image ;
 
-  WorkerProfileSuccess(this.profile);
+  WorkerProfileSuccess(this.profile, this.base64Image);
 
 }
 

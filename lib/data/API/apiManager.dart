@@ -7,6 +7,7 @@ import 'package:sarvisny/data/Responses/LoginResponseData.dart';
 import 'package:sarvisny/data/Responses/WorkerRelatedDto/RemoveAvailabilityResponseDto.dart';
 import 'package:sarvisny/data/Responses/WorkerRelatedDto/WorkerRegisterResponseDto.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/PaymentTransactionResponse.dart';
+import 'package:sarvisny/domain/model/WorkerRelatedResponse/GetWorkerImageResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/UploadFileResponse.dart';
 import '../../domain/model/AdminRelatedResponses/AddServiceData.dart';
 import '../../domain/model/AdminRelatedResponses/CriteriaData.dart';
@@ -815,8 +816,7 @@ class ApiManager {
     }
   }
 
-   Future<WorkerOrdersListResponseDto> GetPendingWorkerOrders(
-      String? workerID) async {
+   Future<WorkerOrdersListResponseDto> GetPendingWorkerOrders(String? workerID) async {
     try {
       var queryParams = {
         'providerID': workerID,
@@ -840,6 +840,32 @@ class ApiManager {
       }
     } catch (error) {
       return WorkerOrdersListResponseDto(isError: true, message: "Error occurred");
+    }
+  }
+   Future<GetWorkerImageResponse> GetWorkerImage(String? workerID) async {
+    try {
+      var queryParams = {
+        'providerID': workerID,
+      };
+
+      var url = Uri.https('$ipAddress:$port',
+          WorkerApiPaths.GetImagePath, queryParams);
+
+      var response = await http.get(
+        url,
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (response.body.isNotEmpty) {
+        var responseBody = jsonDecode(response.body);
+        return GetWorkerImageResponse.fromJson(responseBody);
+      } else {
+        // Handle empty response
+        return GetWorkerImageResponse(
+            isError: true, message: "Empty response");
+      }
+    } catch (error) {
+      return GetWorkerImageResponse(isError: true, message: "Error occurred");
     }
   }
 

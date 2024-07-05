@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sarvisny/dialoguUtilites.dart';
@@ -9,16 +12,20 @@ import 'Slots/SlotsListWidget.dart';
 
 class WorkerProfilePage extends StatelessWidget {
   WorkerPersonalDetails? details;
+  String? base64Image;
 
-  WorkerProfilePage({this.details});
+  WorkerProfilePage({this.details, this.base64Image});
 
   @override
   Widget build(BuildContext context) {
-    var approvider = Provider.of<AppProvider>(context);
+    // var approvider = Provider.of<AppProvider>(context);
     return Scaffold(
       body: Column(
         children: [
-          const Expanded(flex: 2, child: _TopPortion()),
+          Expanded(
+            flex: 2,
+            child: _TopPortion(base64Image: base64Image),
+          ),
           Expanded(
             flex: 3,
             child: Padding(
@@ -44,11 +51,10 @@ class WorkerProfilePage extends StatelessWidget {
                       FloatingActionButton.extended(
                         onPressed: () {
                           Navigator.pushNamed(context, SlotsListWidget.routeName);
-
                         },
                         heroTag: 'Slots',
                         elevation: 0,
-                        label: const Text("Slots",),
+                        label: const Text("Slots"),
                         icon: const Icon(Icons.schedule_rounded),
                       ),
                       const SizedBox(width: 16.0),
@@ -57,21 +63,33 @@ class WorkerProfilePage extends StatelessWidget {
                         heroTag: 'Orders',
                         elevation: 0,
                         backgroundColor: Colors.red,
-                        label: const Text("Orders" , style: TextStyle(color: Colors.white),),
-                        icon: const Icon(Icons.request_page ,color: Colors.white,),
+                        label: const Text(
+                          "Orders",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        icon: const Icon(Icons.request_page, color: Colors.white),
                       ),
                     ],
                   ),
                   const SizedBox(height: 16),
-                   Text("Wallet Details", style: TextStyle(color: Theme.of(context).colorScheme.onPrimary ,fontSize: 24),),
+                  Text(
+                    "Wallet Details",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      fontSize: 24,
+                    ),
+                  ),
                   const SizedBox(height: 16),
                   _ProfileInfoRow(
                     items: [
-                      ProfileInfoItem("Pending", details!.wallet!.pendingBalance!.toDouble()),
-                      ProfileInfoItem("Handed", details!.wallet!.handedBalance!.toDouble()),
-                      ProfileInfoItem("Total", details!.wallet!.totalBalance!.toDouble()),
+                      ProfileInfoItem(
+                          "Pending", details!.wallet?.pendingBalance?.toDouble()??0),
+                      ProfileInfoItem(
+                          "Handed", details!.wallet?.handedBalance?.toDouble()??0),
+                      ProfileInfoItem(
+                          "Total", details!.wallet?.totalBalance?.toDouble()??0),
                     ],
-                   )
+                  )
                 ],
               ),
             ),
@@ -83,9 +101,8 @@ class WorkerProfilePage extends StatelessWidget {
 }
 
 class _ProfileInfoRow extends StatelessWidget {
-
   _ProfileInfoRow({required List<ProfileInfoItem> items}) : _items = items;
-  final List<ProfileInfoItem> _items ;
+  final List<ProfileInfoItem> _items;
 
   @override
   Widget build(BuildContext context) {
@@ -97,12 +114,12 @@ class _ProfileInfoRow extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: _items
               .map((item) => Expanded(
-                      child: Row(
-                    children: [
-                      if (_items.indexOf(item) != 0) const VerticalDivider(),
-                      Expanded(child: _singleItem(context, item, provider)),
-                    ],
-                  )))
+              child: Row(
+                children: [
+                  if (_items.indexOf(item) != 0) const VerticalDivider(),
+                  Expanded(child: _singleItem(context, item, provider)),
+                ],
+              )))
               .toList(),
         ),
       ),
@@ -110,7 +127,7 @@ class _ProfileInfoRow extends StatelessWidget {
   }
 
   Widget _singleItem(
-          BuildContext context, ProfileInfoItem item, ColorProvider provider) =>
+      BuildContext context, ProfileInfoItem item, ColorProvider provider) =>
       Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -145,10 +162,17 @@ class ProfileInfoItem {
 }
 
 class _TopPortion extends StatelessWidget {
-  const _TopPortion({Key? key}) : super(key: key);
+  final String? base64Image;
+
+  const _TopPortion({Key? key, this.base64Image}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Uint8List? imageBytes;
+    if (base64Image != null) {
+      imageBytes = base64Decode(base64Image!);
+    }
+
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -173,12 +197,15 @@ class _TopPortion extends StatelessWidget {
               fit: StackFit.expand,
               children: [
                 Container(
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: Colors.black,
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage('assets/images/cr7.jpg')),
+                      fit: BoxFit.cover,
+                      image: imageBytes != null
+                          ? MemoryImage(imageBytes)
+                          : AssetImage('assets/images/cr7.jpg') as ImageProvider,
+                    ),
                   ),
                 ),
                 Positioned(
@@ -187,8 +214,10 @@ class _TopPortion extends StatelessWidget {
                   child: CircleAvatar(
                     radius: 20,
                     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    child:IconButton(icon: const Icon(Icons.camera_alt_rounded), onPressed: () {  },),
-
+                    child: IconButton(
+                      icon: const Icon(Icons.camera_alt_rounded),
+                      onPressed: () {},
+                    ),
                   ),
                 ),
               ],

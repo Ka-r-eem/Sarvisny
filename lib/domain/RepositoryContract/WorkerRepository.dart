@@ -1,6 +1,7 @@
 
 import '../../data/Responses/WorkerRelatedDto/SetAvailabilityResponse.dart';
 import '../model/WorkerRelatedResponse/Approve_Reject_Cancel_OrderResponse.dart';
+import '../model/WorkerRelatedResponse/GetWorkerImageResponse.dart';
 import '../model/WorkerRelatedResponse/RegisterNewServiceResponse.dart';
 import '../model/WorkerRelatedResponse/RemoveAvailabilityResponse.dart';
 import '../model/WorkerRelatedResponse/ServiceProviderProfileData.dart';
@@ -42,6 +43,6 @@ abstract class WorkerRepository {
   Future<RemoveAvailabilityResponse> RemoveAvailability(String? providerID , String? availabilityID);
   Future<UploadFileResponse> UploadFile(String? fileName, String? providerID, String? base64Image);
 
-
+  Future<GetWorkerImageResponse> GetWorkerImage(String? workerID);
 
 }

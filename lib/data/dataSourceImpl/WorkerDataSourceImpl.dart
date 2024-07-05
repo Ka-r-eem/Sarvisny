@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:sarvisny/data/API/apiManager.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/Approve_Reject_Cancel_OrderResponse.dart';
+import 'package:sarvisny/domain/model/WorkerRelatedResponse/GetWorkerImageResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/RegisterNewServiceResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/RemoveAvailabilityResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/ServiceProviderProfileData.dart';
@@ -108,6 +109,12 @@ class WorkerDataSourceImpl extends WorkerDataSource{
     var response = await apiManager.UploadFile(fileName, providerID, base64Image);
     return response;
 
+  }
+
+  @override
+  Future<GetWorkerImageResponse> GetWorkerImage(String? workerID)async {
+    var response = await apiManager.GetWorkerImage(workerID);
+    return response;
   }
 
 

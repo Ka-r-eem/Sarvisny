@@ -18,7 +18,7 @@ class WorkerDashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     bool notif = true;
-    // requests!=null ? notif = true : notif = false;
+    requests!=null ? notif = true : notif = false;
 
     var provider = Provider.of<ColorProvider>(context);
     return Scaffold(
@@ -27,7 +27,7 @@ class WorkerDashboardScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: Text('Ahlan ${details?.firstName},',
                 style: TextStyle(
                     fontSize: 25,
@@ -59,9 +59,9 @@ class WorkerDashboardScreen extends StatelessWidget {
 ,
           Row(
             children: [
-              Expanded(child: guage(GuageValue: 50,GuageName: "Ratings",minValue: 0 , maxValue: 5, format: '{value}')),
-              Expanded(child: guage(GuageValue: 50,GuageName: "Wallet",minValue: 100 , maxValue: 10000, format: '{value} EG')),
-              Expanded(child: guage(GuageValue: 50, GuageName: "Orders",minValue: 1 , maxValue: 200, format: '{value}')),
+              Expanded(child: guage(GuageValue: details?.avgCustomerRate??0,GuageName: "Ratings",minValue: 0 , maxValue: 5, format: '{value}')),
+              Expanded(child: guage(GuageValue: details?.wallet?.totalBalance?.toDouble()??0,GuageName: "Wallet",minValue: 100 , maxValue: 10000, format: '{value} EG')),
+              Expanded(child: guage(GuageValue: details?.completedOrdersCount?.toDouble(), GuageName: "Orders",minValue: 1 , maxValue: 200, format: '{value}')),
 
             ],
           ),

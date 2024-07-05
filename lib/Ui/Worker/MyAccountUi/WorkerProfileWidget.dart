@@ -7,7 +7,6 @@ import 'package:sarvisny/Ui/Worker/MyAccountUi/WorkerProfile.dart';
 import '../../../Common/LoadingLogo.dart';
 import '../../../data/API/apiManager.dart';
 import '../../../di/di.dart';
-import 'WorkerMyAccountScreen.dart';
 import 'WorkerProfileViewModel.dart';
 
 class WorkerProfileWidget extends StatefulWidget
@@ -52,7 +51,7 @@ class _WorkerProfileWidgetState extends State<WorkerProfileWidget> {
       },
       builder: (context, state) {
         if (state is WorkerProfileSuccess) {
-          return WorkerProfilePage(details: state.profile);
+          return WorkerProfilePage(details: state.profile ,base64Image: state.base64Image);
         }
         return Scaffold(
           appBar: AppBar(

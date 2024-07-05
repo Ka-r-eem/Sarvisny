@@ -2,6 +2,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:sarvisny/data/Responses/WorkerRelatedDto/SetAvailabilityResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/Approve_Reject_Cancel_OrderResponse.dart';
+import 'package:sarvisny/domain/model/WorkerRelatedResponse/GetWorkerImageResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/RegisterNewServiceResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/RemoveAvailabilityResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/ServiceProviderProfileData.dart';
@@ -93,6 +94,11 @@ class WorkerRepositoryImpl extends WorkerRepository {
   @override
   Future<UploadFileResponse> UploadFile(String? fileName, String? providerID, String? base64Image) {
     return dataSource.UploadFile(fileName, providerID, base64Image);
+  }
+
+  @override
+  Future<GetWorkerImageResponse> GetWorkerImage(String? workerID) {
+    return dataSource.GetWorkerImage(workerID);
   }
 
 }

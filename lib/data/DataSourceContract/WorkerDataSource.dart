@@ -1,6 +1,7 @@
 import 'package:sarvisny/data/Responses/WorkerRelatedDto/RemoveAvailabilityResponseDto.dart';
 
 import '../../domain/model/WorkerRelatedResponse/Approve_Reject_Cancel_OrderResponse.dart';
+import '../../domain/model/WorkerRelatedResponse/GetWorkerImageResponse.dart';
 import '../../domain/model/WorkerRelatedResponse/RegisterNewServiceResponse.dart';
 import '../../domain/model/WorkerRelatedResponse/RemoveAvailabilityResponse.dart';
 import '../../domain/model/WorkerRelatedResponse/ServiceProviderProfileData.dart';
@@ -41,4 +42,5 @@ abstract class WorkerDataSource {
   Future<ApproveRejectCancelOrderResponse> CancelOrder(String? orderID);
   Future<RemoveAvailabilityResponse> RemoveAvailability(String? providerID , String? availabilityID);
   Future<UploadFileResponse> UploadFile(String? fileName, String? providerID, String? base64Image);
+  Future<GetWorkerImageResponse> GetWorkerImage(String? workerID);
 }
