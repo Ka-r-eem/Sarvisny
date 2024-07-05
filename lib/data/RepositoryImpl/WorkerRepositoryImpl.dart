@@ -7,6 +7,7 @@ import 'package:sarvisny/domain/model/WorkerRelatedResponse/RemoveAvailabilityRe
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/ServiceProviderProfileData.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/SetAvailabilityResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/ShowOrderDetailsResponse.dart';
+import 'package:sarvisny/domain/model/WorkerRelatedResponse/UploadFileResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/WorkerOrdersListResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/WorkerRegisteredServicesResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/WorkerSlotsResponseData.dart';
@@ -87,6 +88,11 @@ class WorkerRepositoryImpl extends WorkerRepository {
   @override
   Future<RemoveAvailabilityResponse> RemoveAvailability(String? providerID, String? availabilityID) {
     return dataSource.RemoveAvailability(providerID, availabilityID);
+  }
+
+  @override
+  Future<UploadFileResponse> UploadFile(String? fileName, String? providerID, String? base64Image) {
+    return dataSource.UploadFile(fileName, providerID, base64Image);
   }
 
 }

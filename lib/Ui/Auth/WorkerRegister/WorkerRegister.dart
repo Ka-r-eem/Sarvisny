@@ -1,9 +1,12 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:provider/provider.dart';
 import 'package:sarvisny/Ui/Auth/WorkerRegister/WorkerUploadFileScreen.dart';
 import 'package:sarvisny/dialoguUtilites.dart';
 import '../../../Common/CustomFormField.dart';
+import '../../../Provider/Provider.dart';
 import '../../../data/API/apiManager.dart';
 import '../../../data/Responses/WorkerRelatedDto/WorkerRegisterData.dart';
 import '../Login.dart';
@@ -252,6 +255,7 @@ class _RegisterState extends State<WorkerRegister> {
     }
     print(keyform.currentState?.validate());
     try {
+      var provider = Provider.of<AppProvider>(context, listen: false);
       dialoguUtilities.loadingDialog(context, "Please Wait...");
       if (keyform.currentState?.validate() == true) {
         print("entering first if");
@@ -272,6 +276,9 @@ class _RegisterState extends State<WorkerRegister> {
         if (responseData.isError == false) {
           Navigator.of(context).pop();
           print("Inside the isError if ");
+          String yourToken = responseData.payload;
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(yourToken);
+          provider.UserId = decodedToken['userId'];
           Navigator.pushNamed(context, Workeruploadfilescreen.routeName);
           // dialoguUtilities.showmsg(context, responseData.message ,postAction: () {
           //   Navigator.pop(context);

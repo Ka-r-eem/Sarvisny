@@ -6,6 +6,7 @@ import '../../domain/model/WorkerRelatedResponse/RemoveAvailabilityResponse.dart
 import '../../domain/model/WorkerRelatedResponse/ServiceProviderProfileData.dart';
 import '../../domain/model/WorkerRelatedResponse/SetAvailabilityResponse.dart';
 import '../../domain/model/WorkerRelatedResponse/ShowOrderDetailsResponse.dart';
+import '../../domain/model/WorkerRelatedResponse/UploadFileResponse.dart';
 import '../../domain/model/WorkerRelatedResponse/WorkerOrdersListResponse.dart';
 import '../../domain/model/WorkerRelatedResponse/WorkerRegisteredServicesResponse.dart';
 import '../../domain/model/WorkerRelatedResponse/WorkerSlotsResponseData.dart';
@@ -39,4 +40,5 @@ abstract class WorkerDataSource {
 
   Future<ApproveRejectCancelOrderResponse> CancelOrder(String? orderID);
   Future<RemoveAvailabilityResponse> RemoveAvailability(String? providerID , String? availabilityID);
+  Future<UploadFileResponse> UploadFile(String? fileName, String? providerID, String? base64Image);
 }

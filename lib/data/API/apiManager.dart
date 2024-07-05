@@ -7,6 +7,7 @@ import 'package:sarvisny/data/Responses/LoginResponseData.dart';
 import 'package:sarvisny/data/Responses/WorkerRelatedDto/RemoveAvailabilityResponseDto.dart';
 import 'package:sarvisny/data/Responses/WorkerRelatedDto/WorkerRegisterResponseDto.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/PaymentTransactionResponse.dart';
+import 'package:sarvisny/domain/model/WorkerRelatedResponse/UploadFileResponse.dart';
 import '../../domain/model/AdminRelatedResponses/AddServiceData.dart';
 import '../../domain/model/AdminRelatedResponses/CriteriaData.dart';
 import '../../domain/model/CustomerRelatedResponses/GetCartResponse.dart';
@@ -1141,7 +1142,40 @@ class ApiManager {
           isError: true, message: "Error occurred$error");
     }
   }
-   Future<GetDistrictsDataDto> GetAllDistricts() async {
+  Future<UploadFileResponse> UploadFile(String? fileName, String? providerID, String? base64Image) async {
+    try {
+      var queryParams = {
+        'fileName': fileName,
+        'providerId': providerID,
+      };
+
+      var url = Uri.https('$ipAddress:$port',
+          WorkerApiPaths.UploadFilePath, queryParams);
+
+      var response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'base64Image': base64Image,
+        }),
+      );
+
+      if (response.body.isNotEmpty) {
+        var responseBody = jsonDecode(response.body);
+        print("inside api manager: $responseBody");
+        return UploadFileResponse.fromJson(responseBody);
+      } else {
+        // Handle empty response
+        return UploadFileResponse(
+            isError: true, message: "Empty response");
+      }
+    } catch (error) {
+      return UploadFileResponse(
+          isError: true, message: "Error occurred: $error");
+    }
+  }
+
+  Future<GetDistrictsDataDto> GetAllDistricts() async {
     try {
       var url = Uri.https('$ipAddress:$port',
           AdminApiPaths.GetAllDistrictsPath);
@@ -1196,9 +1230,9 @@ class ApiManager {
         url,
         headers: {'Content-Type': 'application/json'},
       );
-      print(response.body);
-      print('parent response body :${response.body.length}');
-      print('parent compare : ${parentCompare.length}');
+      // print(response.body);
+      // print('parent response body :${response.body.length}');
+      // print('parent compare : ${parentCompare.length}');
 
       if (response.body.isNotEmpty) {
         var responseBody = jsonDecode(response.body);
@@ -1333,158 +1367,3 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
-String compare = '''{
-  "status": null,
-  "isError": false,
-  "message": "Success",
-  "errors": [],
-  "payload": {
-    "cartID": "bf088cbb-0943-4c74-a7d0-8e699be3ab5b",
-    "requestedServices": [
-      {
-        "cartServiceRequestID": "227deb5c-ed49-40d6-8587-99b630e3633f",
-        "providerId": "8bf051d6-e595-4e3f-9128-57ebce565e86",
-        "firstName": "WORKER",
-        "lastName": "WORKER",
-        "services": [
-          {
-            "serviceId": "ebaf4c0a-fc26-4b94-80bd-8897538ca610",
-            "serviceName": "child service",
-            "parentServiceID": "e4edcbe0-574a-44b8-9d5a-36b75120c0db",
-            "parentServiceName": "Roof Painting",
-            "criteriaID": null,
-            "criteriaName": null,
-            "price": 112
-          }
-        ],
-        "slotID": "6af582ac-daea-48aa-b2ba-cec2891fc70a",
-        "requestedDate": "2024-07-06T14:01:00.18468",
-        "dayOfWeek": "Saturday",
-        "startTime": "05:00:00",
-        "districtID": "1dfc475f-b044-40ee-9d01-68b554dd5136",
-        "districtName": "maadi",
-        "address": "maadi",
-        "price": 112,
-        "problemDescription": ""
-      },
-      {
-        "cartServiceRequestID": "3b80d5af-7943-4a5b-a355-383a4c5d9733",
-        "providerId": "8bf051d6-e595-4e3f-9128-57ebce565e86",
-        "firstName": "WORKER",
-        "lastName": "WORKER",
-        "services": [
-          {
-            "serviceId": "ebaf4c0a-fc26-4b94-80bd-8897538ca610",
-            "serviceName": "child service",
-            "parentServiceID": "e4edcbe0-574a-44b8-9d5a-36b75120c0db",
-            "parentServiceName": "Roof Painting",
-            "criteriaID": null,
-            "criteriaName": null,
-            "price": 112
-          }
-        ],
-        "slotID": "65ba4391-3945-483e-8107-b01045d609fe",
-        "requestedDate": "2024-07-06T13:59:39.549023",
-        "dayOfWeek": "Saturday",
-        "startTime": "07:00:00",
-        "districtID": "1dfc475f-b044-40ee-9d01-68b554dd5136",
-        "districtName": "maadi",
-        "address": "maadi",
-        "price": 112,
-        "problemDescription": ""
-      },
-      {
-        "cartServiceRequestID": "5d5b6afb-bed4-48a4-95af-a30c4689f1f2",
-        "providerId": "8bf051d6-e595-4e3f-9128-57ebce565e86",
-        "firstName": "WORKER",
-        "lastName": "WORKER",
-        "services": [
-          {
-            "serviceId": "ebaf4c0a-fc26-4b94-80bd-8897538ca610",
-            "serviceName": "child service",
-            "parentServiceID": "e4edcbe0-574a-44b8-9d5a-36b75120c0db",
-            "parentServiceName": "Roof Painting",
-            "criteriaID": null,
-            "criteriaName": null,
-            "price": 112
-          }
-        ],
-        "slotID": "fbb08132-b995-474a-b0a4-18ad197a6c94",
-        "requestedDate": "2024-07-06T14:02:34.782693",
-        "dayOfWeek": "Saturday",
-        "startTime": "04:00:00",
-        "districtID": "1dfc475f-b044-40ee-9d01-68b554dd5136",
-        "districtName": "maadi",
-        "address": "maadi",
-        "price": 112,
-        "problemDescription": ""
-      },
-      {
-        "cartServiceRequestID": "96d1ead4-d69c-423a-868e-de9ac24da14b",
-        "providerId": "8bf051d6-e595-4e3f-9128-57ebce565e86",
-        "firstName": "WORKER",
-        "lastName": "WORKER",
-        "services": [
-          {
-            "serviceId": "ebaf4c0a-fc26-4b94-80bd-8897538ca610",
-            "serviceName": "child service",
-            "parentServiceID": "e4edcbe0-574a-44b8-9d5a-36b75120c0db",
-            "parentServiceName": "Roof Painting",
-            "criteriaID": null,
-            "criteriaName": null,
-            "price": 112
-          }
-        ],
-        "slotID": "b9fd031d-35af-4de5-ae4e-a750bfe03b65",
-        "requestedDate": "2024-07-06T14:04:56.633134",
-        "dayOfWeek": "Saturday",
-        "startTime": "06:00:00",
-        "districtID": "1dfc475f-b044-40ee-9d01-68b554dd5136",
-        "districtName": "maadi",
-        "address": "maadi",
-        "price": 112,
-        "problemDescription": ""
-      },
-      {
-        "cartServiceRequestID": "b1985b76-40ef-4943-a231-fd49118e6c09",
-        "providerId": "8bf051d6-e595-4e3f-9128-57ebce565e86",
-        "firstName": "WORKER",
-        "lastName": "WORKER",
-        "services": [
-          {
-            "serviceId": "ebaf4c0a-fc26-4b94-80bd-8897538ca610",
-            "serviceName": "child service",
-            "parentServiceID": "e4edcbe0-574a-44b8-9d5a-36b75120c0db",
-            "parentServiceName": "Roof Painting",
-            "criteriaID": null,
-            "criteriaName": null,
-            "price": 112
-          }
-        ],
-        "slotID": "1d283cd9-1e16-4f76-b800-acc5ccce066c",
-        "requestedDate": "2024-07-06T13:57:05.904456",
-        "dayOfWeek": "Saturday",
-        "startTime": "03:00:00",
-        "districtID": "1dfc475f-b044-40ee-9d01-68b554dd5136",
-        "districtName": "maadi",
-        "address": "maadi",
-        "price": 112,
-        "problemDescription": ""
-      }
-    ]
-  }
-}''';
-String parentCompare = '''{
-  "status": null,
-  "isError": false,
-  "message": "Action Done succesfully",
-  "errors": [],
-  "payload": [
-    {
-      "serviceId": "e4edcbe0-574a-44b8-9d5a-36b75120c0db",
-      "serviceName": "Roof Painting",
-      "criteriaID": "6a92da12-8bd7-4f7a-a5d3-edb0df249112",
-      "criteriaName": "Home Criteria"
-    }
-  ]
-}''';

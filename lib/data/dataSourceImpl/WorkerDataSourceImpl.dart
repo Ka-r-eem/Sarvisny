@@ -5,6 +5,7 @@ import 'package:sarvisny/domain/model/WorkerRelatedResponse/RegisterNewServiceRe
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/RemoveAvailabilityResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/ServiceProviderProfileData.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/ShowOrderDetailsResponse.dart';
+import 'package:sarvisny/domain/model/WorkerRelatedResponse/UploadFileResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/WorkerOrdersListResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/WorkerRegisteredServicesResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/WorkerSlotsResponseData.dart';
@@ -100,6 +101,13 @@ class WorkerDataSourceImpl extends WorkerDataSource{
   Future<RemoveAvailabilityResponse> RemoveAvailability(String? providerID, String? availabilityID)async {
     var response = await apiManager.RemoveAvailability(providerID, availabilityID);
     return response.toRemoveAvailabilityResponse();
+  }
+
+  @override
+  Future<UploadFileResponse> UploadFile(String? fileName, String? providerID, String? base64Image) async{
+    var response = await apiManager.UploadFile(fileName, providerID, base64Image);
+    return response;
+
   }
 
 

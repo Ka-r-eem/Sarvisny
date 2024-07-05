@@ -1,11 +1,19 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:sarvisny/Ui/Worker/WorkerWaitingScreen.dart';
 import 'package:sarvisny/dialoguUtilites.dart';
+import 'package:sarvisny/domain/UseCases/WorkerUseCases/UploadFileUseCase.dart';
 
 import '../../../Common/CustomFormField.dart';
+import '../../../Common/snackBar.dart';
+import '../../../Provider/Provider.dart';
+import '../../../data/API/apiManager.dart';
+import '../../../di/di.dart';
 
 class Workeruploadfilescreen extends StatefulWidget {
   static const String routeName = "WorkerUploadFileScreen";
@@ -208,7 +216,7 @@ class _WorkeruploadfilescreenState extends State<Workeruploadfilescreen> {
                     ),
                   ),
                   onPressed: () {
-                    // oncreate(context);
+                    onCreate(context);
                   },
                   child: const Row(
                     children: [
@@ -297,51 +305,52 @@ class _WorkeruploadfilescreenState extends State<Workeruploadfilescreen> {
     }
   }
 
-  // void oncreate(context) async {
-  //   if (keyform.currentState?.validate() == false) {
-  //     return;
-  //   }
-  //   print(keyform.currentState?.validate());
-  //   try {
-  //     dialoguUtilities.loadingDialog(context, "Please Wait...");
-  //     if (keyform.currentState?.validate() == true) {
-  //       print("entering first if");
-  //       var responseData = await ApiManager.registerWorker(WorkerRegisterDataDto(
-  //         userName: userName.text,
-  //         email: email.text,
-  //         password: password.text,
-  //         firstName: firstname.text,
-  //         lastName: lastname.text,
-  //         phoneNumber: Phone.text,
-  //         nationalID: NationalID.text,
-  //       ),
-  //
-  //       );
-  //       print("after the assigning of response data");
-  //       print("Entering the isError if ");
-  //       print(responseData);
-  //       if (responseData.isError == false) {
-  //         Navigator.of(context).pop();
-  //         print("Inside the isError if ");
-  //         Navigator.pushNamed(context, Workeruploadfilescreen.routeName);
-  //         // dialoguUtilities.showmsg(context, responseData.message ,postAction: () {
-  //         //   Navigator.pop(context);
-  //         // },);
-  //       }
-  //       else{
-  //         print("Entering the Else ");
-  //         Navigator.of(context).pop();
-  //         dialoguUtilities.showmsg(context, responseData.errors.toString(),pos:"Ok",
-  //             postAction:(){
-  //               Navigator.of(context).pop();
-  //             });
-  //       }
-  //     }
-  //   } catch (e) {
-  //     Navigator.of(context).pop();
-  //     print("Error*******$e");
-  //     print(e);
-  //   }
-  // }
+  void onCreate(BuildContext context) async {
+    // Check if form is valid
+    if (keyform.currentState?.validate() == false) {
+      return;
+    }
+    print(keyform.currentState?.validate());
+
+    try {
+      String pdfBase64 = base64Encode(pdfFile!.readAsBytesSync());
+      String imageBase64 = base64Encode(imageFile!.readAsBytesSync());
+      var provider = Provider.of<AppProvider>(context, listen: false);
+      UploadFileUseCase uploadFileUseCase = getIt<UploadFileUseCase>();
+      dialoguUtilities.loadingDialog(context, "Please Wait...");
+      if (keyform.currentState?.validate() == true) {
+        print("entering first if");
+
+        // Upload PDF file
+        var responseData = await uploadFileUseCase.invoke("Image", provider.UserId, imageBase64);
+        if (responseData.isError == false) {
+          // Upload image file if PDF upload is successful
+          var secondResponse = await uploadFileUseCase.invoke("CriminalRecord", provider.UserId, pdfBase64);
+          if (secondResponse.isError == false) {
+            // Close loading dialog and show success message
+            Navigator.of(context).pop();
+            Navigator.pushReplacementNamed(context, WorkerWaitingScreen.routeName);
+            snackBar.showSnackBar(context, "Uploaded Successfully", Colors.green);
+          } else {
+            // Handle image upload failure
+            Navigator.of(context).pop();
+            dialoguUtilities.showmsg(
+              context,
+              secondResponse.errors.toString(),
+              pos: "Ok",
+              postAction: () {
+                Navigator.of(context).pop();
+              },
+            );
+          }
+        }
+      }
+    } catch (e) {
+      // Handle any errors
+      Navigator.of(context).pop();
+      print("Error*******$e");
+    }
+  }
+
 
 }

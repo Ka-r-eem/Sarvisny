@@ -13,13 +13,10 @@ class WorkerApiPaths{
   static const String CancelOrder = "/api/ServiceProvider/cancelOrderRequest";
   static const String GetProfile = "/api/ServiceProvider/showProviderProfile";
   static const String RemoveAvailability = "/api/ServiceProvider/removeAvailability";
+  static const String UploadFilePath = "/api/Worker/uploadFile";
+  static const String GetImagePath = "/api/Worker/getWorkerImage";
   // static const String AddRating = "/api/ServiceProvider/addProviderRating/{orderId}";
   // static const String GetRating = "/api/ServiceProvider/GetProviderRating/{orderId}";
   // static const String SetOrderStatus = "/api/ServiceProvider/setOrderStatus";
-  // static const String ShowOrderDetails = "/api/ServiceProvider/showOrderDetails";
-  // static const String GetAllOrders = "/api/ServiceProvider/getAllOrdersForProvider";
-  // static const String GetAllApprovedOrders = "/api/ServiceProvider/getAllApprovedOrders";
-  // static const String GetAllRequestedOrders = "/api/ServiceProvider/getAllRequestededOrders";
-  // static const String GetRegisteredServices = "/api/ServiceProvider/getRegisteredServices";
 
 }
