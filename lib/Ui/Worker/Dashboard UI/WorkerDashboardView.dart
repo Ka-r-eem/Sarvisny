@@ -5,7 +5,6 @@ import 'package:sarvisny/Provider/Provider.dart';
 
 import '../../../Common/LoadingLogo.dart';
 import '../../../data/API/apiManager.dart';
-import '../../../data/Responses/WorkerRelatedDto/ServiceProviderProfileData.dart';
 import '../../../di/di.dart';
 import 'WorkerDashboardScreen.dart';
 import 'WorkerDashboardViewModel.dart';

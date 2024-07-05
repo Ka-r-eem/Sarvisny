@@ -8,7 +8,6 @@ import '../domain/model/AdminRelatedResponses/CriteriasListResponse.dart';
 
 class AppProvider extends ChangeNotifier {
   bool is_visible = true;
-  double ?rate = 0;
   String? token;
   String? UserId;
   int CartItems = 0;

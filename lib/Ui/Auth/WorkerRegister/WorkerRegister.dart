@@ -1,11 +1,12 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:sarvisny/Ui/Auth/WorkerRegister/WorkerUploadFileScreen.dart';
 import 'package:sarvisny/dialoguUtilites.dart';
-import '../../Common/CustomFormField.dart';
-import '../../data/API/apiManager.dart';
-import '../../data/Responses/WorkerRelatedDto/WorkerRegisterData.dart';
-import 'Login.dart';
+import '../../../Common/CustomFormField.dart';
+import '../../../data/API/apiManager.dart';
+import '../../../data/Responses/WorkerRelatedDto/WorkerRegisterData.dart';
+import '../Login.dart';
 
 
 class WorkerRegister extends StatefulWidget {
@@ -23,7 +24,6 @@ class _RegisterState extends State<WorkerRegister> {
   TextEditingController lastname = TextEditingController();
   TextEditingController userName = TextEditingController();
   TextEditingController Phone = TextEditingController();
-  TextEditingController criminalRecord = TextEditingController();
   TextEditingController NationalID = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController ConfirmedPassword = TextEditingController();
@@ -47,7 +47,7 @@ class _RegisterState extends State<WorkerRegister> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                    padding: EdgeInsets.symmetric(vertical: 4 , horizontal: 8),
+                    padding: const EdgeInsets.symmetric(vertical: 4 , horizontal: 8),
                     height:  MediaQuery.of(context).size.height * 0.4 ,
                     child: Image.asset(
                       'assets/images/LogoLight.png',
@@ -140,73 +140,7 @@ class _RegisterState extends State<WorkerRegister> {
                   },
                   is_loginOr_Register: true,
                 ),
-                Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8),
-                child: Container(
-                    height: 65,
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Theme.of(context).colorScheme.primary), borderRadius: BorderRadius.circular(10)),
-                    child: pdf_file?.path != null ? Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12 , vertical: 5),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.primary,
-                            borderRadius: BorderRadius.circular(10),border: Border.all(color: Colors.black)),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                                  child: Text(
-                                    maxLines: 1,
-                                    textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
-                                    pdf_file!.path.substring(0,20),style: TextStyle(color: Colors.white,fontSize: 18),),
-                                ),
-                                Icon(Icons.picture_as_pdf_outlined , color: Colors.white ,size: 35,),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 1.0),
-                                  child: IconButton(
-                                      alignment: Alignment.topRight,
-                                      onPressed: (){
-                                        pdf_file = null;
-                                        setState(() {
 
-                                        });
-                                      }, icon: Icon(Icons.close,color: Colors.white,)),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ) :
-                    Padding(
-                        padding:
-                        const EdgeInsets.symmetric(vertical: 0.0, horizontal: 12),
-                        child: TextFormField(
-                          decoration:  InputDecoration(
-                            errorStyle: TextStyle(fontSize: 8, fontFamily: "2"),
-                            border: InputBorder.none,
-                            hintText: "Upload Your Criminal Record File ",
-                            hintStyle: const TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: "2",
-                                fontSize: 18),
-                            suffixIcon: InkWell(
-                                onTap: () async {
-                                  await pickPDF();
-                                  setState(() {
-                                  });
-
-                                },
-                                child: Icon(Icons.file_upload_outlined, size: 30, color: Theme.of(context).colorScheme.primary)
-                            ),
-                        ))))),
                 CustomFormField(password, 'Password', password_type, true,
                         (text) {
                       if (text == null) return 'Please Enter Your Password';
@@ -235,7 +169,7 @@ class _RegisterState extends State<WorkerRegister> {
                   child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
-                          Color(0xff3a8bc8)),
+                          const Color(0xff3a8bc8)),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
@@ -328,7 +262,6 @@ class _RegisterState extends State<WorkerRegister> {
           firstName: firstname.text,
           lastName: lastname.text,
           phoneNumber: Phone.text,
-          criminalRecord: "string",
           nationalID: NationalID.text,
         ),
 
@@ -336,18 +269,18 @@ class _RegisterState extends State<WorkerRegister> {
         print("after the assigning of response data");
         print("Entering the isError if ");
         print(responseData);
-        if (responseData["isError"] == false) {
+        if (responseData.isError == false) {
           Navigator.of(context).pop();
           print("Inside the isError if ");
-          Navigator.pushReplacementNamed(context, LoginScreen.routeName);
-          dialoguUtilities.showmsg(context, responseData['message'] ,postAction: () {
-            Navigator.pop(context);
-          },);
+          Navigator.pushNamed(context, Workeruploadfilescreen.routeName);
+          // dialoguUtilities.showmsg(context, responseData.message ,postAction: () {
+          //   Navigator.pop(context);
+          // },);
         }
         else{
           print("Entering the Else ");
           Navigator.of(context).pop();
-          dialoguUtilities.showmsg(context, responseData["errors"].toString(),pos:"Ok",
+          dialoguUtilities.showmsg(context, responseData.errors.toString(),pos:"Ok",
               postAction:(){
                 Navigator.of(context).pop();
               });
@@ -355,28 +288,11 @@ class _RegisterState extends State<WorkerRegister> {
       }
     } catch (e) {
       Navigator.of(context).pop();
-      print("Error*******");
+      print("Error*******$e");
       print(e);
     }
   }
 
-  Future<void> pickPDF() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf'],
-    );
-
-    if (result != null) {
-      pdf_file = File(result.files.single.path!);
-      setState(() {
-        pdf_file;
-      });
-
-      // Do something with the selected PDF file (e.g., store it, display its name, etc.)
-      // You can also use the 'file' variable in your existing code.
-      print("Selected PDF: ${pdf_file?.path}");
-    }
-  }
 
 
 }

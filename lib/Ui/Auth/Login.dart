@@ -193,30 +193,31 @@ class _RegisterState extends State<LoginScreen> {
             LoginUserData(email: email.text, password: password.text));
         print("response");
         print(response);
-        if (response["isError"] == false &&
-            response["payload"]["role"] == "Customer") {
-          appProvider.token = response["payload"]["tokenString"];
-          appProvider.UserId = response["payload"]["id"];
+        if (response.isError == false &&
+            response.payload.role == "Customer") {
+          appProvider.token = response.payload.tokenString;
+          appProvider.UserId = response.payload.id;
+          print(appProvider.token);
           // Navigator.of(context).pop();
           print("customer");
           Navigator.pushReplacementNamed(context, CustomerHomeScreen.routeName);
-        } else if (response["isError"] == false &&
-            response["payload"]["role"] == "ServiceProvider") {
-          appProvider.token = response["payload"]["tokenString"];
-          appProvider.UserId = response["payload"]["id"];
+        } else if (response.isError == false &&
+            response.payload.role == "ServiceProvider") {
+          appProvider.token = response.payload.tokenString;
+          appProvider.UserId = response.payload.id;
           Navigator.of(context).pop();
           print("Worker");
           Navigator.pushReplacementNamed(context, WorkerHomeScreen.routeName);
-        } else if (response["isError"] == false &&
-            response["payload"]["role"] == "Admin") {
-          appProvider.token = response["payload"]["tokenString"];
-          appProvider.UserId = response["payload"]["id"];
+        } else if (response.isError == false &&
+            response.payload.role == "Admin") {
+          appProvider.token = response.payload.tokenString;
+          appProvider.UserId = response.payload.id;
           print("In Admin");
           Navigator.of(context).pop();
           Navigator.pushReplacementNamed(context, AdminHomeScreen.routeName);
-        } else if (response["isError"] == true) {
+        } else if (response.isError == true) {
           Navigator.of(context).pop();
-          dialoguUtilities.showmsg(context, response["errors"].toString(),
+          dialoguUtilities.showmsg(context, response.errors.toString(),
               pos: "Ok", postAction: () {
             Navigator.of(context).pop();
           });

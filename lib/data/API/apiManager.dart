@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import 'package:sarvisny/data/Responses/AdminRelatedDto/ParentsServicesDto.dart';
+import 'package:sarvisny/data/Responses/LoginResponseData.dart';
 import 'package:sarvisny/data/Responses/WorkerRelatedDto/RemoveAvailabilityResponseDto.dart';
+import 'package:sarvisny/data/Responses/WorkerRelatedDto/WorkerRegisterResponseDto.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/PaymentTransactionResponse.dart';
 import '../../domain/model/AdminRelatedResponses/AddServiceData.dart';
 import '../../domain/model/AdminRelatedResponses/CriteriaData.dart';
@@ -35,7 +37,7 @@ import '../Responses/CustomerRelatedDto/RemoveFromCartResponse.dart';
 import '../Responses/LoginUserData.dart';
 import '../Responses/WorkerRelatedDto/Approve_Reject_Cancel_OrderResponse.dart';
 import '../Responses/WorkerRelatedDto/RegisterNewServiceResponse.dart';
-import '../Responses/WorkerRelatedDto/ServiceProviderProfileData.dart';
+import '../Responses/WorkerRelatedDto/ServiceProviderProfileDataDto.dart';
 import '../Responses/WorkerRelatedDto/SetAvailabilityResponse.dart';
 import '../Responses/WorkerRelatedDto/ShowOrderDetailsResponse.dart';
 import '../Responses/WorkerRelatedDto/WorkerOrdersListResponse.dart';
@@ -52,6 +54,8 @@ import 'ApiPaths/WorkerPaths/WorkerApiPaths.dart';
 @singleton
 @injectable
 class ApiManager {
+
+
 
 
   static const int port = 7188;
@@ -74,7 +78,7 @@ class ApiManager {
         body: jsonEncode(requestBody),
       );
       var responseBody = jsonDecode(response.body);
-      return responseBody;
+      return LoginResponseData.fromJson(responseBody);
     } catch (error) {
       return false;
     }
@@ -122,7 +126,6 @@ class ApiManager {
         'phoneNumber': data.phoneNumber,
         'nationalID': data.nationalID,
         "userType" : "Worker" ,
-        'criminalRecord': data.criminalRecord
       };
       var response = await http.post(
         url,
@@ -130,7 +133,7 @@ class ApiManager {
         body: jsonEncode(requestBody),
       );
       var responseBody = jsonDecode(response.body);
-      return responseBody;
+      return WorkerRegisterResponseDto.fromJson(responseBody);
     } catch (error) {
       return false;
     }

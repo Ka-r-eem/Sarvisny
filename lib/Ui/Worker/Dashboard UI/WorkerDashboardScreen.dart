@@ -59,9 +59,9 @@ class WorkerDashboardScreen extends StatelessWidget {
 ,
           Row(
             children: [
-              guage(minValue: 0 , maxValue: 5, format: '{value}'),
-              guage(minValue: 100 , maxValue: 10000, format: '{value} EG'),
-              guage(minValue: 1 , maxValue: 200, format: '{value}'),
+              Expanded(child: guage(GuageValue: 50,GuageName: "Ratings",minValue: 0 , maxValue: 5, format: '{value}')),
+              Expanded(child: guage(GuageValue: 50,GuageName: "Wallet",minValue: 100 , maxValue: 10000, format: '{value} EG')),
+              Expanded(child: guage(GuageValue: 50, GuageName: "Orders",minValue: 1 , maxValue: 200, format: '{value}')),
 
             ],
           ),

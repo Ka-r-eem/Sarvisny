@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:sarvisny/Provider/Provider.dart';
+import 'package:sarvisny/Ui/Worker/MyAccountUi/WorkerProfile.dart';
 
 import '../../../Common/LoadingLogo.dart';
 import '../../../data/API/apiManager.dart';
-import '../../../data/Responses/WorkerRelatedDto/ServiceProviderProfileData.dart';
 import '../../../di/di.dart';
 import 'WorkerMyAccountScreen.dart';
 import 'WorkerProfileViewModel.dart';
@@ -52,7 +52,7 @@ class _WorkerProfileWidgetState extends State<WorkerProfileWidget> {
       },
       builder: (context, state) {
         if (state is WorkerProfileSuccess) {
-          return WorkerMyAccount(details: state.profile);
+          return WorkerProfilePage(details: state.profile);
         }
         return Scaffold(
           appBar: AppBar(

@@ -13,7 +13,8 @@ import 'Ui/Admin/AdminWorkerUi/WorkersRequests/RequestDetails.dart';
 import 'Ui/Auth/ChooseUser.dart';
 import 'Ui/Auth/Login.dart';
 import 'Ui/Auth/CustomerRegister.dart';
-import 'Ui/Auth/WorkerRegister.dart';
+import 'Ui/Auth/WorkerRegister/WorkerRegister.dart';
+import 'Ui/Auth/WorkerRegister/WorkerUploadFileScreen.dart';
 import 'Ui/Customer/CartUi/AddToCartScreen.dart';
 import 'Ui/Customer/CartUi/CartListScreen.dart';
 import 'Ui/Customer/CartUi/MyCartView.dart';
@@ -87,7 +88,8 @@ class MyApp extends StatelessWidget {
         CartListScreen.routeName : (context) => CartListScreen(),
         ServicesListWidget.routeName :(context) => ServicesListWidget(),
         SlotsListScreen.routeName : (context) => SlotsListScreen(),
-        WorkerWaitingScreen.routeName :(context) => WorkerWaitingScreen()
+        WorkerWaitingScreen.routeName :(context) => WorkerWaitingScreen(),
+        Workeruploadfilescreen.routeName :(context) => Workeruploadfilescreen(),
 
          },
       initialRoute: LoginScreen.routeName,

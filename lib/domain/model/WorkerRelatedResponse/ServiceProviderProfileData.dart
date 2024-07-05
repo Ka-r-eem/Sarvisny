@@ -1,9 +1,12 @@
+import 'dart:convert';
 /// status : null
 /// isError : false
 /// message : "Success"
 /// errors : []
-/// payload : {"FirstName":"WORKER","LastName":"WORKER","UserName":"WORKER","Email":"eslamelmoataz7@gmail.com","PhoneNumber":"WORKER","Services":[{"serviceID":"fb473c78-8a16-4e49-b178-0ae53cf51079","serviceName":"Roof Painting","parentServiceID":null,"parentServiceName":null,"criteriaID":"de43f9c0-3801-4ec3-959d-d3c5ad10efad","criteriaName":"Home Criteria"}],"NationalID":"WORKER","CriminalRecord":"WORKER"}
+/// payload : {"FirstName":"WORKER","LastName":"WORKER","UserName":"WORKER","Email":"eslamelmoataz7@gmail.com","PhoneNumber":"WORKER","Services":[{"serviceID":"7aa2c8ad-d52d-4156-9c94-45fbdf81d2a8","serviceName":"child service","parentServiceID":"da0e4f59-ee9d-4256-bacc-62039d716dfc","parentServiceName":"Roof Painting","criteriaID":null,"criteriaName":null}],"Wallet":{"walletId":"69ccab65-06ea-40a4-abd4-bc5d95040f18","providerId":"585e0d66-d1f2-4fab-a9c6-c11c8724380a","pendingBalance":0,"handedBalance":0,"totalBalance":0},"CompletedOrdersCount":0,"AvgCustomerRate":null,"NationalID":"WORKER","CriminalRecord":"WORKER"}
 
+ServiceProviderProfileData serviceProviderProfileDataFromJson(String str) => ServiceProviderProfileData.fromJson(json.decode(str));
+String serviceProviderProfileDataToJson(ServiceProviderProfileData data) => json.encode(data.toJson());
 class ServiceProviderProfileData {
   ServiceProviderProfileData({
       this.status, 
@@ -61,10 +64,15 @@ ServiceProviderProfileData copyWith({  dynamic status,
 /// UserName : "WORKER"
 /// Email : "eslamelmoataz7@gmail.com"
 /// PhoneNumber : "WORKER"
-/// Services : [{"serviceID":"fb473c78-8a16-4e49-b178-0ae53cf51079","serviceName":"Roof Painting","parentServiceID":null,"parentServiceName":null,"criteriaID":"de43f9c0-3801-4ec3-959d-d3c5ad10efad","criteriaName":"Home Criteria"}]
+/// Services : [{"serviceID":"7aa2c8ad-d52d-4156-9c94-45fbdf81d2a8","serviceName":"child service","parentServiceID":"da0e4f59-ee9d-4256-bacc-62039d716dfc","parentServiceName":"Roof Painting","criteriaID":null,"criteriaName":null}]
+/// Wallet : {"walletId":"69ccab65-06ea-40a4-abd4-bc5d95040f18","providerId":"585e0d66-d1f2-4fab-a9c6-c11c8724380a","pendingBalance":0,"handedBalance":0,"totalBalance":0}
+/// CompletedOrdersCount : 0
+/// AvgCustomerRate : null
 /// NationalID : "WORKER"
 /// CriminalRecord : "WORKER"
 
+WorkerPersonalDetails payloadFromJson(String str) => WorkerPersonalDetails.fromJson(json.decode(str));
+String payloadToJson(WorkerPersonalDetails data) => json.encode(data.toJson());
 class WorkerPersonalDetails {
   WorkerPersonalDetails({
       this.firstName, 
@@ -73,6 +81,9 @@ class WorkerPersonalDetails {
       this.email, 
       this.phoneNumber, 
       this.services, 
+      this.wallet, 
+      this.completedOrdersCount, 
+      this.avgCustomerRate, 
       this.nationalID, 
       this.criminalRecord,});
 
@@ -88,6 +99,9 @@ class WorkerPersonalDetails {
         services?.add(Services.fromJson(v));
       });
     }
+    wallet = json['Wallet'] != null ? Wallet.fromJson(json['Wallet']) : null;
+    completedOrdersCount = json['CompletedOrdersCount'];
+    avgCustomerRate = json['AvgCustomerRate'];
     nationalID = json['NationalID'];
     criminalRecord = json['CriminalRecord'];
   }
@@ -97,6 +111,9 @@ class WorkerPersonalDetails {
   String? email;
   String? phoneNumber;
   List<Services>? services;
+  Wallet? wallet;
+  num? completedOrdersCount;
+  dynamic avgCustomerRate;
   String? nationalID;
   String? criminalRecord;
 WorkerPersonalDetails copyWith({  String? firstName,
@@ -105,6 +122,9 @@ WorkerPersonalDetails copyWith({  String? firstName,
   String? email,
   String? phoneNumber,
   List<Services>? services,
+  Wallet? wallet,
+  num? completedOrdersCount,
+  dynamic avgCustomerRate,
   String? nationalID,
   String? criminalRecord,
 }) => WorkerPersonalDetails(  firstName: firstName ?? this.firstName,
@@ -113,6 +133,9 @@ WorkerPersonalDetails copyWith({  String? firstName,
   email: email ?? this.email,
   phoneNumber: phoneNumber ?? this.phoneNumber,
   services: services ?? this.services,
+  wallet: wallet ?? this.wallet,
+  completedOrdersCount: completedOrdersCount ?? this.completedOrdersCount,
+  avgCustomerRate: avgCustomerRate ?? this.avgCustomerRate,
   nationalID: nationalID ?? this.nationalID,
   criminalRecord: criminalRecord ?? this.criminalRecord,
 );
@@ -126,6 +149,11 @@ WorkerPersonalDetails copyWith({  String? firstName,
     if (services != null) {
       map['Services'] = services?.map((v) => v.toJson()).toList();
     }
+    if (wallet != null) {
+      map['Wallet'] = wallet?.toJson();
+    }
+    map['CompletedOrdersCount'] = completedOrdersCount;
+    map['AvgCustomerRate'] = avgCustomerRate;
     map['NationalID'] = nationalID;
     map['CriminalRecord'] = criminalRecord;
     return map;
@@ -133,13 +161,66 @@ WorkerPersonalDetails copyWith({  String? firstName,
 
 }
 
-/// serviceID : "fb473c78-8a16-4e49-b178-0ae53cf51079"
-/// serviceName : "Roof Painting"
-/// parentServiceID : null
-/// parentServiceName : null
-/// criteriaID : "de43f9c0-3801-4ec3-959d-d3c5ad10efad"
-/// criteriaName : "Home Criteria"
+/// walletId : "69ccab65-06ea-40a4-abd4-bc5d95040f18"
+/// providerId : "585e0d66-d1f2-4fab-a9c6-c11c8724380a"
+/// pendingBalance : 0
+/// handedBalance : 0
+/// totalBalance : 0
 
+Wallet walletFromJson(String str) => Wallet.fromJson(json.decode(str));
+String walletToJson(Wallet data) => json.encode(data.toJson());
+class Wallet {
+  Wallet({
+      this.walletId, 
+      this.providerId, 
+      this.pendingBalance, 
+      this.handedBalance, 
+      this.totalBalance,});
+
+  Wallet.fromJson(dynamic json) {
+    walletId = json['walletId'];
+    providerId = json['providerId'];
+    pendingBalance = json['pendingBalance'];
+    handedBalance = json['handedBalance'];
+    totalBalance = json['totalBalance'];
+  }
+  String? walletId;
+  String? providerId;
+  num? pendingBalance;
+  num? handedBalance;
+  num? totalBalance;
+Wallet copyWith({  String? walletId,
+  String? providerId,
+  num? pendingBalance,
+  num? handedBalance,
+  num? totalBalance,
+}) => Wallet(  walletId: walletId ?? this.walletId,
+  providerId: providerId ?? this.providerId,
+  pendingBalance: pendingBalance ?? this.pendingBalance,
+  handedBalance: handedBalance ?? this.handedBalance,
+  totalBalance: totalBalance ?? this.totalBalance,
+);
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['walletId'] = walletId;
+    map['providerId'] = providerId;
+    map['pendingBalance'] = pendingBalance;
+    map['handedBalance'] = handedBalance;
+    map['totalBalance'] = totalBalance;
+    return map;
+  }
+
+}
+
+/// serviceID : "7aa2c8ad-d52d-4156-9c94-45fbdf81d2a8"
+/// serviceName : "child service"
+/// parentServiceID : "da0e4f59-ee9d-4256-bacc-62039d716dfc"
+/// parentServiceName : "Roof Painting"
+/// criteriaID : null
+/// criteriaName : null
+
+Services servicesFromJson(String str) => Services.fromJson(json.decode(str));
+String servicesToJson(Services data) => json.encode(data.toJson());
 class Services {
   Services({
       this.serviceID, 
@@ -159,16 +240,16 @@ class Services {
   }
   String? serviceID;
   String? serviceName;
-  dynamic parentServiceID;
-  dynamic parentServiceName;
-  String? criteriaID;
-  String? criteriaName;
+  String? parentServiceID;
+  String? parentServiceName;
+  dynamic criteriaID;
+  dynamic criteriaName;
 Services copyWith({  String? serviceID,
   String? serviceName,
-  dynamic parentServiceID,
-  dynamic parentServiceName,
-  String? criteriaID,
-  String? criteriaName,
+  String? parentServiceID,
+  String? parentServiceName,
+  dynamic criteriaID,
+  dynamic criteriaName,
 }) => Services(  serviceID: serviceID ?? this.serviceID,
   serviceName: serviceName ?? this.serviceName,
   parentServiceID: parentServiceID ?? this.parentServiceID,

@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../Provider/ColorProvider.dart';
 import 'CustomerRegister.dart';
-import 'WorkerRegister.dart';
+import 'WorkerRegister/WorkerRegister.dart';
 
 class ChooseUserType extends StatelessWidget {
   static const String routeName = "ChooseType";

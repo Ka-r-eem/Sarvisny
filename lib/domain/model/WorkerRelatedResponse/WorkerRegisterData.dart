@@ -17,7 +17,7 @@ class WorkerRegisterData {
       this.phoneNumber, 
       this.nationalID,
       this.userType,
-      this.criminalRecord,});
+      });
 
   WorkerRegisterData.fromJson(dynamic json) {
     userName = json['userName'];
@@ -28,7 +28,6 @@ class WorkerRegisterData {
     phoneNumber = json['phoneNumber'];
     nationalID = json['nationalID'];
     userType = json['userType'];
-    criminalRecord = json['criminalRecord'];
   }
   String? userName;
   String? email;
@@ -38,7 +37,6 @@ class WorkerRegisterData {
   String? phoneNumber;
   String? nationalID;
   String? userType;
-  String? criminalRecord;
 WorkerRegisterData copyWith({  String? userName,
   String? email,
   String? password,
@@ -46,7 +44,6 @@ WorkerRegisterData copyWith({  String? userName,
   String? lastName,
   String? phoneNumber,
   String? nationalID,
-  String? criminalRecord,
 }) => WorkerRegisterData(  userName: userName ?? this.userName,
   email: email ?? this.email,
   password: password ?? this.password,
@@ -54,7 +51,6 @@ WorkerRegisterData copyWith({  String? userName,
   lastName: lastName ?? this.lastName,
   phoneNumber: phoneNumber ?? this.phoneNumber,
   nationalID: nationalID ?? this.nationalID,
-  criminalRecord: criminalRecord ?? this.criminalRecord,
 );
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -65,7 +61,6 @@ WorkerRegisterData copyWith({  String? userName,
     map['lastName'] = lastName;
     map['phoneNumber'] = phoneNumber;
     map['nationalID'] = nationalID;
-    map['criminalRecord'] = criminalRecord;
     return map;
   }
 
