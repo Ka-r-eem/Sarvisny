@@ -68,7 +68,7 @@ class _OrdersListWidgetState extends State<OrdersListWidget> {
         }
         return const Scaffold(
           body: Center(
-            child: LogoLoader(),
+            child: Text("No Orders Available" ,style: TextStyle(color: Colors.black ,fontSize: 25),),
           ),
         );
       },

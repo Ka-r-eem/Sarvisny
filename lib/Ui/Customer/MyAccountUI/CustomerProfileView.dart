@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:sarvisny/Common/LoadingLogo.dart';
 import 'package:sarvisny/Provider/Provider.dart';
-import 'package:sarvisny/Ui/Customer/MyAccountUI/Profile.dart';
+import 'package:sarvisny/Ui/Customer/MyAccountUI/ProfileScreen.dart';
 import '../../../di/di.dart';
 import 'CustomerProfileViewModel.dart';
 

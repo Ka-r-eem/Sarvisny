@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../Provider/ColorProvider.dart';
+import '../../Provider/ColorProvider.dart';
 
 class TimeDropDown extends StatefulWidget {
   final Function(String?) onTimeChanged;

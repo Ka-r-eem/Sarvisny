@@ -16,6 +16,7 @@ import 'package:sarvisny/domain/model/CustomerRelatedResponses/OrderCartResponse
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/PaymentTransactionResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/RemoveFromCartResponse.dart';
 
+import '../../domain/model/CustomerRelatedResponses/AddProviderToFavResponse.dart';
 import '../../domain/model/CustomerRelatedResponses/Get_First_Sec_Matched_Response.dart';
 import '../Responses/CustomerRelatedDto/CustomerRegisterData.dart';
 
@@ -104,6 +105,16 @@ class CustomerRepositoryImpl extends CustomerRepository {
   @override
   Future<GetCustomerFavResponse> GetCustomerFav(String? customerID) {
     return dataSource.GetCustomerFav(customerID);
+  }
+
+  @override
+  Future<AddProviderToFavResponse> AddProviderToFav(String? workerID, String? customerId) {
+   return dataSource.AddProviderToFav(workerID, customerId);
+  }
+
+  @override
+  Future<AddProviderToFavResponse> RemoveProviderFromFav(String? workerID, String? customerId) {
+    return dataSource.RemoveProviderFromFav(workerID, customerId);
   }
 
 

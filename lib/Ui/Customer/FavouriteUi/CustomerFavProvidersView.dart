@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sarvisny/Common/LoadingLogo.dart';
 import 'package:sarvisny/Provider/Provider.dart';
 import 'package:sarvisny/Ui/Customer/FavouriteUi/FavProvidersScreen.dart';
-import 'package:sarvisny/Ui/Customer/MyAccountUI/Profile.dart';
+import 'package:sarvisny/Ui/Customer/MyAccountUI/ProfileScreen.dart';
 import '../../../di/di.dart';
 import 'CustomerFavProvidersViewModel.dart';
 
@@ -52,45 +52,21 @@ class _CustomerFavProvidersViewState extends State<CustomerFavProvidersView> {
         }
       },
       builder: (context, state) {
-        if (state is CustomerFavProvidersSuccess && provider.token != null && provider.token != "") {
-          return FavProvidersScreen(favList: state.FavList);
+        if (state is CustomerFavProvidersSuccess && provider.token != null && provider.token != "" ) {
+          return FavProvidersScreen(favList: state.favList);
         }
         else if (provider.token == null || provider.token == "") {
           return const Center(
             child: Text("Please Login"),
           );
         }
-        return Scaffold(
-          appBar: AppBar(
-            title: Text("Default Screen"),
-          ),
-          body: const Center(
-            child: LogoLoader(),
+        return const Scaffold(
+          body: Center(
+            child: Text( "No Favourites Available" , style:  TextStyle(fontSize: 20),),
           ),
         );
       },
     );
 
-
-
-    // FutureBuilder<CustomerProfileDataDto?>(
-    //   future: ApiManager.GetCustomerProfile(provider.UserId),
-    //   builder: (context, snapshot) {
-    //     if (snapshot.connectionState == ConnectionState.waiting ) {
-    //       return const Center(child: LogoLoader());
-    //     } else if (snapshot.hasError) {
-    //       return Center(
-    //         child: Column(
-    //           children: [
-    //             Text(snapshot.error.toString()),
-    //             ElevatedButton(onPressed: () {}, child: const Text('Try Again'))
-    //           ],
-    //         ),
-    //       );
-    //     }
-    //     CustomerProfileDataDto? customerProfileData = snapshot.data;
-    //     return MyAccount(details: customerProfileData?.payload,);
-    //   },
-    // );;
   }
 }

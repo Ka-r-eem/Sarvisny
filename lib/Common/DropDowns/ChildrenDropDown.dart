@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../Provider/ColorProvider.dart';
-import '../../../di/di.dart';
-import '../../../domain/UseCases/AdminUseCases/GetAllDistrictsUseCase.dart';
-import '../../../domain/model/AdminRelatedResponses/CriteriasListResponse.dart';
-import '../../../domain/model/AdminRelatedResponses/GetDistrictsData.dart';
+import 'package:sarvisny/domain/UseCases/AdminUseCases/GetChildrenForServiceUseCase.dart';
+import '../../Provider/ColorProvider.dart';
+import '../../di/di.dart';
+import '../../domain/model/AdminRelatedResponses/childrenServicesResponse.dart';
 
-class DistrictsDropDown extends StatefulWidget {
-  final Function(DistrictData?) onDistrictChanged;
+class ChildrenDropDown extends StatefulWidget {
+  final Function(Children?) onChildChanged;
+  String? parentServiceID;
 
-  DistrictsDropDown({required this.onDistrictChanged});
+  ChildrenDropDown({required this.onChildChanged , required this.parentServiceID});
 
   @override
-  State<DistrictsDropDown> createState() => _DistrictsDropDownState();
+  State<ChildrenDropDown> createState() => _ChildrenDropDownState();
 }
 
-class _DistrictsDropDownState extends State<DistrictsDropDown> {
-  DistrictData? districtChoosen;
+class _ChildrenDropDownState extends State<ChildrenDropDown> {
+  Children? childChoosen;
 
   @override
   Widget build(BuildContext context) {
-    GetAllDistrictsUseCase getAllDistrictsUseCase = getIt<GetAllDistrictsUseCase>();
+    GetChildrenUseCase getChildrenUseCase = getIt<GetChildrenUseCase>();
     var color = Provider.of<ColorProvider>(context);
 
-    return FutureBuilder<GetDistrictsData>(
-      future: getAllDistrictsUseCase.invoke(),
+    return FutureBuilder<ChildrenServicesResponse>(
+      future: getChildrenUseCase.invoke(widget.parentServiceID),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -38,10 +38,10 @@ class _DistrictsDropDownState extends State<DistrictsDropDown> {
             ),
           );
         } else if (snapshot.hasData) {
-          var districtsList = snapshot.data?.payload;
+          var childrenList = snapshot.data?.payload?.children;
 
-          if (districtsList == null || districtsList.isEmpty) {
-            return const Center(child: Text('No districts available'));
+          if (childrenList == null || childrenList == []) {
+            return const Center(child: Text(''));
           }
 
           return Padding(
@@ -71,28 +71,28 @@ class _DistrictsDropDownState extends State<DistrictsDropDown> {
                         color: Colors.grey,
                       ),
                       hint: const Text(
-                        "Select District",
+                        "Select SubService",
                         style: TextStyle(
                           fontSize: 22,
                           color: Colors.grey,
                           fontFamily: "2",
                         ),
                       ),
-                      value: districtChoosen?.districtID,
+                      value: childChoosen?.childServiceID,
                       onChanged: (newValue) {
                         setState(() {
-                          districtChoosen = districtsList?.firstWhere(
-                                (district) => district.districtID == newValue,
-                            orElse: () => DistrictData(
-                              districtID: "",
-                            ),
+                          childChoosen = childrenList.firstWhere(
+                                (child) => child.childServiceID == newValue,
+                            orElse: () => Children(
+                              childServiceID: ""
+                            )
                           );
-                          widget.onDistrictChanged(districtChoosen);
+                          widget.onChildChanged(childChoosen);
                         });
                       },
-                      items: districtsList?.map((district) {
+                      items: childrenList.map((child) {
                         return DropdownMenuItem(
-                          value: district.districtID,
+                          value: child.childServiceID,
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
@@ -105,7 +105,7 @@ class _DistrictsDropDownState extends State<DistrictsDropDown> {
                               ),
                             ),
                             child: Text(
-                              "${district.districtName}",
+                              "${child.childServiceName}",
                               style: TextStyle(
                                 color: color.isDarkEnabled() == true
                                     ? Colors.white

@@ -9,9 +9,9 @@ import '../../../Provider/Provider.dart';
 import '../../../data/API/apiManager.dart';
 import '../../../di/di.dart';
 import '../../../domain/model/CustomerRelatedResponses/AddToCartResponse.dart';
-import '../../Admin/AdminDistrictsUi/DistrictsDropDown.dart';
+import '../../../Common/DropDowns/DistrictsDropDown.dart';
 import '../WorkerUI/CustomerSlotWidget.dart';
-import 'DateDropDown.dart';
+import '../../../Common/DropDowns/DateDropDown.dart';
 
 class AddToCartScreen extends StatefulWidget {
   static const String routeName = 'AddToCart';

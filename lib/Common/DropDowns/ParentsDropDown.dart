@@ -1,30 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sarvisny/domain/UseCases/AdminUseCases/GetChildrenForServiceUseCase.dart';
-import '../../../Provider/ColorProvider.dart';
-import '../../../di/di.dart';
-import '../../../domain/model/AdminRelatedResponses/childrenServicesResponse.dart';
+import 'package:sarvisny/domain/UseCases/AdminUseCases/GetParentsUseCase.dart';
+import 'package:sarvisny/domain/UseCases/AdminUseCases/ShowAllCriteriasUseCase.dart';
+import 'package:sarvisny/domain/model/AdminRelatedResponses/CriteriaData.dart';
+import 'package:sarvisny/domain/model/AdminRelatedResponses/CriteriasListResponse.dart';
+import 'package:sarvisny/domain/model/AdminRelatedResponses/ParentsServicesResponse.dart';
+import '../../Provider/ColorProvider.dart';
+import '../../di/di.dart';
+import '../../domain/model/AdminRelatedResponses/childrenServicesResponse.dart';
 
-class ChildrenDropDown extends StatefulWidget {
-  final Function(Children?) onChildChanged;
-  String? parentServiceID;
+class ParentsDropDown extends StatefulWidget {
+  final Function(ParentService?) onParentChanged;
 
-  ChildrenDropDown({required this.onChildChanged , required this.parentServiceID});
+
+  ParentsDropDown({required this.onParentChanged});
 
   @override
-  State<ChildrenDropDown> createState() => _ChildrenDropDownState();
+  State<ParentsDropDown> createState() => _CriteriaDropDownState();
 }
 
-class _ChildrenDropDownState extends State<ChildrenDropDown> {
-  Children? childChoosen;
+class _CriteriaDropDownState extends State<ParentsDropDown> {
+  ParentService? parentChoosen;
 
   @override
   Widget build(BuildContext context) {
-    GetChildrenUseCase getChildrenUseCase = getIt<GetChildrenUseCase>();
+    GetParentsUseCase getParentsUseCase = getIt<GetParentsUseCase>();
     var color = Provider.of<ColorProvider>(context);
 
-    return FutureBuilder<ChildrenServicesResponse>(
-      future: getChildrenUseCase.invoke(widget.parentServiceID),
+    return FutureBuilder<ParentsServicesResponse>(
+      future: getParentsUseCase.invoke(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -38,10 +43,10 @@ class _ChildrenDropDownState extends State<ChildrenDropDown> {
             ),
           );
         } else if (snapshot.hasData) {
-          var childrenList = snapshot.data?.payload?.children;
+          var parentsList = snapshot.data?.payload;
 
-          if (childrenList == null || childrenList == []) {
-            return const Center(child: Text(''));
+          if (parentsList == null || parentsList == []) {
+            return const Center(child: Text('No Services available'));
           }
 
           return Padding(
@@ -71,28 +76,28 @@ class _ChildrenDropDownState extends State<ChildrenDropDown> {
                         color: Colors.grey,
                       ),
                       hint: const Text(
-                        "Select SubService",
+                        "Select Service",
                         style: TextStyle(
                           fontSize: 22,
                           color: Colors.grey,
                           fontFamily: "2",
                         ),
                       ),
-                      value: childChoosen?.childServiceID,
+                      value: parentChoosen?.serviceId,
                       onChanged: (newValue) {
                         setState(() {
-                          childChoosen = childrenList.firstWhere(
-                                (child) => child.childServiceID == newValue,
-                            orElse: () => Children(
-                              childServiceID: ""
-                            )
+                          parentChoosen = parentsList.firstWhere(
+                                  (parent) => parent.serviceId == newValue,
+                              orElse: () => ParentService(
+                                serviceId: ""
+                              )
                           );
-                          widget.onChildChanged(childChoosen);
+                          widget.onParentChanged(parentChoosen);
                         });
                       },
-                      items: childrenList.map((child) {
+                      items: parentsList.map((parent) {
                         return DropdownMenuItem(
-                          value: child.childServiceID,
+                          value: parent.serviceId,
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
@@ -105,7 +110,7 @@ class _ChildrenDropDownState extends State<ChildrenDropDown> {
                               ),
                             ),
                             child: Text(
-                              "${child.childServiceName}",
+                              "${parent.serviceName}",
                               style: TextStyle(
                                 color: color.isDarkEnabled() == true
                                     ? Colors.white

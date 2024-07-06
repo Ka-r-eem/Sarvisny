@@ -13,6 +13,7 @@ import 'package:sarvisny/domain/model/CustomerRelatedResponses/GetServiceWorkers
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/OrderCartResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/PaymentTransactionResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/RemoveFromCartResponse.dart';
+import '../../domain/model/CustomerRelatedResponses/AddProviderToFavResponse.dart';
 import '../../domain/model/CustomerRelatedResponses/Get_First_Sec_Matched_Response.dart';
 import '../API/apiManager.dart';
 import '../Responses/CustomerRelatedDto/CustomerRegisterData.dart';
@@ -135,6 +136,18 @@ class CustomerDataSourceimpl extends CustomerDataSource {
   @override
   Future<GetCustomerFavResponse> GetCustomerFav(String? customerID) {
     var response = apiManager.GetCustomerFav(customerID);
+    return response;
+  }
+
+  @override
+  Future<AddProviderToFavResponse> AddProviderToFav(String? workerID, String? customerId) {
+    var response = apiManager.AddProviderToFav(workerID, customerId);
+    return response;
+  }
+
+  @override
+  Future<AddProviderToFavResponse> RemoveProviderFromFav(String? workerID, String? customerId) {
+    var response = apiManager.RemoveProviderFromFav(workerID, customerId);
     return response;
   }
 }

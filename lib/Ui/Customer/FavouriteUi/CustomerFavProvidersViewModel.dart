@@ -20,8 +20,10 @@ class CustomerFavProvidersViewModel extends Cubit<CustomerFavProvidersState> {
 
     try {
       GetCustomerFavResponse Favs = await getCustomerFavsUseCase.invoke(id);
-      print(Favs.payload?.first.providerId);
-      emit(CustomerFavProvidersSuccess(Favs.payload));
+      print(Favs.payload);
+      if(Favs.payload != null || Favs.payload!.length == 0){
+        emit(CustomerFavProvidersSuccess(Favs.payload));
+      }
     }
     catch (e) {
       emit(CustomerFavProvidersError(e.toString()));
@@ -34,9 +36,9 @@ sealed class CustomerFavProvidersState {}
 
 class CustomerFavProvidersSuccess extends CustomerFavProvidersState {
 
-  List<FavProvider>? FavList;
+  List<FavProvider>? favList;
 
-  CustomerFavProvidersSuccess(this.FavList);
+  CustomerFavProvidersSuccess(this.favList);
 
 }
 

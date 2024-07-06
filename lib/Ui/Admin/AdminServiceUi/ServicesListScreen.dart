@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:sarvisny/Common/snackBar.dart';
-import 'package:sarvisny/Ui/Admin/AdminServiceUi/ParentsDropDown.dart';
+import 'package:sarvisny/Common/DropDowns/ParentsDropDown.dart';
 import 'package:sarvisny/dialoguUtilites.dart';
 import 'package:sarvisny/domain/UseCases/AdminUseCases/GetParentsUseCase.dart';
 import 'package:sarvisny/domain/model/AdminRelatedResponses/ParentsServicesResponse.dart';
@@ -17,7 +17,7 @@ import '../../../domain/model/AdminRelatedResponses/AddServiceData.dart';
 import '../../../domain/model/AdminRelatedResponses/CriteriaData.dart';
 import '../../../domain/model/AdminRelatedResponses/CriteriasListResponse.dart';
 import '../../../domain/model/AdminRelatedResponses/ServicesListResponse.dart';
-import 'CriteriaDropDown.dart';
+import '../../../Common/DropDowns/CriteriaDropDown.dart';
 import 'ServiceWidget.dart';
 
 class ServicesListScreen extends StatefulWidget {

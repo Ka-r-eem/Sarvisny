@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:sarvisny/Common/timeLineTile.dart';
+import 'package:sarvisny/Common/eventCard.dart';
 import '../../../domain/model/CustomerRelatedResponses/CustomerOrdersLogResponse.dart';
-import 'CustomerOrderSingleServiceWidget.dart';
 
 class CustomerOrderDetailsScreen extends StatelessWidget {
   static const String routeName = "CustomerOrderDetailsScreen";
@@ -9,88 +9,137 @@ class CustomerOrderDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var order = ModalRoute.of(context)?.settings.arguments as CustomerOrdersPayload;
+     int flag = 0;
+    //Pending, Paid, Start, Preparing, OnTheWay, InProgress, Done, Completed
+    order.orderStatus == "Pending" ? flag = 0 :
+    order.orderStatus == "Paid" ? flag = 1 :
+    order.orderStatus == 'Start' ? flag = 2 :
+    order.orderStatus == 'Preparing' ? flag = 3 :
+    order.orderStatus == 'OnTheWay' ? flag = 4 :
+    order.orderStatus == 'InProgress' ? flag = 5 :
+    order.orderStatus == 'Done' ? flag = 6 : flag = 7 ;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Order Details"),
+        title: const Text("Order Details"),
       ),
-      body: Card(
-        shape: RoundedRectangleBorder(
-          side: BorderSide(
-            color: Theme.of(context).colorScheme.primary,
-            width: 2,
-          ),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        color: Theme.of(context).colorScheme.onSecondary,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Order Status: ${order.orderStatus}",
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontSize: 22,
-                  fontFamily: '2',
-                ),
-              ),
-              Text(
-                "Order Date: ${order.orderDate?.substring(0, 10)}",
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontSize: 22,
-                  fontFamily: '2',
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  padding: EdgeInsets.all(8),
-                  height: 300,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18),
-                    border: Border.all(
-                      color: Theme.of(context).colorScheme.primary,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 18 , vertical: 8 ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Worker Name: ${order.providerFN} ${order.providerLN}" , style: TextStyle(fontFamily: "2" ,color: Theme.of(context).colorScheme.primary ,fontSize: 20),),
+            Text("Start Time: ${order.startTime?.substring(0,5)}", style: TextStyle(fontFamily: "2" ,color: Theme.of(context).colorScheme.primary ,fontSize: 20),),
+            Text("District: ${order.districtName}", style: TextStyle(fontFamily: "2" ,color: Theme.of(context).colorScheme.primary ,fontSize: 20),),
+            Text("Request Date: ${order.orderDate?.substring(0, 10)}", style: TextStyle(fontFamily: "2" ,color: Theme.of(context).colorScheme.primary ,fontSize: 20),),
+            Text("Request Day: ${order.dayOfWeek}", style: TextStyle(fontFamily: "2" ,color: Theme.of(context).colorScheme.primary ,fontSize: 20),),
+            Text("Order Price: ${order.price} EGP", style: TextStyle(fontFamily: "2" ,color: Theme.of(context).colorScheme.primary ,fontSize: 20),),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 0 , horizontal: 8),
+                child: ListView(
+                  children: [
+                    myTimeLineTile(
+                      isFirst: true,
+                      isLast: false,
+                      isPast: flag == 0 ? false : true,
+                      eventCard: eventCard(
+                        isPast: flag == 0 ? false : true,
+                        child: const Text(
+                          "Pending",
+                          style: TextStyle(color: Colors.white , fontSize: 20),
+                        ),
+                      ),
                     ),
-                  ),
-                  child: order.orderService?.isEmpty ?? true
-                      ? Text("No Services")
-                      : Column(
-                    children: [
-                      Text(
-                        "Requested Services",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontFamily: '2',
-                          fontSize: 22,
+                    myTimeLineTile(
+                      isFirst: false,
+                      isLast: false,
+                      isPast: flag == 1 ? false : true,
+                      eventCard: eventCard(
+                        isPast: flag == 1 ? false : true,
+                        child: const Text(
+                          "Paid",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                       ),
-                      Expanded(
-                        child: ListView.builder(
-                          itemBuilder: (context, index) {
-                            return CustomerOrderSingleServiceWidget(
-                              order.orderService?[index],
-                            );
-                          },
-                          itemCount: order.orderService?.length ?? 0,
+                    ),
+                    myTimeLineTile(
+                      isFirst: false,
+                      isLast: false,
+                      isPast: flag == 2 ? false : true,
+                      eventCard: eventCard(
+                        isPast: flag == 2 ? false : true,
+                        child: const Text(
+                          "Started",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                    myTimeLineTile(
+                      isFirst: false,
+                      isLast: false,
+                      isPast: flag == 3 ? false : true,
+                      eventCard: eventCard(
+                        isPast: flag == 3 ? false : true,
+                        child: const Text(
+                          "Preparing",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                      ),
+                    ),
+                    myTimeLineTile(
+                      isFirst: false,
+                      isLast: false,
+                      isPast: flag == 4 ? false : true,
+                      eventCard: eventCard(
+                        isPast: flag == 4 ? false : true,
+                        child: const Text(
+                          "On The Way",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                      ),
+                    ),
+                    myTimeLineTile(
+                      isFirst: false,
+                      isLast: false,
+                      isPast: flag == 5 ? false : true,
+                      eventCard: eventCard(
+                        isPast: flag == 5 ? false : true,
+                        child: const Text(
+                          "In Progress",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                      ),
+                    ),
+                    myTimeLineTile(
+                      isFirst: false,
+                      isLast: false,
+                      isPast: flag == 6 ? false : true,
+                      eventCard: eventCard(
+                        isPast: flag == 6 ? false : true,
+                        child: const Text(
+                          "Done",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                      ),
+                    ),
+                    myTimeLineTile(
+                      isFirst: false,
+                      isLast: true,
+                      isPast: flag == 7 ? false : true,
+                      eventCard: eventCard(
+                        isPast: flag == 7 ? false : true,
+                        child: const Text(
+                          "Completed",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Text(
-                "Total Price: ${order.orderPrice} EGP",
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontSize: 22,
-                  fontFamily: '2',
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

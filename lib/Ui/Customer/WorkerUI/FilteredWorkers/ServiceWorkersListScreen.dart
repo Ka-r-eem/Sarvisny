@@ -33,12 +33,11 @@ class _ServiceWorkersListScreenState extends State<ServiceWorkersListScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              child: GridView.builder(
+              child: ListView.builder(
                 itemBuilder: (context, index) =>
                     ServiceWorkerWidget(worker: widget.workersList?[index], serviceItem: widget.serviceItem),
                 itemCount: widget.workersList?.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
+                
               ),
             ),
           ],

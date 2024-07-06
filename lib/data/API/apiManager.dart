@@ -14,6 +14,7 @@ import 'package:sarvisny/domain/model/WorkerRelatedResponse/GetWorkerImageRespon
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/UploadFileResponse.dart';
 import '../../domain/model/AdminRelatedResponses/AddServiceData.dart';
 import '../../domain/model/AdminRelatedResponses/CriteriaData.dart';
+import '../../domain/model/CustomerRelatedResponses/AddProviderToFavResponse.dart';
 import '../../domain/model/CustomerRelatedResponses/GetCartResponse.dart';
 import '../../domain/model/CustomerRelatedResponses/OrderCartResponse.dart';
 import '../Responses/AdminRelatedDto/AddDistrictData.dart';
@@ -589,8 +590,7 @@ class ApiManager {
     }
   }
 
-   Future<CustomerOrdersLogResponseDto?> GetCustomerOrders(
-      String? customerID) async {
+  Future<CustomerOrdersLogResponseDto?> GetCustomerOrders(String? customerID) async {
     try {
       print("inside the api manager");
 
@@ -608,11 +608,21 @@ class ApiManager {
         print('inside api :$responseBody');
 
         try {
-          CustomerOrdersLogResponseDto response = CustomerOrdersLogResponseDto.fromJson(responseBody);
-          print('Parsed Response: ${response.message}');
-          print('Cart ID: ${response.payload!}');
-          print(response.payload?.first.orderId);
-          return response;
+          CustomerOrdersLogResponseDto responseDto = CustomerOrdersLogResponseDto.fromJson(responseBody);
+          print('Parsed Response: ${responseDto.message}');
+
+          if (responseDto.payload != null && responseDto.payload!.isEmpty) {
+            print('No orders found.');
+            // Handle the empty payload case
+            return CustomerOrdersLogResponseDto(
+                isError: false,
+                message: "No orders found",
+                payload: [] // Ensure the payload is an empty list
+            );
+          } else {
+            print('Cart ID: ${responseDto.payload}');
+            return responseDto;
+          }
         } catch (e) {
           print('Error parsing JSON: $e');
           return null; // Handle the error or throw it further if needed
@@ -628,7 +638,8 @@ class ApiManager {
     }
   }
 
-   Future<RemoveFromCartResponseDto> RemoveFromCart(
+
+  Future<RemoveFromCartResponseDto> RemoveFromCart(
       String? customerID, String? RequestID) async {
     try {
       var url = Uri.https(
@@ -737,8 +748,7 @@ class ApiManager {
     }
   }
 
-   Future<RegisterNewServiceResponseDto> RegisterNewService(
-      String? workerID, String? serviceID, double? price) async {
+   Future<RegisterNewServiceResponseDto> RegisterNewService(String? workerID, String? serviceID, double? price) async {
     try {
       var url = Uri.https(
         '$ipAddress:$port',
@@ -760,6 +770,50 @@ class ApiManager {
     } catch (error) {
       return RegisterNewServiceResponseDto(
           isError: true, message: "Error occurred");
+    }
+  }
+   Future<AddProviderToFavResponse> AddProviderToFav(String? workerID, String? customerId) async {
+    try {
+      var url = Uri.https(
+        '$ipAddress:$port',
+        CustomerApiPaths.AddProviderToFavPath,
+        {
+          'providerId': workerID,
+          'customerId': customerId,
+        },
+      );
+
+      var response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      var responseBody = jsonDecode(response.body);
+      return AddProviderToFavResponse.fromJson(responseBody);
+    } catch (error) {
+      return  AddProviderToFavResponse(isError: true, message: "Error occurred");;
+    }
+  }
+   Future<AddProviderToFavResponse> RemoveProviderFromFav(String? workerID, String? customerId) async {
+    try {
+      var url = Uri.https(
+        '$ipAddress:$port',
+        CustomerApiPaths.RemoveProviderFromFavPath,
+        {
+          'providerId': workerID,
+          'customerId': customerId,
+        },
+      );
+
+      var response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      var responseBody = jsonDecode(response.body);
+      return AddProviderToFavResponse.fromJson(responseBody);
+    } catch (error) {
+      return  AddProviderToFavResponse(isError: true, message: "Error occurred");;
     }
   }
 
@@ -914,10 +968,10 @@ class ApiManager {
       } else {
         // Handle empty response
         return GetCustomerFavResponse(
-            isError: true, message: "Empty response");
+            message: "Empty response" ,payload: []);
       }
     } catch (error) {
-      return GetCustomerFavResponse(isError: true, message: "Error occurred");
+      return GetCustomerFavResponse(message: "Error occurred$error",payload: []);
     }
   }
   Future<GetAllMatchedResponse> GetAllMatched(String? serviceId, String? day, String? time, String? districtId, String? customerId) async {

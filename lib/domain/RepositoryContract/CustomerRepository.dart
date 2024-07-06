@@ -1,5 +1,6 @@
 import '../../data/Responses/CustomerRelatedDto/CustomerRegisterData.dart';
 import '../model/AdminRelatedResponses/ServicesListResponse.dart';
+import '../model/CustomerRelatedResponses/AddProviderToFavResponse.dart';
 import '../model/CustomerRelatedResponses/AddToCartResponse.dart';
 import '../model/CustomerRelatedResponses/CustomerOrdersLogResponse.dart';
 import '../model/CustomerRelatedResponses/CustomerProfileData.dart';
@@ -30,6 +31,7 @@ abstract class CustomerRepository {
   Future<GetFirstSecMatchedResponse> GetSecMatched(String? serviceId, String? day, String? time, String? districtId, String? customerId);
   Future<GetAllMatchedResponse> GetAllMatched(String? serviceId, String? day, String? time, String? districtId, String? customerId);
   Future<GetCustomerFavResponse> GetCustomerFav(String? customerID);
-
+  Future<AddProviderToFavResponse> AddProviderToFav(String? workerID, String? customerId);
+  Future<AddProviderToFavResponse> RemoveProviderFromFav(String? workerID, String? customerId);
 
 }

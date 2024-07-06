@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sarvisny/Ui/Admin/AdminDistrictsUi/DistrictsDropDown.dart';
+import 'package:sarvisny/Common/DropDowns/DistrictsDropDown.dart';
 import 'package:sarvisny/dialoguUtilites.dart';
 import 'package:sarvisny/domain/model/AdminRelatedResponses/GetDistrictsData.dart';
 import '../../Common/CustomFormField.dart';

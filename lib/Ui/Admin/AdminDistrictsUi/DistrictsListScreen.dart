@@ -11,8 +11,8 @@ import '../../../domain/UseCases/AdminUseCases/AddWorkerToDistrictUseCase.dart';
 import '../../../domain/model/AdminRelatedResponses/GetDistrictsData.dart';
 import '../../../domain/model/WorkerRelatedResponse/WorkersListResponse.dart';
 import 'DistrictWidget.dart';
-import 'DistrictsDropDown.dart';
-import 'WorkersDropDown.dart';
+import '../../../Common/DropDowns/DistrictsDropDown.dart';
+import '../../../Common/DropDowns/WorkersDropDown.dart';
 
 class DistrictListScreen extends StatefulWidget {
   List<DistrictData>? DistrictsList;

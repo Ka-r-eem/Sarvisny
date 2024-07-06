@@ -12,55 +12,57 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
 import '../data/API/apiManager.dart' as _i15;
-import '../data/DataSourceContract/AdminDataSource.dart' as _i49;
+import '../data/DataSourceContract/AdminDataSource.dart' as _i51;
 import '../data/DataSourceContract/CustomerDataSource.dart' as _i16;
-import '../data/DataSourceContract/WorkerDataSource.dart' as _i39;
-import '../data/dataSourceImpl/AdminDataSourceImpl.dart' as _i50;
+import '../data/DataSourceContract/WorkerDataSource.dart' as _i40;
+import '../data/dataSourceImpl/AdminDataSourceImpl.dart' as _i52;
 import '../data/dataSourceImpl/CustomerDataSourceImpl.dart' as _i17;
-import '../data/dataSourceImpl/WorkerDataSourceImpl.dart' as _i40;
-import '../data/RepositoryImpl/AdminRepositoryImpl.dart' as _i52;
+import '../data/dataSourceImpl/WorkerDataSourceImpl.dart' as _i41;
+import '../data/RepositoryImpl/AdminRepositoryImpl.dart' as _i54;
 import '../data/RepositoryImpl/CustomerRepositoryImpl.dart' as _i21;
-import '../data/RepositoryImpl/WorkerRepositoryImpl.dart' as _i42;
-import '../domain/RepositoryContract/AdminRepository.dart' as _i51;
+import '../data/RepositoryImpl/WorkerRepositoryImpl.dart' as _i43;
+import '../domain/RepositoryContract/AdminRepository.dart' as _i53;
 import '../domain/RepositoryContract/CustomerRepository.dart' as _i20;
-import '../domain/RepositoryContract/WorkerRepository.dart' as _i41;
-import '../domain/UseCases/AdminUseCases/AddCriteriaUseCase.dart' as _i92;
-import '../domain/UseCases/AdminUseCases/AddDistrictUseCase.dart' as _i93;
+import '../domain/RepositoryContract/WorkerRepository.dart' as _i42;
+import '../domain/UseCases/AdminUseCases/AddCriteriaUseCase.dart' as _i94;
+import '../domain/UseCases/AdminUseCases/AddDistrictUseCase.dart' as _i95;
 import '../domain/UseCases/AdminUseCases/AddServiceToCriteriaUseCase.dart'
-    as _i94;
-import '../domain/UseCases/AdminUseCases/AddServiceUseCase.dart' as _i95;
-import '../domain/UseCases/AdminUseCases/AddWorkerToDistrictUseCase.dart'
     as _i96;
-import '../domain/UseCases/AdminUseCases/ApproveWorkerUseCase.dart' as _i55;
-import '../domain/UseCases/AdminUseCases/BlockWorkerUseCase.dart' as _i57;
+import '../domain/UseCases/AdminUseCases/AddServiceUseCase.dart' as _i97;
+import '../domain/UseCases/AdminUseCases/AddWorkerToDistrictUseCase.dart'
+    as _i98;
+import '../domain/UseCases/AdminUseCases/ApproveWorkerUseCase.dart' as _i57;
+import '../domain/UseCases/AdminUseCases/BlockWorkerUseCase.dart' as _i59;
 import '../domain/UseCases/AdminUseCases/DisableProviderDistrictUseCase.dart'
-    as _i62;
+    as _i64;
 import '../domain/UseCases/AdminUseCases/EnableProviderDistrictUseCase.dart'
-    as _i63;
+    as _i65;
 import '../domain/UseCases/AdminUseCases/GetAllDistrictsUseCase.dart' as _i23;
 import '../domain/UseCases/AdminUseCases/getApprovedOrdersUseCase.dart' as _i6;
 import '../domain/UseCases/AdminUseCases/getCancelledOrdersUseCase.dart' as _i8;
 import '../domain/UseCases/AdminUseCases/GetChildrenForServiceUseCase.dart'
-    as _i66;
+    as _i68;
 import '../domain/UseCases/AdminUseCases/getCustomersUseCase.dart' as _i19;
 import '../domain/UseCases/AdminUseCases/getExpiredOrdersUseCase.dart' as _i10;
-import '../domain/UseCases/AdminUseCases/GetParentsUseCase.dart' as _i68;
-import '../domain/UseCases/AdminUseCases/GetProviderDistricts.dart' as _i69;
+import '../domain/UseCases/AdminUseCases/GetParentsUseCase.dart' as _i70;
+import '../domain/UseCases/AdminUseCases/GetProviderDistricts.dart' as _i71;
 import '../domain/UseCases/AdminUseCases/getRejectedOrdersUseCase.dart' as _i14;
 import '../domain/UseCases/AdminUseCases/getRequestedOrdersUseCase.dart'
     as _i12;
-import '../domain/UseCases/AdminUseCases/getWorkersUseCase.dart' as _i45;
-import '../domain/UseCases/AdminUseCases/RejectWorkerUseCase.dart' as _i77;
-import '../domain/UseCases/AdminUseCases/ShowAllCriteriasUseCase.dart' as _i80;
+import '../domain/UseCases/AdminUseCases/getWorkersUseCase.dart' as _i46;
+import '../domain/UseCases/AdminUseCases/RejectWorkerUseCase.dart' as _i79;
+import '../domain/UseCases/AdminUseCases/ShowAllCriteriasUseCase.dart' as _i82;
 import '../domain/UseCases/AdminUseCases/ShowAllOrdersUseCase.dart' as _i4;
-import '../domain/UseCases/AdminUseCases/ShowAllRequestsUseCase.dart' as _i47;
+import '../domain/UseCases/AdminUseCases/ShowAllRequestsUseCase.dart' as _i48;
 import '../domain/UseCases/AdminUseCases/ShowFilteredWorkersUseCase.dart'
-    as _i81;
-import '../domain/UseCases/AdminUseCases/ShowServicesUseCase.dart' as _i82;
-import '../domain/UseCases/AdminUseCases/UnBlockWorkerUseCase.dart' as _i84;
-import '../domain/UseCases/CustomerUseCases/AddToCartUseCase.dart' as _i48;
+    as _i83;
+import '../domain/UseCases/AdminUseCases/ShowServicesUseCase.dart' as _i84;
+import '../domain/UseCases/AdminUseCases/UnBlockWorkerUseCase.dart' as _i86;
+import '../domain/UseCases/CustomerUseCases/AddProviderToFavUseCase.dart'
+    as _i49;
+import '../domain/UseCases/CustomerUseCases/AddToCartUseCase.dart' as _i50;
 import '../domain/UseCases/CustomerUseCases/CustomerRegisterUseCase.dart'
-    as _i61;
+    as _i63;
 import '../domain/UseCases/CustomerUseCases/GetCartUseCase.dart' as _i24;
 import '../domain/UseCases/CustomerUseCases/GetCustomerFavsUseCase.dart'
     as _i25;
@@ -80,24 +82,26 @@ import '../domain/UseCases/CustomerUseCases/GetServiceWorkersUseCase.dart'
 import '../domain/UseCases/CustomerUseCases/OrderCartUseCase.dart' as _i34;
 import '../domain/UseCases/CustomerUseCases/PayTransactionUseCase.dart' as _i36;
 import '../domain/UseCases/CustomerUseCases/RemoveFromCartUseCase.dart' as _i37;
-import '../domain/UseCases/WorkerUseCases/AllOrdersUseCase.dart' as _i53;
-import '../domain/UseCases/WorkerUseCases/ApprovedOrdersUseCase.dart' as _i56;
-import '../domain/UseCases/WorkerUseCases/ApproveOrderUseCase.dart' as _i54;
-import '../domain/UseCases/WorkerUseCases/CancelOrderUseCase.dart' as _i58;
-import '../domain/UseCases/WorkerUseCases/GetOrderDetailsUseCase.dart' as _i67;
+import '../domain/UseCases/CustomerUseCases/RemoveProviderFromFavUseCase.dart'
+    as _i38;
+import '../domain/UseCases/WorkerUseCases/AllOrdersUseCase.dart' as _i55;
+import '../domain/UseCases/WorkerUseCases/ApprovedOrdersUseCase.dart' as _i58;
+import '../domain/UseCases/WorkerUseCases/ApproveOrderUseCase.dart' as _i56;
+import '../domain/UseCases/WorkerUseCases/CancelOrderUseCase.dart' as _i60;
+import '../domain/UseCases/WorkerUseCases/GetOrderDetailsUseCase.dart' as _i69;
 import '../domain/UseCases/WorkerUseCases/GetRegisteredServicesUseCase.dart'
-    as _i70;
-import '../domain/UseCases/WorkerUseCases/GetWorkerImageUseCase.dart' as _i71;
-import '../domain/UseCases/WorkerUseCases/PendingOrdersUseCase.dart' as _i74;
+    as _i72;
+import '../domain/UseCases/WorkerUseCases/GetWorkerImageUseCase.dart' as _i73;
+import '../domain/UseCases/WorkerUseCases/PendingOrdersUseCase.dart' as _i76;
 import '../domain/UseCases/WorkerUseCases/RegisterNewServiceUseCase.dart'
-    as _i75;
-import '../domain/UseCases/WorkerUseCases/RejectOrderUseCase.dart' as _i76;
+    as _i77;
+import '../domain/UseCases/WorkerUseCases/RejectOrderUseCase.dart' as _i78;
 import '../domain/UseCases/WorkerUseCases/RemoveAvailabilityUseCase.dart'
-    as _i78;
-import '../domain/UseCases/WorkerUseCases/SetAvailabilityUseCase.dart' as _i79;
-import '../domain/UseCases/WorkerUseCases/UploadFileUseCase.dart' as _i85;
-import '../domain/UseCases/WorkerUseCases/WorkerProfileUseCase.dart' as _i89;
-import '../domain/UseCases/WorkerUseCases/WorkerSlotsUseCase.dart' as _i43;
+    as _i80;
+import '../domain/UseCases/WorkerUseCases/SetAvailabilityUseCase.dart' as _i81;
+import '../domain/UseCases/WorkerUseCases/UploadFileUseCase.dart' as _i87;
+import '../domain/UseCases/WorkerUseCases/WorkerProfileUseCase.dart' as _i91;
+import '../domain/UseCases/WorkerUseCases/WorkerSlotsUseCase.dart' as _i44;
 import '../Ui/Admin/AdminCustomerUi/CustomerListViewModel.dart' as _i18;
 import '../Ui/Admin/AdminDistrictsUi/DistrictsListViewModel.dart' as _i22;
 import '../Ui/Admin/AdminOrdersUi/AllOrders/AdminAllOrdersViewModel.dart'
@@ -112,33 +116,33 @@ import '../Ui/Admin/AdminOrdersUi/PendingOrders/AdminPendingOrdersViewModel.dart
     as _i11;
 import '../Ui/Admin/AdminOrdersUi/RejectedOrders/AdminRejectedOrdersViewModel.dart'
     as _i13;
-import '../Ui/Admin/AdminServiceUi/ServiceListViewModel.dart' as _i99;
+import '../Ui/Admin/AdminServiceUi/ServiceListViewModel.dart' as _i101;
 import '../Ui/Admin/AdminWorkerUi/WorkersList/WorkersListViewModel.dart'
-    as _i44;
+    as _i45;
 import '../Ui/Admin/AdminWorkerUi/WorkersRequests/WorkersRequestsViewModel.dart'
-    as _i46;
-import '../Ui/Customer/CartUi/MyCartViewModel.dart' as _i72;
-import '../Ui/Customer/CriteriaUi/CriteriaListViewModel.dart' as _i98;
-import '../Ui/Customer/FavouriteUi/CustomerFavProvidersViewModel.dart' as _i59;
-import '../Ui/Customer/MyAccountUI/CustomerProfileViewModel.dart' as _i60;
+    as _i47;
+import '../Ui/Customer/CartUi/MyCartViewModel.dart' as _i74;
+import '../Ui/Customer/CriteriaUi/CriteriaListViewModel.dart' as _i100;
+import '../Ui/Customer/FavouriteUi/CustomerFavProvidersViewModel.dart' as _i61;
+import '../Ui/Customer/MyAccountUI/CustomerProfileViewModel.dart' as _i62;
 import '../Ui/Customer/OrdersUi/OrderListViewModel.dart' as _i35;
-import '../Ui/Customer/ServiceUi/AllServices/ServicesViewModel.dart' as _i38;
+import '../Ui/Customer/ServiceUi/AllServices/ServicesViewModel.dart' as _i39;
 import '../Ui/Customer/ServiceUi/ChildrenServices/ChildrenViewModel.dart'
-    as _i97;
+    as _i99;
 import '../Ui/Customer/ServiceUi/FilteredServices/FilteredServicesViewModel.dart'
-    as _i64;
+    as _i66;
 import '../Ui/Customer/WorkerUI/FilteredWorkers/FilteredWorkersViewModel.dart'
-    as _i65;
-import '../Ui/Worker/Dashboard%20UI/WorkerDashboardViewModel.dart' as _i100;
-import '../Ui/Worker/MyAccountUi/Slots/SlotsListViewModel.dart' as _i83;
-import '../Ui/Worker/MyAccountUi/WorkerProfileViewModel.dart' as _i90;
-import '../Ui/Worker/OrdersUi/AllOrders/WorkerAllOrdersViewModel.dart' as _i86;
+    as _i67;
+import '../Ui/Worker/Dashboard%20UI/WorkerDashboardViewModel.dart' as _i102;
+import '../Ui/Worker/MyAccountUi/Slots/SlotsListViewModel.dart' as _i85;
+import '../Ui/Worker/MyAccountUi/WorkerProfileViewModel.dart' as _i92;
+import '../Ui/Worker/OrdersUi/AllOrders/WorkerAllOrdersViewModel.dart' as _i88;
 import '../Ui/Worker/OrdersUi/ApprovedOrders/WorkerApprovedOrdersViewModel.dart'
-    as _i87;
-import '../Ui/Worker/OrdersUi/OrderWidgets/OrderDetailsViewModel.dart' as _i73;
+    as _i89;
+import '../Ui/Worker/OrdersUi/OrderWidgets/OrderDetailsViewModel.dart' as _i75;
 import '../Ui/Worker/OrdersUi/PendingOrders/WorkerPendingOrdersViewModel.dart'
-    as _i88;
-import '../Ui/Worker/ServicesUi/WorkerServicesListViewModel.dart' as _i91;
+    as _i90;
+import '../Ui/Worker/ServicesUi/WorkerServicesListViewModel.dart' as _i93;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -200,155 +204,159 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i36.PayTransactionUseCase(gh<_i20.CustomerRepository>()));
     gh.factory<_i37.RemoveFromCartUseCase>(
         () => _i37.RemoveFromCartUseCase(gh<_i20.CustomerRepository>()));
-    gh.factory<_i38.ServicesViewModel>(
-        () => _i38.ServicesViewModel(gh<_i33.GetServicesListUseCase>()));
-    gh.factory<_i39.WorkerDataSource>(
-        () => _i40.WorkerDataSourceImpl(gh<_i15.ApiManager>()));
-    gh.factory<_i41.WorkerRepository>(
-        () => _i42.WorkerRepositoryImpl(gh<_i39.WorkerDataSource>()));
-    gh.factory<_i43.WorkerSlotsUseCase>(
-        () => _i43.WorkerSlotsUseCase(gh<_i41.WorkerRepository>()));
-    gh.factory<_i44.WorkersListViewModel>(
-        () => _i44.WorkersListViewModel(gh<_i45.getWorkersUseCase>()));
-    gh.factory<_i46.WorkersRequestsViewModel>(
-        () => _i46.WorkersRequestsViewModel(gh<_i47.ShowAllRequestsUseCase>()));
-    gh.factory<_i48.AddToCartUseCase>(
-        () => _i48.AddToCartUseCase(gh<_i20.CustomerRepository>()));
-    gh.factory<_i49.AdminDataSource>(
-        () => _i50.AdminDataSourceImpl(gh<_i15.ApiManager>()));
-    gh.factory<_i51.AdminRepository>(
-        () => _i52.AdminRepositoryImpl(gh<_i49.AdminDataSource>()));
-    gh.factory<_i53.AllOrdersUseCase>(
-        () => _i53.AllOrdersUseCase(gh<_i41.WorkerRepository>()));
-    gh.factory<_i54.ApproveOrderUseCase>(
-        () => _i54.ApproveOrderUseCase(gh<_i41.WorkerRepository>()));
-    gh.factory<_i55.ApproveWorkerUseCase>(
-        () => _i55.ApproveWorkerUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i56.ApprovedOrdersUseCase>(
-        () => _i56.ApprovedOrdersUseCase(gh<_i41.WorkerRepository>()));
-    gh.factory<_i57.BlockWorkerUseCase>(
-        () => _i57.BlockWorkerUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i58.CancelOrderUseCase>(
-        () => _i58.CancelOrderUseCase(gh<_i41.WorkerRepository>()));
-    gh.factory<_i59.CustomerFavProvidersViewModel>(() =>
-        _i59.CustomerFavProvidersViewModel(gh<_i25.GetCustomerFavsUseCase>()));
-    gh.factory<_i60.CustomerProfileViewModel>(
-        () => _i60.CustomerProfileViewModel(gh<_i30.GetProfileUseCase>()));
-    gh.factory<_i61.CustomerRegisterUseCase>(
-        () => _i61.CustomerRegisterUseCase(gh<_i20.CustomerRepository>()));
-    gh.factory<_i62.DisableDistrictUseCase>(
-        () => _i62.DisableDistrictUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i63.EnableDistrictUseCase>(
-        () => _i63.EnableDistrictUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i64.FilteredServicesViewModel>(() =>
-        _i64.FilteredServicesViewModel(gh<_i26.GetFilteredServicesUseCase>()));
-    gh.factory<_i65.FilteredWorkersViewModel>(() =>
-        _i65.FilteredWorkersViewModel(gh<_i32.GetServiceWorkersUseCase>()));
+    gh.factory<_i38.RemoveProviderFromFavUseCase>(
+        () => _i38.RemoveProviderFromFavUseCase(gh<_i20.CustomerRepository>()));
+    gh.factory<_i39.ServicesViewModel>(
+        () => _i39.ServicesViewModel(gh<_i33.GetServicesListUseCase>()));
+    gh.factory<_i40.WorkerDataSource>(
+        () => _i41.WorkerDataSourceImpl(gh<_i15.ApiManager>()));
+    gh.factory<_i42.WorkerRepository>(
+        () => _i43.WorkerRepositoryImpl(gh<_i40.WorkerDataSource>()));
+    gh.factory<_i44.WorkerSlotsUseCase>(
+        () => _i44.WorkerSlotsUseCase(gh<_i42.WorkerRepository>()));
+    gh.factory<_i45.WorkersListViewModel>(
+        () => _i45.WorkersListViewModel(gh<_i46.getWorkersUseCase>()));
+    gh.factory<_i47.WorkersRequestsViewModel>(
+        () => _i47.WorkersRequestsViewModel(gh<_i48.ShowAllRequestsUseCase>()));
+    gh.factory<_i49.AddProviderToFavUseCase>(
+        () => _i49.AddProviderToFavUseCase(gh<_i20.CustomerRepository>()));
+    gh.factory<_i50.AddToCartUseCase>(
+        () => _i50.AddToCartUseCase(gh<_i20.CustomerRepository>()));
+    gh.factory<_i51.AdminDataSource>(
+        () => _i52.AdminDataSourceImpl(gh<_i15.ApiManager>()));
+    gh.factory<_i53.AdminRepository>(
+        () => _i54.AdminRepositoryImpl(gh<_i51.AdminDataSource>()));
+    gh.factory<_i55.AllOrdersUseCase>(
+        () => _i55.AllOrdersUseCase(gh<_i42.WorkerRepository>()));
+    gh.factory<_i56.ApproveOrderUseCase>(
+        () => _i56.ApproveOrderUseCase(gh<_i42.WorkerRepository>()));
+    gh.factory<_i57.ApproveWorkerUseCase>(
+        () => _i57.ApproveWorkerUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i58.ApprovedOrdersUseCase>(
+        () => _i58.ApprovedOrdersUseCase(gh<_i42.WorkerRepository>()));
+    gh.factory<_i59.BlockWorkerUseCase>(
+        () => _i59.BlockWorkerUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i60.CancelOrderUseCase>(
+        () => _i60.CancelOrderUseCase(gh<_i42.WorkerRepository>()));
+    gh.factory<_i61.CustomerFavProvidersViewModel>(() =>
+        _i61.CustomerFavProvidersViewModel(gh<_i25.GetCustomerFavsUseCase>()));
+    gh.factory<_i62.CustomerProfileViewModel>(
+        () => _i62.CustomerProfileViewModel(gh<_i30.GetProfileUseCase>()));
+    gh.factory<_i63.CustomerRegisterUseCase>(
+        () => _i63.CustomerRegisterUseCase(gh<_i20.CustomerRepository>()));
+    gh.factory<_i64.DisableDistrictUseCase>(
+        () => _i64.DisableDistrictUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i65.EnableDistrictUseCase>(
+        () => _i65.EnableDistrictUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i66.FilteredServicesViewModel>(() =>
+        _i66.FilteredServicesViewModel(gh<_i26.GetFilteredServicesUseCase>()));
+    gh.factory<_i67.FilteredWorkersViewModel>(() =>
+        _i67.FilteredWorkersViewModel(gh<_i32.GetServiceWorkersUseCase>()));
     gh.factory<_i23.GetAllDistrictsUseCase>(
-        () => _i23.GetAllDistrictsUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i66.GetChildrenUseCase>(
-        () => _i66.GetChildrenUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i67.GetOrderDetailsUseCase>(
-        () => _i67.GetOrderDetailsUseCase(gh<_i41.WorkerRepository>()));
-    gh.factory<_i68.GetParentsUseCase>(
-        () => _i68.GetParentsUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i69.GetProviderDistrictsUseCase>(
-        () => _i69.GetProviderDistrictsUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i70.GetRegisteredServicesUseCase>(
-        () => _i70.GetRegisteredServicesUseCase(gh<_i41.WorkerRepository>()));
-    gh.factory<_i71.GetWorkerImageUseCase>(
-        () => _i71.GetWorkerImageUseCase(gh<_i41.WorkerRepository>()));
-    gh.factory<_i72.MyCartViewModel>(() => _i72.MyCartViewModel(
+        () => _i23.GetAllDistrictsUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i68.GetChildrenUseCase>(
+        () => _i68.GetChildrenUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i69.GetOrderDetailsUseCase>(
+        () => _i69.GetOrderDetailsUseCase(gh<_i42.WorkerRepository>()));
+    gh.factory<_i70.GetParentsUseCase>(
+        () => _i70.GetParentsUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i71.GetProviderDistrictsUseCase>(
+        () => _i71.GetProviderDistrictsUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i72.GetRegisteredServicesUseCase>(
+        () => _i72.GetRegisteredServicesUseCase(gh<_i42.WorkerRepository>()));
+    gh.factory<_i73.GetWorkerImageUseCase>(
+        () => _i73.GetWorkerImageUseCase(gh<_i42.WorkerRepository>()));
+    gh.factory<_i74.MyCartViewModel>(() => _i74.MyCartViewModel(
           gh<_i34.OrderCartUseCase>(),
           gh<_i37.RemoveFromCartUseCase>(),
           gh<_i24.GetCartUseCase>(),
         ));
-    gh.factory<_i73.OrderDetailsViewModel>(
-        () => _i73.OrderDetailsViewModel(gh<_i67.GetOrderDetailsUseCase>()));
-    gh.factory<_i74.PendingOrdersUseCase>(
-        () => _i74.PendingOrdersUseCase(gh<_i41.WorkerRepository>()));
-    gh.factory<_i75.RegisterNewServiceUseCase>(
-        () => _i75.RegisterNewServiceUseCase(gh<_i41.WorkerRepository>()));
-    gh.factory<_i76.RejectOrderUseCase>(
-        () => _i76.RejectOrderUseCase(gh<_i41.WorkerRepository>()));
-    gh.factory<_i77.RejectWorkerUseCase>(
-        () => _i77.RejectWorkerUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i78.RemoveAvailabilityUseCase>(
-        () => _i78.RemoveAvailabilityUseCase(gh<_i41.WorkerRepository>()));
-    gh.factory<_i79.SetAvailabilityUseCase>(
-        () => _i79.SetAvailabilityUseCase(gh<_i41.WorkerRepository>()));
-    gh.factory<_i80.ShowAllCriteriasUseCase>(
-        () => _i80.ShowAllCriteriasUseCase(gh<_i51.AdminRepository>()));
+    gh.factory<_i75.OrderDetailsViewModel>(
+        () => _i75.OrderDetailsViewModel(gh<_i69.GetOrderDetailsUseCase>()));
+    gh.factory<_i76.PendingOrdersUseCase>(
+        () => _i76.PendingOrdersUseCase(gh<_i42.WorkerRepository>()));
+    gh.factory<_i77.RegisterNewServiceUseCase>(
+        () => _i77.RegisterNewServiceUseCase(gh<_i42.WorkerRepository>()));
+    gh.factory<_i78.RejectOrderUseCase>(
+        () => _i78.RejectOrderUseCase(gh<_i42.WorkerRepository>()));
+    gh.factory<_i79.RejectWorkerUseCase>(
+        () => _i79.RejectWorkerUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i80.RemoveAvailabilityUseCase>(
+        () => _i80.RemoveAvailabilityUseCase(gh<_i42.WorkerRepository>()));
+    gh.factory<_i81.SetAvailabilityUseCase>(
+        () => _i81.SetAvailabilityUseCase(gh<_i42.WorkerRepository>()));
+    gh.factory<_i82.ShowAllCriteriasUseCase>(
+        () => _i82.ShowAllCriteriasUseCase(gh<_i53.AdminRepository>()));
     gh.factory<_i4.ShowAllOrdersUseCase>(
-        () => _i4.ShowAllOrdersUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i47.ShowAllRequestsUseCase>(
-        () => _i47.ShowAllRequestsUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i81.ShowFilteredWorkersUseCase>(
-        () => _i81.ShowFilteredWorkersUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i82.ShowServicesUseCase>(
-        () => _i82.ShowServicesUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i83.SlotsListViewModel>(
-        () => _i83.SlotsListViewModel(gh<_i43.WorkerSlotsUseCase>()));
-    gh.factory<_i84.UnBlockWorkerUseCase>(
-        () => _i84.UnBlockWorkerUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i85.UploadFileUseCase>(
-        () => _i85.UploadFileUseCase(gh<_i41.WorkerRepository>()));
-    gh.factory<_i86.WorkerAllOrdersViewModel>(
-        () => _i86.WorkerAllOrdersViewModel(gh<_i53.AllOrdersUseCase>()));
-    gh.factory<_i87.WorkerApprovedOrdersViewModel>(() =>
-        _i87.WorkerApprovedOrdersViewModel(gh<_i56.ApprovedOrdersUseCase>()));
-    gh.factory<_i88.WorkerPendingOrdersViewModel>(() =>
-        _i88.WorkerPendingOrdersViewModel(gh<_i74.PendingOrdersUseCase>()));
-    gh.factory<_i89.WorkerProfileUseCase>(
-        () => _i89.WorkerProfileUseCase(gh<_i41.WorkerRepository>()));
-    gh.factory<_i90.WorkerProfileViewModel>(() => _i90.WorkerProfileViewModel(
-          gh<_i89.WorkerProfileUseCase>(),
-          gh<_i71.GetWorkerImageUseCase>(),
+        () => _i4.ShowAllOrdersUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i48.ShowAllRequestsUseCase>(
+        () => _i48.ShowAllRequestsUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i83.ShowFilteredWorkersUseCase>(
+        () => _i83.ShowFilteredWorkersUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i84.ShowServicesUseCase>(
+        () => _i84.ShowServicesUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i85.SlotsListViewModel>(
+        () => _i85.SlotsListViewModel(gh<_i44.WorkerSlotsUseCase>()));
+    gh.factory<_i86.UnBlockWorkerUseCase>(
+        () => _i86.UnBlockWorkerUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i87.UploadFileUseCase>(
+        () => _i87.UploadFileUseCase(gh<_i42.WorkerRepository>()));
+    gh.factory<_i88.WorkerAllOrdersViewModel>(
+        () => _i88.WorkerAllOrdersViewModel(gh<_i55.AllOrdersUseCase>()));
+    gh.factory<_i89.WorkerApprovedOrdersViewModel>(() =>
+        _i89.WorkerApprovedOrdersViewModel(gh<_i58.ApprovedOrdersUseCase>()));
+    gh.factory<_i90.WorkerPendingOrdersViewModel>(() =>
+        _i90.WorkerPendingOrdersViewModel(gh<_i76.PendingOrdersUseCase>()));
+    gh.factory<_i91.WorkerProfileUseCase>(
+        () => _i91.WorkerProfileUseCase(gh<_i42.WorkerRepository>()));
+    gh.factory<_i92.WorkerProfileViewModel>(() => _i92.WorkerProfileViewModel(
+          gh<_i91.WorkerProfileUseCase>(),
+          gh<_i73.GetWorkerImageUseCase>(),
         ));
-    gh.factory<_i91.WorkerServicesListViewModel>(() =>
-        _i91.WorkerServicesListViewModel(
-            gh<_i70.GetRegisteredServicesUseCase>()));
+    gh.factory<_i93.WorkerServicesListViewModel>(() =>
+        _i93.WorkerServicesListViewModel(
+            gh<_i72.GetRegisteredServicesUseCase>()));
     gh.factory<_i6.getApprovedOrdersUseCase>(
-        () => _i6.getApprovedOrdersUseCase(gh<_i51.AdminRepository>()));
+        () => _i6.getApprovedOrdersUseCase(gh<_i53.AdminRepository>()));
     gh.factory<_i8.getCancelledOrdersUseCase>(
-        () => _i8.getCancelledOrdersUseCase(gh<_i51.AdminRepository>()));
+        () => _i8.getCancelledOrdersUseCase(gh<_i53.AdminRepository>()));
     gh.factory<_i19.getCustomersUseCase>(
-        () => _i19.getCustomersUseCase(gh<_i51.AdminRepository>()));
+        () => _i19.getCustomersUseCase(gh<_i53.AdminRepository>()));
     gh.factory<_i10.getExpiredOrdersUseCase>(
-        () => _i10.getExpiredOrdersUseCase(gh<_i51.AdminRepository>()));
+        () => _i10.getExpiredOrdersUseCase(gh<_i53.AdminRepository>()));
     gh.factory<_i14.getRejectedOrdersUseCase>(
-        () => _i14.getRejectedOrdersUseCase(gh<_i51.AdminRepository>()));
+        () => _i14.getRejectedOrdersUseCase(gh<_i53.AdminRepository>()));
     gh.factory<_i12.getRequestedOrdersUseCase>(
-        () => _i12.getRequestedOrdersUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i45.getWorkersUseCase>(
-        () => _i45.getWorkersUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i92.AddCriteriaUseCase>(
-        () => _i92.AddCriteriaUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i93.AddDistrictUseCase>(
-        () => _i93.AddDistrictUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i94.AddServiceToCriteriaUseCase>(
-        () => _i94.AddServiceToCriteriaUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i95.AddServiceUseCase>(
-        () => _i95.AddServiceUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i96.AddWorkerToDistrictUseCase>(
-        () => _i96.AddWorkerToDistrictUseCase(gh<_i51.AdminRepository>()));
-    gh.factory<_i97.ChildrenServicesViewModel>(
-        () => _i97.ChildrenServicesViewModel(gh<_i66.GetChildrenUseCase>()));
-    gh.factory<_i98.CriteriaListViewModel>(() => _i98.CriteriaListViewModel(
-          gh<_i80.ShowAllCriteriasUseCase>(),
-          gh<_i68.GetParentsUseCase>(),
+        () => _i12.getRequestedOrdersUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i46.getWorkersUseCase>(
+        () => _i46.getWorkersUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i94.AddCriteriaUseCase>(
+        () => _i94.AddCriteriaUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i95.AddDistrictUseCase>(
+        () => _i95.AddDistrictUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i96.AddServiceToCriteriaUseCase>(
+        () => _i96.AddServiceToCriteriaUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i97.AddServiceUseCase>(
+        () => _i97.AddServiceUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i98.AddWorkerToDistrictUseCase>(
+        () => _i98.AddWorkerToDistrictUseCase(gh<_i53.AdminRepository>()));
+    gh.factory<_i99.ChildrenServicesViewModel>(
+        () => _i99.ChildrenServicesViewModel(gh<_i68.GetChildrenUseCase>()));
+    gh.factory<_i100.CriteriaListViewModel>(() => _i100.CriteriaListViewModel(
+          gh<_i82.ShowAllCriteriasUseCase>(),
+          gh<_i70.GetParentsUseCase>(),
         ));
-    gh.factory<_i99.ServiceListViewModel>(() => _i99.ServiceListViewModel(
-          gh<_i82.ShowServicesUseCase>(),
-          gh<_i95.AddServiceUseCase>(),
-          gh<_i92.AddCriteriaUseCase>(),
-          gh<_i94.AddServiceToCriteriaUseCase>(),
-          gh<_i80.ShowAllCriteriasUseCase>(),
+    gh.factory<_i101.ServiceListViewModel>(() => _i101.ServiceListViewModel(
+          gh<_i84.ShowServicesUseCase>(),
+          gh<_i97.AddServiceUseCase>(),
+          gh<_i94.AddCriteriaUseCase>(),
+          gh<_i96.AddServiceToCriteriaUseCase>(),
+          gh<_i82.ShowAllCriteriasUseCase>(),
         ));
-    gh.factory<_i100.WorkerDashboardViewModel>(
-        () => _i100.WorkerDashboardViewModel(
-              gh<_i89.WorkerProfileUseCase>(),
-              gh<_i74.PendingOrdersUseCase>(),
+    gh.factory<_i102.WorkerDashboardViewModel>(
+        () => _i102.WorkerDashboardViewModel(
+              gh<_i91.WorkerProfileUseCase>(),
+              gh<_i76.PendingOrdersUseCase>(),
             ));
     return this;
   }

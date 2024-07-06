@@ -5,7 +5,7 @@ class AdminApiPaths{
   static const String AdminRejectPath = "/api/Admin/RejectServiceProvider";
   static const String AdminApprovePath = "/api/Admin/ApproveServiceProvider";
   static const String AdminGetServiceProvidersPath = "/api/Admin/getServiceProviders";
-  static const String AdminGetRequestsPath = "/api/Admin/GetServiceProvidersRegistrationRequests";
+  static const String AdminGetRequestsPath = "/api/Admin/GetProvidersRegistrationRequests";
   static const String GetAllCriteraiPath = "/api/Criteria/GetAll";
   static const String GetAllWorkersForService = "/api/services/GetAllWorkersForService";
   static const String AddServiceToCriteriaPath = "/api/Criteria/addservice";

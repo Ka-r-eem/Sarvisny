@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../Provider/ColorProvider.dart';
-import '../../../di/di.dart';
-import '../../../domain/UseCases/AdminUseCases/GetAllDistrictsUseCase.dart';
-import '../../../domain/UseCases/AdminUseCases/getWorkersUseCase.dart';
-import '../../../domain/model/AdminRelatedResponses/CriteriasListResponse.dart';
-import '../../../domain/model/WorkerRelatedResponse/WorkersListResponse.dart';
+import '../../Provider/ColorProvider.dart';
+import '../../di/di.dart';
+import '../../domain/UseCases/AdminUseCases/GetAllDistrictsUseCase.dart';
+import '../../domain/UseCases/AdminUseCases/getWorkersUseCase.dart';
+import '../../domain/model/AdminRelatedResponses/CriteriasListResponse.dart';
+import '../../domain/model/WorkerRelatedResponse/WorkersListResponse.dart';
 
 class WorkersDropDown extends StatefulWidget {
   final Function(WorkerListObject?) onWorkerChanged;
