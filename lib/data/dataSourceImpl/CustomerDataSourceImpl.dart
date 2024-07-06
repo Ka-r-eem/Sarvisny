@@ -6,11 +6,14 @@ import 'package:sarvisny/domain/model/CustomerRelatedResponses/CustomerOrdersLog
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/CustomerProfileData.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/CustomerRegisterData.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/FilteredServicesResponse.dart';
+import 'package:sarvisny/domain/model/CustomerRelatedResponses/GetAllMatchedResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/GetCartResponse.dart';
+import 'package:sarvisny/domain/model/CustomerRelatedResponses/GetCustomerFavResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/GetServiceWorkersResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/OrderCartResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/PaymentTransactionResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/RemoveFromCartResponse.dart';
+import '../../domain/model/CustomerRelatedResponses/Get_First_Sec_Matched_Response.dart';
 import '../API/apiManager.dart';
 import '../Responses/CustomerRelatedDto/CustomerRegisterData.dart';
 
@@ -108,6 +111,30 @@ class CustomerDataSourceimpl extends CustomerDataSource {
   @override
   Future<PaymentTransactionResponse?> PayTransaction(String? transID) async{
     var response = await apiManager.PayTrasaction(transID);
+    return response;
+  }
+
+  @override
+  Future<GetAllMatchedResponse> GetAllMatched(String? serviceId, String? day, String? time, String? districtId, String? customerId) {
+    var response = apiManager.GetAllMatched(serviceId, day, time, districtId, customerId);
+    return response;
+  }
+
+  @override
+  Future<GetFirstSecMatchedResponse> GetFirstMatched(String? serviceId, String? day, String? time, String? districtId, String? customerId) {
+    var response = apiManager.GetFirstMatched(serviceId, day, time, districtId, customerId);
+    return response;
+  }
+
+  @override
+  Future<GetFirstSecMatchedResponse> GetSecMatched(String? serviceId, String? day, String? time, String? districtId, String? customerId) {
+    var response = apiManager.GetSecMatched(serviceId, day, time, districtId, customerId);
+    return response;
+  }
+
+  @override
+  Future<GetCustomerFavResponse> GetCustomerFav(String? customerID) {
+    var response = apiManager.GetCustomerFav(customerID);
     return response;
   }
 }

@@ -221,7 +221,6 @@ class _ServicesListScreenState extends State<ServicesListScreen> {
                               color: Theme.of(context).colorScheme.onPrimary),
                           textAlign: TextAlign.center),
                       CriteriasDropDown(
-                        criteriaList: list,
                         onCriteriaChanged: (p0) {
                           selectedCriteria = p0;
                         },
@@ -283,7 +282,6 @@ class _ServicesListScreenState extends State<ServicesListScreen> {
                       Visibility(
                         visible: visible,
                         child: ParentsDropDown(
-                          parentsList: parents.payload,
                           onParentChanged:  (p0) {
                             selectedParent = p0;
                           },

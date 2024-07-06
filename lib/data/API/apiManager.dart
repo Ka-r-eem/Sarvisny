@@ -6,6 +6,9 @@ import 'package:sarvisny/data/Responses/AdminRelatedDto/ParentsServicesDto.dart'
 import 'package:sarvisny/data/Responses/LoginResponseData.dart';
 import 'package:sarvisny/data/Responses/WorkerRelatedDto/RemoveAvailabilityResponseDto.dart';
 import 'package:sarvisny/data/Responses/WorkerRelatedDto/WorkerRegisterResponseDto.dart';
+import 'package:sarvisny/domain/model/CustomerRelatedResponses/GetAllMatchedResponse.dart';
+import 'package:sarvisny/domain/model/CustomerRelatedResponses/GetCustomerFavResponse.dart';
+import 'package:sarvisny/domain/model/CustomerRelatedResponses/Get_First_Sec_Matched_Response.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/PaymentTransactionResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/GetWorkerImageResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/UploadFileResponse.dart';
@@ -869,8 +872,7 @@ class ApiManager {
     }
   }
 
-   Future<ShowOrderDetailsResponseDto> GetOrderDetails(
-      String? orderID) async {
+   Future<ShowOrderDetailsResponseDto> GetOrderDetails(String? orderID) async {
     try {
       var queryParams = {
         'orderId': orderID,
@@ -896,8 +898,175 @@ class ApiManager {
       return ShowOrderDetailsResponseDto(isError: true, message: "Error occurred");
     }
   }
+   Future<GetCustomerFavResponse> GetCustomerFav(String? customerID) async {
+    try {
+      var url = Uri.https(
+          '$ipAddress:$port', "${CustomerApiPaths.GetCustomerFavouritesPath}$customerID",);
 
-   Future<ApproveRejectCancelOrderResponseDto> ApproveOrder(
+      var response = await http.get(
+        url,
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (response.body.isNotEmpty) {
+        var responseBody = jsonDecode(response.body);
+        return GetCustomerFavResponse.fromJson(responseBody);
+      } else {
+        // Handle empty response
+        return GetCustomerFavResponse(
+            isError: true, message: "Empty response");
+      }
+    } catch (error) {
+      return GetCustomerFavResponse(isError: true, message: "Error occurred");
+    }
+  }
+  Future<GetAllMatchedResponse> GetAllMatched(String? serviceId, String? day, String? time, String? districtId, String? customerId) async {
+    try {
+      var url = Uri.https(
+        '$ipAddress:$port',
+        CustomerApiPaths.GetAllMatchedProvidersPath, // Replace with your API path
+      );
+
+      var requestBody = jsonEncode({
+        "services": [serviceId],
+        "startTime": time,
+        "dayOfWeek": day,
+        "districtId": districtId,
+        "customerId": customerId
+      });
+
+      var response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: requestBody,
+      );
+
+      if (response.statusCode == 200) {
+        if (response.body.isNotEmpty) {
+          var responseBody = jsonDecode(response.body);
+          print("responseBody : $responseBody");
+          return GetAllMatchedResponse.fromJson(responseBody);
+        } else {
+          // Handle empty response
+          return GetAllMatchedResponse(
+            isError: true,
+            message: "Empty response",
+          );
+        }
+      } else {
+        // Handle HTTP error
+        return GetAllMatchedResponse(
+          isError: true,
+          message: "HTTP Error: ${response.statusCode}",
+        );
+      }
+    } catch (error) {
+      // Handle general error
+      return GetAllMatchedResponse(
+        isError: true,
+        message: "Error occurred $error",
+      );
+    }
+  }
+  Future<GetFirstSecMatchedResponse> GetFirstMatched(String? serviceId, String? day, String? time, String? districtId, String? customerId) async {
+    try {
+      var url = Uri.https(
+        '$ipAddress:$port',
+        CustomerApiPaths.GetFirstSuggestedProviderPath, // Replace with your API path
+      );
+
+      var requestBody = jsonEncode({
+        "services": [serviceId],
+        "startTime": time,
+        "dayOfWeek": day,
+        "districtId": districtId,
+        "customerId": customerId
+      });
+
+      var response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: requestBody,
+      );
+
+      if (response.statusCode == 200) {
+        if (response.body.isNotEmpty) {
+          var responseBody = jsonDecode(response.body);
+          print("responseBody : $responseBody");
+          return GetFirstSecMatchedResponse.fromJson(responseBody);
+        } else {
+          // Handle empty response
+          return GetFirstSecMatchedResponse(
+            isError: true,
+            message: "Empty response",
+          );
+        }
+      } else {
+        // Handle HTTP error
+        return GetFirstSecMatchedResponse(
+          isError: true,
+          message: "HTTP Error: ${response.statusCode}",
+        );
+      }
+    } catch (error) {
+      // Handle general error
+      return GetFirstSecMatchedResponse(
+        isError: true,
+        message: "Error occurred $error",
+      );
+    }
+  }
+  Future<GetFirstSecMatchedResponse> GetSecMatched(String? serviceId, String? day, String? time, String? districtId, String? customerId) async {
+    try {
+      var url = Uri.https(
+        '$ipAddress:$port',
+        CustomerApiPaths.GetSecondSuggestedProviderPath, // Replace with your API path
+      );
+
+      var requestBody = jsonEncode({
+        "services": [serviceId],
+        "startTime": time,
+        "dayOfWeek": day,
+        "districtId": districtId,
+        "customerId": customerId
+      });
+
+      var response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: requestBody,
+      );
+
+      if (response.statusCode == 200) {
+        if (response.body.isNotEmpty) {
+          var responseBody = jsonDecode(response.body);
+          print("responseBody : $responseBody");
+          return GetFirstSecMatchedResponse.fromJson(responseBody);
+        } else {
+          // Handle empty response
+          return GetFirstSecMatchedResponse(
+            isError: true,
+            message: "Empty response",
+          );
+        }
+      } else {
+        // Handle HTTP error
+        return GetFirstSecMatchedResponse(
+          isError: true,
+          message: "HTTP Error: ${response.statusCode}",
+        );
+      }
+    } catch (error) {
+      // Handle general error
+      return GetFirstSecMatchedResponse(
+        isError: true,
+        message: "Error occurred $error",
+      );
+    }
+  }
+
+
+Future<ApproveRejectCancelOrderResponseDto> ApproveOrder(
       String? orderID) async {
     try {
       var url = Uri.https(

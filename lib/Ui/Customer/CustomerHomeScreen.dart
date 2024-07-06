@@ -3,7 +3,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:sarvisny/Ui/Customer/CartUi/MyCartView.dart';
 import 'package:sarvisny/Ui/Customer/CriteriaUi/CustomerCriteriaListView.dart';
-import 'package:sarvisny/Ui/Customer/FavouriteUi/FavScreen.dart';
+import 'package:sarvisny/Ui/Customer/FavouriteUi/CustomerFavProvidersView.dart';
 import 'package:sarvisny/Ui/Customer/OrdersUi/OrderListView.dart';
 import 'package:sarvisny/dialoguUtilites.dart';
 import 'package:sarvisny/domain/UseCases/CustomerUseCases/GetCartUseCase.dart';
@@ -146,7 +146,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
 
   List<Widget> tabs = [
     CustomerCriteriaListView(),
-    Fav(),
+    CustomerFavProvidersView(),
     OrdersListWidget(),
     CustomerProfileView(),
   ];

@@ -3,26 +3,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:sarvisny/Common/LoadingLogo.dart';
 import 'package:sarvisny/Provider/Provider.dart';
+import 'package:sarvisny/Ui/Customer/FavouriteUi/FavProvidersScreen.dart';
 import 'package:sarvisny/Ui/Customer/MyAccountUI/Profile.dart';
 import '../../../di/di.dart';
-import 'CustomerProfileViewModel.dart';
+import 'CustomerFavProvidersViewModel.dart';
 
-class CustomerProfileView extends StatefulWidget
+class CustomerFavProvidersView extends StatefulWidget
 {
-  const CustomerProfileView({super.key});
+  const CustomerFavProvidersView({super.key});
 
   @override
-  State<CustomerProfileView> createState() => _CustomerProfileViewState();
+  State<CustomerFavProvidersView> createState() => _CustomerFavProvidersViewState();
 }
 
-class _CustomerProfileViewState extends State<CustomerProfileView> {
+class _CustomerFavProvidersViewState extends State<CustomerFavProvidersView> {
 
-  var viewModel = getIt<CustomerProfileViewModel>();
+  var viewModel = getIt<CustomerFavProvidersViewModel>();
 
   @override
   void initState() {
     var provider = Provider.of<AppProvider>(context, listen: false);
-    viewModel.GetProfile(provider.UserId);
+    viewModel.GetFavs(provider.UserId);
     super.initState();
   }
   @override
@@ -30,29 +31,29 @@ class _CustomerProfileViewState extends State<CustomerProfileView> {
 
     var provider = Provider.of<AppProvider>(context);
 
-    return BlocConsumer<CustomerProfileViewModel, CustomerProfileState>(
+    return BlocConsumer<CustomerFavProvidersViewModel, CustomerFavProvidersState>(
       bloc: viewModel,
       buildWhen: (previous, current) {
-        if (current is CustomerProfileError) return false;
-        if (current is CustomerProfileLoading) return false;
+        if (current is CustomerFavProvidersError) return false;
+        if (current is CustomerFavProvidersLoading) return false;
         return true;
       },
       listenWhen: (previous, current) {
-        if (current is CustomerProfileError) return true;
-        if (current is CustomerProfileLoading) return true;
+        if (current is CustomerFavProvidersError) return true;
+        if (current is CustomerFavProvidersLoading) return true;
         return false;
       },
       listener: (context, state) {
-        if (state is CustomerProfileLoading) {
+        if (state is CustomerFavProvidersLoading) {
           // showLoading;
         }
-        if (state is CustomerProfileError) {
+        if (state is CustomerFavProvidersError) {
           // showMessage;
         }
       },
       builder: (context, state) {
-        if (state is CustomerProfileSuccess && provider.token != null && provider.token != "") {
-          return ProfilePage(details: state.profileData.payload);
+        if (state is CustomerFavProvidersSuccess && provider.token != null && provider.token != "") {
+          return FavProvidersScreen(favList: state.FavList);
         }
         else if (provider.token == null || provider.token == "") {
           return const Center(

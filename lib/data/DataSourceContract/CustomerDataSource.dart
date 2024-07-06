@@ -5,8 +5,11 @@ import '../../domain/model/CustomerRelatedResponses/AddToCartResponse.dart';
 import '../../domain/model/CustomerRelatedResponses/CustomerOrdersLogResponse.dart';
 import '../../domain/model/CustomerRelatedResponses/CustomerProfileData.dart';
 import '../../domain/model/CustomerRelatedResponses/FilteredServicesResponse.dart';
+import '../../domain/model/CustomerRelatedResponses/GetAllMatchedResponse.dart';
 import '../../domain/model/CustomerRelatedResponses/GetCartResponse.dart';
+import '../../domain/model/CustomerRelatedResponses/GetCustomerFavResponse.dart';
 import '../../domain/model/CustomerRelatedResponses/GetServiceWorkersResponse.dart';
+import '../../domain/model/CustomerRelatedResponses/Get_First_Sec_Matched_Response.dart';
 import '../../domain/model/CustomerRelatedResponses/OrderCartResponse.dart';
 import '../../domain/model/CustomerRelatedResponses/RemoveFromCartResponse.dart';
 import '../Responses/CustomerRelatedDto/CustomerRegisterData.dart';
@@ -23,6 +26,10 @@ abstract class CustomerDataSource {
   Future<FilteredServicesResponse?> GetFilteredServices (String? CriteriaId);
   Future<ServicesListResponse?> GetServicesList();
   Future<PaymentTransactionResponse?> PayTransaction(String? transID);
+  Future<GetFirstSecMatchedResponse> GetFirstMatched(String? serviceId, String? day, String? time, String? districtId, String? customerId);
+  Future<GetFirstSecMatchedResponse> GetSecMatched(String? serviceId, String? day, String? time, String? districtId, String? customerId);
+  Future<GetAllMatchedResponse> GetAllMatched(String? serviceId, String? day, String? time, String? districtId, String? customerId);
+  Future<GetCustomerFavResponse> GetCustomerFav(String? customerID);
 
 
   }

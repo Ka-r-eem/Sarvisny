@@ -26,6 +26,12 @@ class AdminApiPaths{
   static const String EnableDistrictPath = "/api/District/EnableDistrict/{providerId}";
   static const String GetAllParentsPath = "/api/services/GetAllParentServices";
   static const String GetAllChildrenForServicePath = "/api/services/GetAllChildForService";
+  // static const String MakeOrderCompletePath = "/api/Admin/MarkOrderComplete/{orderId}";
+  // static const String MakeOrderFraudPath = "/api/Admin/MarkFraud/{orderId}";
+  // static const String GetWorkerCriminalRecordePath = "/api/Admin/getWorkerCriminalRecord";
+  // static const String GetCancelledOrderByProviderPath = "/api/Admin/getAllCanceledOrdersByProvider";
+  // static const String ReAssignOrderPath = "/api/Admin/ReAssignOrder/{orderId}";
+  // static const String GetOrdersNeedRefundPath = "/api/Admin/getAllOrdersNeedRefund";
 
 
 

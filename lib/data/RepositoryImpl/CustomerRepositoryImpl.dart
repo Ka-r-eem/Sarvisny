@@ -8,12 +8,15 @@ import 'package:sarvisny/domain/model/CustomerRelatedResponses/AddToCartResponse
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/CustomerOrdersLogResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/CustomerProfileData.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/FilteredServicesResponse.dart';
+import 'package:sarvisny/domain/model/CustomerRelatedResponses/GetAllMatchedResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/GetCartResponse.dart';
+import 'package:sarvisny/domain/model/CustomerRelatedResponses/GetCustomerFavResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/GetServiceWorkersResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/OrderCartResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/PaymentTransactionResponse.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/RemoveFromCartResponse.dart';
 
+import '../../domain/model/CustomerRelatedResponses/Get_First_Sec_Matched_Response.dart';
 import '../Responses/CustomerRelatedDto/CustomerRegisterData.dart';
 
 
@@ -81,6 +84,26 @@ class CustomerRepositoryImpl extends CustomerRepository {
   @override
   Future<PaymentTransactionResponse?> PayTransaction(String? transID) {
     return dataSource.PayTransaction(transID);
+  }
+
+  @override
+  Future<GetAllMatchedResponse> GetAllMatched(String? serviceId, String? day, String? time, String? districtId, String? customerId) {
+    return dataSource.GetAllMatched(serviceId, day, time, districtId, customerId);
+  }
+
+  @override
+  Future<GetFirstSecMatchedResponse> GetFirstMatched(String? serviceId, String? day, String? time, String? districtId, String? customerId) {
+   return dataSource.GetFirstMatched(serviceId, day, time, districtId, customerId);
+  }
+
+  @override
+  Future<GetFirstSecMatchedResponse> GetSecMatched(String? serviceId, String? day, String? time, String? districtId, String? customerId) {
+    return dataSource.GetSecMatched(serviceId, day, time, districtId, customerId);
+  }
+
+  @override
+  Future<GetCustomerFavResponse> GetCustomerFav(String? customerID) {
+    return dataSource.GetCustomerFav(customerID);
   }
 
 
