@@ -16,7 +16,7 @@ class CustomerApiPaths {
   static const String GetAllMatchedProvidersPath = "/api/Customer/getAllMatchedProviderSortedbyFav";
   static const String GetFirstSuggestedProviderPath = "/api/Customer/getFirstSuggestionsSortedbyFav";
   static const String GetSecondSuggestedProviderPath = "/api/Customer/getSecondSuggestionsSortedbyFav";
-  // static const String RefundOrderPath = "/api/Customer/refundOrder/{orderId}";
+  static const String CancelOrderPath = "/api/Customer/cancelOrder/";
   // static const String GetOrderStatusPath = "/api/Customer/getOrderStatus";
   // static const String AddCustomerRatingPath = "/api/Customer/addCustomerRating/{orderId}";
   // static const String UpdateCustomerProfilePath = "/api/Customer/updateCustomerProfile/{customerId}";

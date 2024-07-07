@@ -100,7 +100,7 @@ class orderDetails {
   String? customerLN;
   String? address;
   String? orderStatus;
-  double? orderPrice;
+  num? orderPrice;
   String? orderDate;
   List<OrderService>? orderService;
 orderDetails copyWith({  String? orderId,
@@ -109,7 +109,7 @@ orderDetails copyWith({  String? orderId,
   String? customerLN,
   String? address,
   String? orderStatus,
-  double? orderPrice,
+  num? orderPrice,
   String? orderDate,
   List<OrderService>? orderService,
 }) => orderDetails(  orderId: orderId ?? this.orderId,
@@ -184,7 +184,7 @@ class OrderService {
   String? criteriaName;
   String? slotID;
   String? startTime;
-  double? price;
+  num? price;
   String? problemDescription;
 OrderService copyWith({  String? serviceID,
   String? serviceName,
@@ -194,7 +194,7 @@ OrderService copyWith({  String? serviceID,
   String? criteriaName,
   String? slotID,
   String? startTime,
-  double? price,
+  num? price,
   String? problemDescription,
 }) => OrderService(  serviceID: serviceID ?? this.serviceID,
   serviceName: serviceName ?? this.serviceName,

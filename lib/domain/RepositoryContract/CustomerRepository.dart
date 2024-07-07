@@ -2,6 +2,7 @@ import '../../data/Responses/CustomerRelatedDto/CustomerRegisterData.dart';
 import '../model/AdminRelatedResponses/ServicesListResponse.dart';
 import '../model/CustomerRelatedResponses/AddProviderToFavResponse.dart';
 import '../model/CustomerRelatedResponses/AddToCartResponse.dart';
+import '../model/CustomerRelatedResponses/CancelOrderResponse.dart';
 import '../model/CustomerRelatedResponses/CustomerOrdersLogResponse.dart';
 import '../model/CustomerRelatedResponses/CustomerProfileData.dart';
 import '../model/CustomerRelatedResponses/FilteredServicesResponse.dart';
@@ -33,5 +34,5 @@ abstract class CustomerRepository {
   Future<GetCustomerFavResponse> GetCustomerFav(String? customerID);
   Future<AddProviderToFavResponse> AddProviderToFav(String? workerID, String? customerId);
   Future<AddProviderToFavResponse> RemoveProviderFromFav(String? workerID, String? customerId);
-
+  Future<CancelOrderResponse> CustomerCancelOrder(String? orderID , String? customerId);
 }

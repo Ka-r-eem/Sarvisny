@@ -6,6 +6,7 @@ import '../../domain/model/WorkerRelatedResponse/RegisterNewServiceResponse.dart
 import '../../domain/model/WorkerRelatedResponse/RemoveAvailabilityResponse.dart';
 import '../../domain/model/WorkerRelatedResponse/ServiceProviderProfileData.dart';
 import '../../domain/model/WorkerRelatedResponse/SetAvailabilityResponse.dart';
+import '../../domain/model/WorkerRelatedResponse/SetStatusResponse.dart';
 import '../../domain/model/WorkerRelatedResponse/ShowOrderDetailsResponse.dart';
 import '../../domain/model/WorkerRelatedResponse/UploadFileResponse.dart';
 import '../../domain/model/WorkerRelatedResponse/WorkerOrdersListResponse.dart';
@@ -29,7 +30,7 @@ abstract class WorkerDataSource {
 
   Future<WorkerOrdersListResponse> GetAllWorkerOrders(String? workerID);
 
-  Future<WorkerOrdersListResponse> GetApprovedWorkerOrders(String? workerID);
+  // Future<WorkerOrdersListResponse> GetApprovedWorkerOrders(String? workerID);
 
   Future<WorkerOrdersListResponse> GetPendingWorkerOrders(String? workerID);
 
@@ -43,4 +44,5 @@ abstract class WorkerDataSource {
   Future<RemoveAvailabilityResponse> RemoveAvailability(String? providerID , String? availabilityID);
   Future<UploadFileResponse> UploadFile(String? fileName, String? providerID, String? base64Image);
   Future<GetWorkerImageResponse> GetWorkerImage(String? workerID);
+  Future<SetStatusResponse> SetOrderStatus(String? orderID , String? status);
 }

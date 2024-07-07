@@ -11,10 +11,12 @@ import 'package:sarvisny/domain/model/CustomerRelatedResponses/GetCustomerFavRes
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/Get_First_Sec_Matched_Response.dart';
 import 'package:sarvisny/domain/model/CustomerRelatedResponses/PaymentTransactionResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/GetWorkerImageResponse.dart';
+import 'package:sarvisny/domain/model/WorkerRelatedResponse/SetStatusResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/UploadFileResponse.dart';
 import '../../domain/model/AdminRelatedResponses/AddServiceData.dart';
 import '../../domain/model/AdminRelatedResponses/CriteriaData.dart';
 import '../../domain/model/CustomerRelatedResponses/AddProviderToFavResponse.dart';
+import '../../domain/model/CustomerRelatedResponses/CancelOrderResponse.dart';
 import '../../domain/model/CustomerRelatedResponses/GetCartResponse.dart';
 import '../../domain/model/CustomerRelatedResponses/OrderCartResponse.dart';
 import '../Responses/AdminRelatedDto/AddDistrictData.dart';
@@ -826,6 +828,7 @@ class ApiManager {
 
       var url = Uri.https(
           '$ipAddress:$port', WorkerApiPaths.GetAllOrders, queryParams);
+      print(url);
 
       var response = await http.get(
         url,
@@ -834,6 +837,8 @@ class ApiManager {
 
       if (response.body.isNotEmpty) {
         var responseBody = jsonDecode(response.body);
+        print(response.statusCode);
+        print(responseBody);
         return WorkerOrdersListResponseDto.fromJson(responseBody);
       } else {
         // Handle empty response
@@ -841,37 +846,37 @@ class ApiManager {
             isError: true, message: "Empty response");
       }
     } catch (error) {
-      return WorkerOrdersListResponseDto(isError: true, message: "Error occurred");
+      return WorkerOrdersListResponseDto(isError: true, message: "Error occurred $error");
     }
   }
 
-   Future<WorkerOrdersListResponseDto> GetApprovedWorkerOrders(
-      String? workerID) async {
-    try {
-      var queryParams = {
-        'providerID': workerID,
-      };
-
-      var url = Uri.https(
-          '$ipAddress:$port', WorkerApiPaths.GetAllApprovedOrders, queryParams);
-
-      var response = await http.get(
-        url,
-        headers: {'Content-Type': 'application/json'},
-      );
-
-      if (response.body.isNotEmpty) {
-        var responseBody = jsonDecode(response.body);
-        return WorkerOrdersListResponseDto.fromJson(responseBody);
-      } else {
-        // Handle empty response
-        return WorkerOrdersListResponseDto(
-            isError: true, message: "Empty response");
-      }
-    } catch (error) {
-      return WorkerOrdersListResponseDto(isError: true, message: "Error occurred");
-    }
-  }
+  //  Future<WorkerOrdersListResponseDto> GetApprovedWorkerOrders(
+  //     String? workerID) async {
+  //   try {
+  //     var queryParams = {
+  //       'providerID': workerID,
+  //     };
+  //
+  //     var url = Uri.https(
+  //         '$ipAddress:$port', WorkerApiPaths.GetAllApprovedOrders, queryParams);
+  //
+  //     var response = await http.get(
+  //       url,
+  //       headers: {'Content-Type': 'application/json'},
+  //     );
+  //
+  //     if (response.body.isNotEmpty) {
+  //       var responseBody = jsonDecode(response.body);
+  //       return WorkerOrdersListResponseDto.fromJson(responseBody);
+  //     } else {
+  //       // Handle empty response
+  //       return WorkerOrdersListResponseDto(
+  //           isError: true, message: "Empty response");
+  //     }
+  //   } catch (error) {
+  //     return WorkerOrdersListResponseDto(isError: true, message: "Error occurred");
+  //   }
+  // }
 
    Future<WorkerOrdersListResponseDto> GetPendingWorkerOrders(String? workerID) async {
     try {
@@ -929,7 +934,7 @@ class ApiManager {
    Future<ShowOrderDetailsResponseDto> GetOrderDetails(String? orderID) async {
     try {
       var queryParams = {
-        'orderId': orderID,
+        'orderRequestId': orderID,
       };
 
       var url = Uri.https(
@@ -950,6 +955,37 @@ class ApiManager {
       }
     } catch (error) {
       return ShowOrderDetailsResponseDto(isError: true, message: "Error occurred");
+    }
+  }
+   Future<SetStatusResponse> SetOrderStatus(String? orderID , String? status) async {
+    try {
+      var queryParams = {
+        'orderId': orderID,
+        'status': status,
+      };
+
+      var url = Uri.https(
+          '$ipAddress:$port', WorkerApiPaths.SetOrderStatus, queryParams);
+
+      print(url);
+
+      var response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (response.body.isNotEmpty) {
+        var responseBody = jsonDecode(response.body);
+        print(response.statusCode);
+        print(response.body);
+        return SetStatusResponse.fromJson(responseBody);
+      } else {
+        // Handle empty response
+        return SetStatusResponse(
+            isError: true, message: "Empty response");
+      }
+    } catch (error) {
+      return SetStatusResponse(isError: true, message: "Error occurred $error");
     }
   }
    Future<GetCustomerFavResponse> GetCustomerFav(String? customerID) async {
@@ -1168,8 +1204,7 @@ Future<ApproveRejectCancelOrderResponseDto> ApproveOrder(
     }
   }
 
-   Future<ApproveRejectCancelOrderResponseDto> CancelOrder(
-      String? orderID) async {
+   Future<ApproveRejectCancelOrderResponseDto> CancelOrder(String? orderID) async {
     try {
       var url = Uri.https(
         '$ipAddress:$port',
@@ -1184,11 +1219,39 @@ Future<ApproveRejectCancelOrderResponseDto> ApproveOrder(
         headers: {'Content-Type': 'application/json'},
       );
 
+      print(response.statusCode);
+      print(response.body);
       var responseBody = jsonDecode(response.body);
       return ApproveRejectCancelOrderResponseDto.fromJson(responseBody);
     } catch (error) {
       return ApproveRejectCancelOrderResponseDto(
-          isError: true, message: "Error occurred");
+          isError: true, message: "Error occurred$error");
+    }
+  }
+
+
+  Future<CancelOrderResponse> CustomerCancelOrder(String? orderID , String? customerId) async {
+    try {
+      var url = Uri.https(
+        '$ipAddress:$port',
+        "${CustomerApiPaths.CancelOrderPath}$orderID",
+        {
+          'customerId': customerId,
+        },
+      );
+
+      var response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      print(response.statusCode);
+      print(response.body);
+      var responseBody = jsonDecode(response.body);
+      return CancelOrderResponse.fromJson(responseBody);
+    } catch (error) {
+      return CancelOrderResponse(
+          isError: true, message: "Error occurred$error");
     }
   }
 

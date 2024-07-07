@@ -6,12 +6,9 @@ import '../../../../Provider/Provider.dart';
 import '../../../../data/API/apiManager.dart';
 import '../../../../di/di.dart';
 import 'OrderDetailsViewModel.dart';
-import 'OrderDetaislScreen.dart';
+import 'OrderDetailsScreen.dart';
 
 class OrderDetailsWidget extends StatefulWidget {
-
-
-
   static const String routeName = "OrderDetails";
 
   @override
@@ -19,17 +16,20 @@ class OrderDetailsWidget extends StatefulWidget {
 }
 
 class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
-
   var viewModel = getIt<OrderDetailsViewModel>();
+  String? orderID;
 
   @override
-  void initState() {
-    super.initState();
-    var orderID = ModalRoute.of(context)?.settings.arguments as String;
-    viewModel.GetOrderDetails(orderID);
-
-
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (orderID == null) {
+      orderID = ModalRoute.of(context)?.settings.arguments as String?;
+      if (orderID != null) {
+        viewModel.GetOrderDetails(orderID!);
+      }
+    }
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<OrderDetailsViewModel, OrderDetailsState>(
@@ -54,6 +54,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
       },
       builder: (context, state) {
         if (state is OrderDetailsSuccess) {
+          print(state.order);
           return OrderDetailsScreen(details: state.order);
         }
         return Scaffold(
@@ -64,9 +65,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
             child: LogoLoader(),
           ),
         );
-      },);
-
-
-
+      },
+    );
   }
 }

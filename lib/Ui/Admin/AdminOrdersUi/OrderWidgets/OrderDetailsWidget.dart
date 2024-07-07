@@ -2,7 +2,7 @@
 // import '../../../../Common/LoadingLogo.dart';
 // import '../../../../data/API/apiManager.dart';
 // import '../../../../data/Responses/WorkerRelatedResponse/ShowOrderDetailsResponse.dart';
-// import 'OrderDetaislScreen.dart';
+// import 'OrderDetailsScreen.dart';
 //
 // class AdminOrderDetailsWidget extends StatelessWidget {
 //

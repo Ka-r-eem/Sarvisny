@@ -111,7 +111,7 @@ class orderDetailsDto {
   String? customerLN;
   String? address;
   String? orderStatus;
-  double? orderPrice;
+  num? orderPrice;
   String? orderDate;
   List<OrderServiceDto>? orderService;
 orderDetailsDto copyWith({  String? orderId,
@@ -120,7 +120,7 @@ orderDetailsDto copyWith({  String? orderId,
   String? customerLN,
   String? address,
   String? orderStatus,
-  double? orderPrice,
+  num? orderPrice,
   String? orderDate,
   List<OrderServiceDto>? orderService,
 }) => orderDetailsDto(  orderId: orderId ?? this.orderId,
@@ -208,7 +208,7 @@ class OrderServiceDto {
   String? criteriaName;
   String? slotID;
   String? startTime;
-  double? price;
+  num? price;
   String? problemDescription;
 OrderServiceDto copyWith({  String? serviceID,
   String? serviceName,
@@ -218,7 +218,7 @@ OrderServiceDto copyWith({  String? serviceID,
   String? criteriaName,
   String? slotID,
   String? startTime,
-  double? price,
+  num? price,
   String? problemDescription,
 }) => OrderServiceDto(  serviceID: serviceID ?? this.serviceID,
   serviceName: serviceName ?? this.serviceName,

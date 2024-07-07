@@ -24,6 +24,9 @@ class WorkerAllOrdersViewModel extends Cubit<WorkerAllOrdersState> {
 
     try {
       WorkerOrdersListResponse orders = await allOrdersUseCase.invoke(workerID);
+      print(orders.message);
+      print(orders.status);
+      print(orders.payload);
       emit(WorkerAllOrdersSuccess(orders.payload));
     }
     catch (e) {

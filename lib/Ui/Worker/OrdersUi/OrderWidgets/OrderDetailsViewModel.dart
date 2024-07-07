@@ -19,12 +19,12 @@ class OrderDetailsViewModel extends Cubit<OrderDetailsState> {
     emit(OrderDetailsLoading("Loading..."));
 
     try {
-      var orders = await getOrderDetailsUseCase.invoke(orderID);
-      emit(OrderDetailsSuccess(orders));
+      ShowOrderDetailsResponse orders = await getOrderDetailsUseCase.invoke(orderID);
+      emit(OrderDetailsSuccess(orders.payload));
     }
     catch (e) {
       emit(OrderDetailsError(e.toString()));
-      print("in the catch");
+      print("in the catch$e");
     }
   }}
 

@@ -5,6 +5,7 @@ import 'package:sarvisny/domain/model/WorkerRelatedResponse/GetWorkerImageRespon
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/RegisterNewServiceResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/RemoveAvailabilityResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/ServiceProviderProfileData.dart';
+import 'package:sarvisny/domain/model/WorkerRelatedResponse/SetStatusResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/ShowOrderDetailsResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/UploadFileResponse.dart';
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/WorkerOrdersListResponse.dart';
@@ -50,11 +51,11 @@ class WorkerDataSourceImpl extends WorkerDataSource{
     return response.toResponse();
   }
 
-  @override
-  Future<WorkerOrdersListResponse> GetApprovedWorkerOrders(String? workerID) async {
-    var response = await apiManager.GetApprovedWorkerOrders(workerID);
-    return response.toResponse();
-  }
+  // @override
+  // Future<WorkerOrdersListResponse> GetApprovedWorkerOrders(String? workerID) async {
+  //   var response = await apiManager.GetApprovedWorkerOrders(workerID);
+  //   return response.toResponse();
+  // }
 
   @override
   Future<ShowOrderDetailsResponse> GetOrderDetails(String? orderID) async {
@@ -114,6 +115,12 @@ class WorkerDataSourceImpl extends WorkerDataSource{
   @override
   Future<GetWorkerImageResponse> GetWorkerImage(String? workerID)async {
     var response = await apiManager.GetWorkerImage(workerID);
+    return response;
+  }
+
+  @override
+  Future<SetStatusResponse> SetOrderStatus(String? orderID, String? status) {
+    var response = apiManager.SetOrderStatus(orderID, status);
     return response;
   }
 

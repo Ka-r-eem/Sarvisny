@@ -14,6 +14,7 @@ import 'package:sarvisny/domain/model/WorkerRelatedResponse/WorkerRegisteredServ
 import 'package:sarvisny/domain/model/WorkerRelatedResponse/WorkerSlotsResponseData.dart';
 
 import '../../domain/RepositoryContract/WorkerRepository.dart';
+import '../../domain/model/WorkerRelatedResponse/SetStatusResponse.dart';
 import '../DataSourceContract/WorkerDataSource.dart';
 
 
@@ -37,18 +38,22 @@ class WorkerRepositoryImpl extends WorkerRepository {
   }
 
   @override
-  Future<WorkerOrdersListResponse> GetAllWorkerOrders(String? workerID) {
-  return dataSource.GetAllWorkerOrders(workerID);
+  Future<WorkerOrdersListResponse> GetAllWorkerOrders(String? workerID)  {
+    print("inside the repository");
+    return dataSource.GetAllWorkerOrders(workerID);
+
   }
 
-  @override
-  Future<WorkerOrdersListResponse> GetApprovedWorkerOrders(String? workerID) {
-  return dataSource.GetApprovedWorkerOrders(workerID);
-  }
+  // @override
+  // Future<WorkerOrdersListResponse> GetApprovedWorkerOrders(String? workerID) {
+  // return dataSource.GetApprovedWorkerOrders(workerID);
+  // }
 
   @override
-  Future<ShowOrderDetailsResponse> GetOrderDetails(String? orderID) {
-    return dataSource.GetOrderDetails(orderID);
+  Future<ShowOrderDetailsResponse> GetOrderDetails(String? orderID) async {
+    var Test = await dataSource.GetOrderDetails(orderID);
+    print("inside the repository${Test.status}");
+    return Test;
   }
 
   @override
@@ -99,6 +104,11 @@ class WorkerRepositoryImpl extends WorkerRepository {
   @override
   Future<GetWorkerImageResponse> GetWorkerImage(String? workerID) {
     return dataSource.GetWorkerImage(workerID);
+  }
+
+  @override
+  Future<SetStatusResponse> SetOrderStatus(String? orderID, String? status) {
+    return dataSource.SetOrderStatus(orderID, status);
   }
 
 }

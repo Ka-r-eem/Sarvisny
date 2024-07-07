@@ -47,6 +47,7 @@ class _WorkerAllOrdersListWidgetState extends State<WorkerAllOrdersListWidget> {
       },
       builder: (context, state) {
         if (state is WorkerAllOrdersSuccess) {
+          print(state.orders?.first.payload);
           return WorkerOrdersListScreen(ordersList: state.orders);
         }
         return Scaffold(

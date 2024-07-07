@@ -3,6 +3,7 @@ import 'package:sarvisny/domain/model/CustomerRelatedResponses/PaymentTransactio
 import '../../domain/model/AdminRelatedResponses/ServicesListResponse.dart';
 import '../../domain/model/CustomerRelatedResponses/AddProviderToFavResponse.dart';
 import '../../domain/model/CustomerRelatedResponses/AddToCartResponse.dart';
+import '../../domain/model/CustomerRelatedResponses/CancelOrderResponse.dart';
 import '../../domain/model/CustomerRelatedResponses/CustomerOrdersLogResponse.dart';
 import '../../domain/model/CustomerRelatedResponses/CustomerProfileData.dart';
 import '../../domain/model/CustomerRelatedResponses/FilteredServicesResponse.dart';
@@ -33,5 +34,5 @@ abstract class CustomerDataSource {
   Future<GetCustomerFavResponse> GetCustomerFav(String? customerID);
   Future<AddProviderToFavResponse> AddProviderToFav(String? workerID, String? customerId);
   Future<AddProviderToFavResponse> RemoveProviderFromFav(String? workerID, String? customerId);
-
+  Future<CancelOrderResponse> CustomerCancelOrder(String? orderID , String? customerId);
 }

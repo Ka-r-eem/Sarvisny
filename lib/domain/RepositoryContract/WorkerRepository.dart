@@ -6,6 +6,7 @@ import '../model/WorkerRelatedResponse/RegisterNewServiceResponse.dart';
 import '../model/WorkerRelatedResponse/RemoveAvailabilityResponse.dart';
 import '../model/WorkerRelatedResponse/ServiceProviderProfileData.dart';
 import '../model/WorkerRelatedResponse/SetAvailabilityResponse.dart';
+import '../model/WorkerRelatedResponse/SetStatusResponse.dart';
 import '../model/WorkerRelatedResponse/ShowOrderDetailsResponse.dart';
 import '../model/WorkerRelatedResponse/UploadFileResponse.dart';
 import '../model/WorkerRelatedResponse/WorkerOrdersListResponse.dart';
@@ -28,7 +29,7 @@ abstract class WorkerRepository {
 
   Future<WorkerOrdersListResponse> GetAllWorkerOrders(String? workerID);
 
-  Future<WorkerOrdersListResponse> GetApprovedWorkerOrders(String? workerID);
+  // Future<WorkerOrdersListResponse> GetApprovedWorkerOrders(String? workerID);
 
   Future<WorkerOrdersListResponse> GetPendingWorkerOrders(String? workerID);
 
@@ -44,5 +45,6 @@ abstract class WorkerRepository {
   Future<UploadFileResponse> UploadFile(String? fileName, String? providerID, String? base64Image);
 
   Future<GetWorkerImageResponse> GetWorkerImage(String? workerID);
+  Future<SetStatusResponse> SetOrderStatus(String? orderID , String? status);
 
 }
